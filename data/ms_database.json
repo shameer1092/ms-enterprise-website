@@ -1,0 +1,892 @@
+{
+  "settings": {
+    "companyName": "MS Enterprise",
+    "tagline": "Custom Web Engineering, Meta Growth, and Ecommerce VA Operations",
+    "description": "We engineer tailor-made websites, scale organic Facebook communities across target countries, and manage online stores with dependable virtual assistant support.",
+    "phone": "+1 (555) 019-2834",
+    "email": "contact@msenterprise.com",
+    "whatsapp": "15550192834",
+    "address": "Suite 400, Commercial Avenue, Business District",
+    "logoText": "MS Enterprise",
+    "floatingWhatsappEnabled": true,
+    "socialLinks": {
+      "facebook": "https://facebook.com/msenterprise",
+      "twitter": "https://x.com/msenterprise",
+      "linkedin": "https://linkedin.com/company/msenterprise",
+      "instagram": "https://instagram.com/msenterprise"
+    },
+    "seoDefaults": {
+      "title": "MS Enterprise | Professional Web Development, Meta Services & Ecommerce VA",
+      "description": "Custom high-performance websites with lifetime live support, targeted organic Facebook page growth, and dedicated ecommerce store management.",
+      "ogImage": "/images/og-ms-enterprise.png"
+    },
+    "smtpConfig": {
+      "enabled": false,
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "secure": false,
+      "user": "",
+      "pass": "",
+      "fromEmail": "inquiries@msenterprise.com"
+    }
+  },
+  "content": {
+    "hero": {
+      "badge": "Professional Digital Solutions",
+      "titleLine1": "Engineered for Performance.",
+      "titleHighlight": "Built with Precision.",
+      "subtitle": "MS Enterprise delivers custom website development with lifetime support, strategic organic Meta growth across target markets, and dedicated ecommerce store operations.",
+      "primaryCtaText": "Request an Inquiry",
+      "primaryCtaLink": "/inquiry",
+      "secondaryCtaText": "Explore Service Plans",
+      "secondaryCtaLink": "/plans",
+      "trustPills": [
+        "Lifetime Live Support",
+        "Direct Developer Access",
+        "Low Monthly Maintenance",
+        "Transparent Process"
+      ]
+    },
+    "whyChooseUs": {
+      "heading": "Why Work With MS Enterprise",
+      "subheading": "We focus on clear architecture, honest communication, and sustained technical reliability without artificial claims or empty shortcuts.",
+      "pillars": [
+        {
+          "title": "Direct Developer Dedication",
+          "description": "You work directly with the professionals building your site. No non-technical intermediaries or lost project details.",
+          "icon": "Code2"
+        },
+        {
+          "title": "Lifetime Live Support",
+          "description": "We stand behind our delivered code. Whenever you have questions or encounter an operational issue, our live support team responds.",
+          "icon": "Headphones"
+        },
+        {
+          "title": "Low Maintenance, High Stability",
+          "description": "We keep your ongoing monthly maintenance charges minimal while guaranteeing server stability, security patches, and clean uptime.",
+          "icon": "ShieldCheck"
+        },
+        {
+          "title": "Competitor Informed Rebuilding",
+          "description": "For redesigns, we study competitor benchmarks, identify what produces real value, and reconstruct your platform properly.",
+          "icon": "Sparkles"
+        }
+      ]
+    },
+    "aboutSection": {
+      "heading": "About MS Enterprise",
+      "subheading": "A disciplined technology and operations team committed to authentic execution, clean code, and transparent client partnerships.",
+      "mission": "Our mission is to give businesses reliable web platforms, focused social traffic, and diligent virtual assistant operations so owners can operate with confidence.",
+      "approach": "Every project starts with an analysis of your operational reality. For web redesigns, we examine competitive benchmarks, isolate functional strengths, and re-engineer the experience to exceed client expectations. For Meta services, we cultivate genuine organic audiences in specific target countries without artificial manipulation. For ecommerce operations, our virtual assistants take full ownership of store workflows.",
+      "honestPromise": "Authenticity is our foundation. We fulfill every commitment we make. If a delay occurs because of an unavoidable natural emergency or an unforeseen event, we communicate immediately, apologize openly, and provide proportional compensation.",
+      "values": [
+        {
+          "title": "Integrity in Commitments",
+          "description": "We never promise features or timelines we cannot satisfy. What we quote is what we deliver."
+        },
+        {
+          "title": "Technical Craftsmanship",
+          "description": "Clean, modern, and accessible software architecture built without bloated shortcuts or unsustainable code."
+        },
+        {
+          "title": "Transparent Communication",
+          "description": "No technical jargon meant to confuse. Direct updates, clear milestone reviews, and open feedback loops."
+        }
+      ]
+    },
+    "footer": {
+      "aboutText": "MS Enterprise delivers tailored web software, organic Meta page growth, and dependable ecommerce virtual assistant management for ambitious businesses worldwide.",
+      "copyrightText": "MS Enterprise. All rights reserved."
+    }
+  },
+  "services": [
+    {
+      "id": "srv-web",
+      "slug": "web-development",
+      "title": "Custom Website Development",
+      "category": "web",
+      "badge": "Core Engineering",
+      "summary": "Tailored web development, custom ecommerce portals, company websites, and competitor-informed redesigns with lifetime live support.",
+      "description": "We build custom websites engineered specifically for your commercial goals. Whether you need a bespoke ecommerce platform, a corporate showcase, or a comprehensive redesign of an underperforming site, our developers build from first principles. We study competitor ecosystems, validate what works, and eliminate bottlenecks so you launch with confidence.",
+      "iconName": "Code2",
+      "order": 1,
+      "published": true,
+      "showInNav": true,
+      "highlights": [
+        "Custom code tailored to each client without generic template locks",
+        "Ecommerce stores, company portfolios, and interactive business portals",
+        "Competitor analysis and redesign to fix structural weaknesses",
+        "Confidence of having handed your project to a professional developer",
+        "Lifetime live support on all delivered code",
+        "Very low monthly maintenance charges with ongoing stability",
+        "Deployment diagnostics and server setup handled entirely by our team"
+      ],
+      "features": [
+        {
+          "title": "Bespoke Architecture",
+          "description": "Modular, fast-loading codebases crafted specifically around your data model and workflow needs."
+        },
+        {
+          "title": "Competitive Redesign",
+          "description": "We evaluate competing industry leaders, preserve what works, eliminate friction, and modernize your brand."
+        },
+        {
+          "title": "Lifetime Support",
+          "description": "Our technical team remains accessible post-launch for ongoing troubleshooting, queries, and maintenance."
+        },
+        {
+          "title": "End-to-End Deployment",
+          "description": "Domain configuration, SSL certificates, database optimization, and cloud hosting orchestrated smoothly."
+        }
+      ],
+      "createdAt": "2026-01-10T00:00:00.000Z",
+      "updatedAt": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "srv-meta",
+      "slug": "meta-services",
+      "title": "Meta (Facebook) Services",
+      "category": "meta",
+      "badge": "Organic Growth",
+      "summary": "Organic Facebook page growth, community nurturing, and multi-country audience traffic aligned with your target market requirements.",
+      "description": "Scale your social presence through legitimate, organic Facebook page development. We cultivate real followers and targeted traffic from specific geographical territories based on your business requirements, avoiding fake engagement tactics and building authentic community trust.",
+      "iconName": "Share2",
+      "order": 2,
+      "published": true,
+      "showInNav": true,
+      "highlights": [
+        "Organic Facebook page development and active community structuring",
+        "Audience traffic generated from multiple countries per your exact demand",
+        "Content alignment tailored to target demographic preferences",
+        "Strict avoidance of fake profiles, bots, or artificial inflation",
+        "Transparent reporting with measurable community growth metrics"
+      ],
+      "features": [
+        {
+          "title": "Geo-Targeted Audiences",
+          "description": "Attract readers and customers from specific countries relevant to your commercial products or content."
+        },
+        {
+          "title": "Organic Reach Strategy",
+          "description": "Leverage algorithms through structured posting calendars, community engagement, and relevant discussions."
+        },
+        {
+          "title": "Brand Consistency",
+          "description": "Ensure profile banners, copy tone, and response standards match your brand identity across Meta channels."
+        }
+      ],
+      "createdAt": "2026-01-10T00:00:00.000Z",
+      "updatedAt": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "srv-ecom",
+      "slug": "ecommerce-support",
+      "title": "Ecommerce Support (VA Services)",
+      "category": "ecommerce",
+      "badge": "Operations & VA",
+      "summary": "Reliable virtual assistant store management across Shopify, WooCommerce, Amazon, and custom ecommerce platforms.",
+      "description": "Running an ecommerce brand requires daily focus on product cataloging, order tracking, supplier liaison, and customer responsiveness. Our dedicated Virtual Assistants provide meticulous store management across any platform your business uses, backed by an honest accountability guarantee.",
+      "iconName": "ShoppingBag",
+      "order": 3,
+      "published": true,
+      "showInNav": true,
+      "highlights": [
+        "Store management across Shopify, WooCommerce, Amazon, eBay, or custom carts",
+        "Product uploads, inventory audits, order processing, and supplier coordination",
+        "Authentic and honest dedication with all commitments fulfilled",
+        "Clear daily activity logs and performance reviews",
+        "Unconditional honesty: If an unavoidable situation or natural emergency causes a delay, we apologize openly and compensate as much as possible"
+      ],
+      "features": [
+        {
+          "title": "Multi-Platform Competence",
+          "description": "Proficiency across Shopify, WooCommerce, BigCommerce, Amazon Seller Central, and custom dashboards."
+        },
+        {
+          "title": "Catalog and Inventory Care",
+          "description": "Accurate product title structuring, descriptions, variant attributes, stock syncing, and pricing updates."
+        },
+        {
+          "title": "Order and Inquiry Workflow",
+          "description": "Daily order validation, tracking code distribution, returns coordination, and customer query handling."
+        },
+        {
+          "title": "Accountability Guarantee",
+          "description": "Direct communication, complete daily transparency, and honest commitments fulfilled every working day."
+        }
+      ],
+      "createdAt": "2026-01-10T00:00:00.000Z",
+      "updatedAt": "2026-01-10T00:00:00.000Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-apex",
+      "slug": "apex-industrial-portal",
+      "title": "Apex Industrial Portal",
+      "serviceCategory": "web",
+      "client": "Apex Machinery Ltd",
+      "summary": "Full-stack custom product catalog and RFQ engine built with high-efficiency architecture.",
+      "description": "Apex Machinery required a robust platform replacing an outdated WordPress setup. We re-architected their entire catalog, introduced instant RFQ capabilities, and reduced mobile load times from 4.8s to 0.7s.",
+      "liveUrl": "https://example.com/demo/apex",
+      "techStack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "PostgreSQL"
+      ],
+      "keyOutcomes": [
+        "85 percent faster page speed across desktop and mobile devices",
+        "Integrated RFQ generator with direct sales notification pipeline",
+        "Lifetime support package with monthly security updates"
+      ],
+      "order": 1,
+      "published": true,
+      "showInNav": true,
+      "createdAt": "2026-02-01T00:00:00.000Z",
+      "updatedAt": "2026-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "proj-nordic",
+      "slug": "nordic-living-store",
+      "title": "Nordic Living Store Management",
+      "serviceCategory": "ecommerce",
+      "client": "Nordic Home Goods",
+      "summary": "Daily virtual assistant operations, 1,200 SKU catalog management, and supplier fulfillment tracking.",
+      "description": "Our virtual assistant team assumed daily store operations for a fast-growing home decor retailer. We synchronized stock across Shopify and Amazon, managed vendor purchase orders, and answered incoming customer requests within 30 minutes.",
+      "liveUrl": "https://example.com/demo/nordic",
+      "techStack": [
+        "Shopify Plus",
+        "Amazon Seller Central",
+        "Zendesk",
+        "Google Sheets"
+      ],
+      "keyOutcomes": [
+        "Zero order backlog maintained across peak holiday quarters",
+        "Daily stock synchronization across multiple channels without discrepancy",
+        "Reliable daily progress reports delivered to the brand founder"
+      ],
+      "order": 2,
+      "published": true,
+      "showInNav": true,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": "proj-global-audience",
+      "slug": "global-lifestyle-meta",
+      "title": "Cross-Border Meta Audience Expansion",
+      "serviceCategory": "meta",
+      "client": "Terra Lifestyle Media",
+      "summary": "Targeted organic Facebook page development generating engaged followers across four target nations.",
+      "description": "Terra Media needed legitimate audience growth in the UK, Canada, Australia, and the UAE. We developed an organic publishing cadence and group discussion strategy, building an engaged community without artificial bots.",
+      "liveUrl": "https://facebook.com",
+      "techStack": [
+        "Meta Business Suite",
+        "Audience Analytics",
+        "Content Scheduling"
+      ],
+      "keyOutcomes": [
+        "Consistent organic reach growth in specified geographical tiers",
+        "Active community comments and voluntary post sharing",
+        "Full compliance with Meta platform policies"
+      ],
+      "order": 3,
+      "published": true,
+      "showInNav": true,
+      "createdAt": "2026-03-01T00:00:00.000Z",
+      "updatedAt": "2026-03-01T00:00:00.000Z"
+    },
+    {
+      "title": "Veritas Analytics Hub",
+      "slug": "test-project-1792611892854",
+      "serviceCategory": "web",
+      "client": "Veritas Global",
+      "summary": "Cloud monitoring system with low maintenance architecture.",
+      "description": "Complete bespoke UI with spatial card hierarchy and lifetime live support.",
+      "techStack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "keyOutcomes": [
+        "Instant load times",
+        "Zero backlog"
+      ],
+      "published": true,
+      "showInNav": true,
+      "id": "proj-1792611892859",
+      "order": 4,
+      "createdAt": "2026-10-21T19:44:52.859Z",
+      "updatedAt": "2026-10-21T19:44:52.859Z"
+    },
+    {
+      "title": "Veritas Analytics Hub",
+      "slug": "test-project-1792612364863",
+      "serviceCategory": "web",
+      "client": "Veritas Global",
+      "summary": "Cloud monitoring system with low maintenance architecture.",
+      "description": "Complete bespoke UI with spatial card hierarchy and lifetime live support.",
+      "techStack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "keyOutcomes": [
+        "Instant load times",
+        "Zero backlog"
+      ],
+      "published": true,
+      "showInNav": true,
+      "id": "proj-1792612364868",
+      "order": 5,
+      "createdAt": "2026-10-21T19:52:44.868Z",
+      "updatedAt": "2026-10-21T19:52:44.868Z"
+    },
+    {
+      "title": "Veritas Analytics Hub",
+      "slug": "test-project-1792614134508",
+      "serviceCategory": "web",
+      "client": "Veritas Global",
+      "summary": "Cloud monitoring system with low maintenance architecture.",
+      "description": "Complete bespoke UI with spatial card hierarchy and lifetime live support.",
+      "techStack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "keyOutcomes": [
+        "Instant load times",
+        "Zero backlog"
+      ],
+      "published": true,
+      "showInNav": true,
+      "id": "proj-1792614134517",
+      "order": 6,
+      "createdAt": "2026-10-21T20:22:14.517Z",
+      "updatedAt": "2026-10-21T20:22:14.517Z"
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan-web-starter",
+      "serviceCategory": "web",
+      "serviceTitle": "Custom Website Development",
+      "name": "Essential Web Platform",
+      "price": "$450",
+      "billingPeriod": "one-time",
+      "description": "Ideal for small businesses needing a clean, high-performance website tailored to their exact brand.",
+      "features": [
+        "Custom layout and responsive design (no generic templates)",
+        "Up to 5 custom designed pages",
+        "Inquiry form with validation and email notifications",
+        "Basic on-page SEO setup and speed optimization",
+        "Lifetime live technical support",
+        "Low monthly maintenance option available",
+        "Domain and hosting deployment assistance"
+      ],
+      "ctaText": "Choose Essential Plan",
+      "ctaLink": "/inquiry?service=web&plan=Essential+Web+Platform",
+      "order": 1,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "plan-web-pro",
+      "serviceCategory": "web",
+      "serviceTitle": "Custom Website Development",
+      "name": "Professional Custom / Ecommerce",
+      "price": "$950",
+      "billingPeriod": "one-time",
+      "badge": "Most Popular",
+      "isPopular": true,
+      "description": "Comprehensive custom website or complete ecommerce portal built for high conversion and scale.",
+      "features": [
+        "Complete bespoke UI and advanced Spatial UI layout",
+        "Full custom ecommerce or corporate portal architecture",
+        "Competitor analysis and redesign blueprint",
+        "Admin content management capabilities",
+        "Comprehensive speed, accessibility, and SEO audit",
+        "Lifetime live support with direct developer contact",
+        "Low monthly maintenance fee with regular security scans",
+        "Complete server configuration and backup setup"
+      ],
+      "ctaText": "Choose Professional Plan",
+      "ctaLink": "/inquiry?service=web&plan=Professional+Custom",
+      "order": 2,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "plan-web-redesign",
+      "serviceCategory": "web",
+      "serviceTitle": "Custom Website Development",
+      "name": "Competitor Audit & Redefinition",
+      "price": "$1,350",
+      "billingPeriod": "one-time",
+      "description": "Thorough rebuild of an existing website based on competitor analysis and modern performance standards.",
+      "features": [
+        "In-depth competitor analysis of top 5 industry players",
+        "Complete redefinition of information architecture and copy flow",
+        "Elimination of legacy code bloat and slow load times",
+        "Advanced database integration and custom API connections",
+        "30-day post-launch optimization monitoring",
+        "Lifetime live support and priority ticket response",
+        "Ultra-low monthly maintenance charges"
+      ],
+      "ctaText": "Request Redesign Audit",
+      "ctaLink": "/inquiry?service=web&plan=Competitor+Audit+Redesign",
+      "order": 3,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "plan-meta-starter",
+      "serviceCategory": "meta",
+      "serviceTitle": "Meta (Facebook) Services",
+      "name": "Single-Region Organic Growth",
+      "price": "$190",
+      "billingPeriod": "per month",
+      "description": "Organic Facebook page nurturing and targeted audience cultivation for one chosen country.",
+      "features": [
+        "Audience traffic targeted to 1 selected country",
+        "Organic content scheduling and page branding setup",
+        "Community engagement and reply management",
+        "Zero bot profiles: 100 percent organic engagement tactics",
+        "Monthly growth report with transparent metrics"
+      ],
+      "ctaText": "Start Organic Growth",
+      "ctaLink": "/inquiry?service=meta&plan=Single-Region+Organic+Growth",
+      "order": 4,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "plan-meta-multi",
+      "serviceCategory": "meta",
+      "serviceTitle": "Meta (Facebook) Services",
+      "name": "Multi-Country Audience Stream",
+      "price": "$340",
+      "billingPeriod": "per month",
+      "badge": "High Demand",
+      "isPopular": true,
+      "description": "Comprehensive organic expansion targeting followers and viewers across multiple international territories.",
+      "features": [
+        "Audience traffic from up to 4 selected target countries",
+        "Full page management and demographic-specific content guidance",
+        "Continuous group community networking and outreach",
+        "Live support and strategic audience consulting",
+        "Detailed monthly breakdown of organic reach and retention"
+      ],
+      "ctaText": "Start Multi-Country Campaign",
+      "ctaLink": "/inquiry?service=meta&plan=Multi-Country+Audience+Stream",
+      "order": 5,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "plan-va-part",
+      "serviceCategory": "ecommerce",
+      "serviceTitle": "Ecommerce Support (VA Services)",
+      "name": "Dedicated Part-Time VA",
+      "price": "$280",
+      "billingPeriod": "per month",
+      "description": "20 hours weekly of focused store management, order fulfillment, and catalog updates.",
+      "features": [
+        "Support for Shopify, WooCommerce, Amazon, or custom stores",
+        "Daily order processing and fulfillment verification",
+        "Product uploads and inventory level checks",
+        "Customer inquiry replies via email or helpdesk",
+        "Daily progress log sent directly to you",
+        "Commitment guarantee with contingency compensation"
+      ],
+      "ctaText": "Hire Part-Time VA",
+      "ctaLink": "/inquiry?service=ecommerce&plan=Dedicated+Part-Time+VA",
+      "order": 6,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "plan-va-full",
+      "serviceCategory": "ecommerce",
+      "serviceTitle": "Ecommerce Support (VA Services)",
+      "name": "Dedicated Full-Time VA Operations",
+      "price": "$490",
+      "billingPeriod": "per month",
+      "badge": "Best Value",
+      "isPopular": true,
+      "description": "40 hours weekly of full store operations, catalog management, supplier coordination, and support.",
+      "features": [
+        "Comprehensive management across any platform your business uses",
+        "Continuous order processing, returns, and dispute monitoring",
+        "Bulk product uploads, variant management, and SEO metadata",
+        "Supplier communication and inventory re-order alerts",
+        "Direct WhatsApp or Slack communication channel",
+        "Unconditional honesty and emergency compensation promise"
+      ],
+      "ctaText": "Hire Full-Time VA",
+      "ctaLink": "/inquiry?service=ecommerce&plan=Dedicated+Full-Time+VA",
+      "order": 7,
+      "published": true,
+      "createdAt": "2026-01-15T00:00:00.000Z",
+      "updatedAt": "2026-01-15T00:00:00.000Z"
+    }
+  ],
+  "pages": [
+    {
+      "id": "page-privacy",
+      "slug": "privacy-policy",
+      "title": "Privacy Policy",
+      "navLabel": "Privacy Policy",
+      "summary": "How MS Enterprise collects, handles, and protects client information.",
+      "content": "## Privacy Policy\n\nAt MS Enterprise, we respect your privacy and are committed to safeguarding personal information you provide when using our website and services.\n\n### Information We Collect\nWhen you submit an inquiry or interact with our services, we may collect your name, email address, phone number, and project requirements. We collect this data exclusively to respond to your inquiries and deliver our services.\n\n### How We Use Your Information\nYour details are used solely for project communication, proposal generation, service fulfillment, and technical support. We do not sell, rent, or trade your personal information to third parties.\n\n### Data Security\nWe implement standard technical measures to protect submitted information against unauthorized access, disclosure, or loss. All admin access is protected by encrypted authentication.\n\n### Contact Us\nIf you have any questions regarding this Privacy Policy, please contact us via our official email at contact@msenterprise.com.",
+      "metaTitle": "Privacy Policy | MS Enterprise",
+      "metaDescription": "Read the privacy policy of MS Enterprise. Learn how we collect, use, and protect your personal information.",
+      "showInNav": false,
+      "navOrder": 1,
+      "published": true,
+      "createdAt": "2026-01-10T00:00:00.000Z",
+      "updatedAt": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "page-terms",
+      "slug": "terms-of-service",
+      "title": "Terms of Service",
+      "navLabel": "Terms of Service",
+      "summary": "Terms and conditions governing web development, Meta services, and ecommerce VA engagements.",
+      "content": "## Terms of Service\n\nThese Terms of Service govern the professional relationship between MS Enterprise and our clients.\n\n### 1. Scope of Work\nAll services, including web development, Meta organic growth, and ecommerce virtual assistant management, are delivered based on agreed project specifications and written confirmations.\n\n### 2. Client Responsibilities\nClients agree to provide necessary assets, access credentials, and timely feedback needed for the completion of their project.\n\n### 3. Support and Maintenance\nWeb development projects receive lifetime live support for bugs and technical faults within the original delivery scope. Additional feature requests or third-party platform changes may be subject to our low monthly maintenance agreements.\n\n### 4. Honest Commitment and Unforeseen Delays\nWe take our commitments seriously. If a delay occurs because of an unavoidable natural emergency or extreme situation, we will notify the client immediately, provide an honest explanation, and offer reasonable compensation.",
+      "metaTitle": "Terms of Service | MS Enterprise",
+      "metaDescription": "Review the terms and conditions for working with MS Enterprise across web development, Meta, and VA services.",
+      "showInNav": false,
+      "navOrder": 2,
+      "published": true,
+      "createdAt": "2026-01-10T00:00:00.000Z",
+      "updatedAt": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "page-refund",
+      "slug": "refund-policy",
+      "title": "Refund and Cancellation Policy",
+      "navLabel": "Refund Policy",
+      "summary": "Clear guidelines regarding cancellations, project milestones, and refund conditions.",
+      "content": "## Refund and Cancellation Policy\n\nMS Enterprise believes in fair, transparent business practices.\n\n### Project Milestones\nFor custom website projects, work is divided into clear milestones (e.g., discovery, design review, development, and deployment). If a cancellation is requested prior to the commencement of development, advance payments for unstarted stages are refunded promptly.\n\n### Virtual Assistant and Monthly Services\nVirtual assistant and monthly Meta services operate on a monthly billing cycle. You may cancel at any time before your next billing cycle begins with zero cancellation penalty.\n\n### Resolution and Fair Adjustment\nIf you are dissatisfied with any stage of our work, we work directly with you to resolve the matter or offer a mutually fair adjustment. If an unavoidable situation on our end delays your work, we provide appropriate service credit or compensation.",
+      "metaTitle": "Refund and Cancellation Policy | MS Enterprise",
+      "metaDescription": "Our transparent refund and cancellation policies for web development, Meta, and virtual assistant services.",
+      "showInNav": false,
+      "navOrder": 3,
+      "published": true,
+      "createdAt": "2026-01-10T00:00:00.000Z",
+      "updatedAt": "2026-01-10T00:00:00.000Z"
+    }
+  ],
+  "inquiries": [
+    {
+      "name": "Alex Turner",
+      "email": "alex.turner@example.com",
+      "phone": "+1 555 987 6543",
+      "service": "Custom Website Development",
+      "budget": "$1,500 - $3,500",
+      "timeline": "2 to 4 weeks",
+      "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
+      "ip": "::1",
+      "id": "inq-1792614134286",
+      "status": "unread",
+      "createdAt": "2026-10-21T20:22:14.286Z"
+    },
+    {
+      "name": "Alex Turner",
+      "email": "alex.turner@example.com",
+      "phone": "+1 555 987 6543",
+      "service": "Custom Website Development",
+      "budget": "$1,500 - $3,500",
+      "timeline": "2 to 4 weeks",
+      "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
+      "ip": "::1",
+      "id": "inq-1792612364647",
+      "status": "unread",
+      "createdAt": "2026-10-21T19:52:44.647Z"
+    },
+    {
+      "name": "Zx",
+      "email": "ranashameer1092@gmail.com",
+      "phone": "ZX",
+      "service": "Custom Website Development",
+      "budget": "",
+      "timeline": "",
+      "message": "sdfgsdfadfvadfasdf",
+      "ip": "::1",
+      "id": "inq-1792612152995",
+      "status": "unread",
+      "createdAt": "2026-10-21T19:49:12.995Z"
+    },
+    {
+      "name": "Alex Turner",
+      "email": "alex.turner@example.com",
+      "phone": "+1 555 987 6543",
+      "service": "Custom Website Development",
+      "budget": "$1,500 - $3,500",
+      "timeline": "2 to 4 weeks",
+      "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
+      "ip": "::1",
+      "id": "inq-1792611892644",
+      "status": "unread",
+      "createdAt": "2026-10-21T19:44:52.644Z"
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "What does \"Lifetime Live Support\" include for custom websites?",
+      "answer": "Lifetime live support means you can always contact our technical team if your delivered website experiences unexpected technical issues, server misconfigurations, or operational questions related to the delivered code. We troubleshoot and resolve code bugs introduced under the original scope at no extra charge.",
+      "category": "web",
+      "order": 1,
+      "published": true
+    },
+    {
+      "id": "faq-2",
+      "question": "How do you handle website redesigns?",
+      "answer": "We analyze your existing website alongside top competitor platforms in your industry. We identify what works effectively, diagnose why visitors drop off, and reconstruct the website with modern code, improved navigation, and faster loading speeds according to your satisfaction.",
+      "category": "web",
+      "order": 2,
+      "published": true
+    },
+    {
+      "id": "faq-3",
+      "question": "How do you generate audience traffic for Meta (Facebook) pages?",
+      "answer": "We generate genuine audience traffic using organic strategies tailored to your target countries. We do not use fake bot accounts or artificial engagement. We align content strategy, relevant community engagement, and distribution to build a real audience.",
+      "category": "meta",
+      "order": 3,
+      "published": true
+    },
+    {
+      "id": "faq-4",
+      "question": "What platforms can your Ecommerce Virtual Assistants handle?",
+      "answer": "Our virtual assistants operate across any platform your business uses, including Shopify, WooCommerce, Amazon Seller Central, eBay, BigCommerce, or custom administrative dashboards. We handle product listings, inventory sync, order fulfillment, and customer inquiries.",
+      "category": "ecommerce",
+      "order": 4,
+      "published": true
+    },
+    {
+      "id": "faq-5",
+      "question": "What is your policy if an unexpected delay occurs?",
+      "answer": "Authenticity is our core rule. If an unavoidable emergency or severe natural situation causes a delay in your project or VA schedule, we immediately inform you, apologize openly, and provide proportional compensation such as extra service hours or bill adjustments.",
+      "category": "general",
+      "order": 5,
+      "published": true
+    },
+    {
+      "id": "faq-6",
+      "question": "What are your monthly maintenance charges for websites?",
+      "answer": "We keep our monthly maintenance charges very low. It covers server uptime monitoring, security patches, library updates, and regular database backups so your website remains fast and stable without unexpected expenses.",
+      "category": "pricing",
+      "order": 6,
+      "published": true
+    }
+  ],
+  "navigation": [
+    {
+      "id": "nav-home",
+      "label": "Home",
+      "href": "/",
+      "order": 1,
+      "visible": true
+    },
+    {
+      "id": "nav-about",
+      "label": "About",
+      "href": "/about",
+      "order": 2,
+      "visible": true
+    },
+    {
+      "id": "nav-services",
+      "label": "Services",
+      "href": "/services",
+      "order": 3,
+      "visible": true,
+      "children": [
+        {
+          "id": "nav-srv-srv-web",
+          "label": "Custom Website Development",
+          "href": "/services/web-development",
+          "order": 1,
+          "visible": true
+        },
+        {
+          "id": "nav-srv-srv-meta",
+          "label": "Meta (Facebook) Services",
+          "href": "/services/meta-services",
+          "order": 2,
+          "visible": true
+        },
+        {
+          "id": "nav-srv-srv-ecom",
+          "label": "Ecommerce Support (VA Services)",
+          "href": "/services/ecommerce-support",
+          "order": 3,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "nav-plans",
+      "label": "Plans",
+      "href": "/plans",
+      "order": 4,
+      "visible": true
+    },
+    {
+      "id": "nav-projects",
+      "label": "Projects",
+      "href": "/projects/apex-industrial-portal",
+      "order": 4,
+      "visible": true,
+      "children": [
+        {
+          "id": "nav-proj-proj-apex",
+          "label": "Apex Industrial Portal",
+          "href": "/projects/apex-industrial-portal",
+          "order": 1,
+          "visible": true
+        },
+        {
+          "id": "nav-proj-proj-nordic",
+          "label": "Nordic Living Store Management",
+          "href": "/projects/nordic-living-store",
+          "order": 2,
+          "visible": true
+        },
+        {
+          "id": "nav-proj-proj-global-audience",
+          "label": "Cross-Border Meta Audience Expansion",
+          "href": "/projects/global-lifestyle-meta",
+          "order": 3,
+          "visible": true
+        },
+        {
+          "id": "nav-proj-proj-1792611892859",
+          "label": "Veritas Analytics Hub",
+          "href": "/projects/test-project-1792611892854",
+          "order": 4,
+          "visible": true
+        },
+        {
+          "id": "nav-proj-proj-1792612364868",
+          "label": "Veritas Analytics Hub",
+          "href": "/projects/test-project-1792612364863",
+          "order": 5,
+          "visible": true
+        },
+        {
+          "id": "nav-proj-proj-1792614134517",
+          "label": "Veritas Analytics Hub",
+          "href": "/projects/test-project-1792614134508",
+          "order": 6,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "nav-faq",
+      "label": "FAQ",
+      "href": "/faq",
+      "order": 5,
+      "visible": true
+    },
+    {
+      "id": "nav-inquiry",
+      "label": "Inquiry",
+      "href": "/inquiry",
+      "order": 6,
+      "visible": true
+    }
+  ],
+  "users": [
+    {
+      "id": "usr-owner",
+      "username": "admin",
+      "name": "MS Admin Owner",
+      "email": "owner@msenterprise.com",
+      "passwordHash": "$2a$10$rYeqXNsVDHR2A/v3qry/3e8vw/tPQFygGByizB0BITZ6tjxhmK0eW",
+      "role": "owner",
+      "twoFactorEnabled": false,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "lastLogin": "2026-10-21T20:22:14.490Z"
+    },
+    {
+      "id": "usr-editor",
+      "username": "editor",
+      "name": "Content Editor",
+      "email": "editor@msenterprise.com",
+      "passwordHash": "$2a$10$rYeqXNsVDHR2A/v3qry/3e8vw/tPQFygGByizB0BITZ6tjxhmK0eW",
+      "role": "editor",
+      "twoFactorEnabled": false,
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "log-1792614134517-d4bj",
+      "timestamp": "2026-10-21T20:22:14.517Z",
+      "user": "admin",
+      "action": "CREATE_PROJECT",
+      "details": "Created project: Veritas Analytics Hub"
+    },
+    {
+      "id": "log-1792614134286-6ntm",
+      "timestamp": "2026-10-21T20:22:14.286Z",
+      "user": "public",
+      "action": "NEW_INQUIRY",
+      "details": "New inquiry from Alex Turner (alex.turner@example.com)"
+    },
+    {
+      "id": "log-1792612364868-56a5",
+      "timestamp": "2026-10-21T19:52:44.868Z",
+      "user": "admin",
+      "action": "CREATE_PROJECT",
+      "details": "Created project: Veritas Analytics Hub"
+    },
+    {
+      "id": "log-1792612364647-7llx",
+      "timestamp": "2026-10-21T19:52:44.647Z",
+      "user": "public",
+      "action": "NEW_INQUIRY",
+      "details": "New inquiry from Alex Turner (alex.turner@example.com)"
+    },
+    {
+      "id": "log-1792612152995-ptrp",
+      "timestamp": "2026-10-21T19:49:12.995Z",
+      "user": "public",
+      "action": "NEW_INQUIRY",
+      "details": "New inquiry from Zx (ranashameer1092@gmail.com)"
+    },
+    {
+      "id": "log-1792611892859-74e2",
+      "timestamp": "2026-10-21T19:44:52.859Z",
+      "user": "admin",
+      "action": "CREATE_PROJECT",
+      "details": "Created project: Veritas Analytics Hub"
+    },
+    {
+      "id": "log-1792611892644-qvf6",
+      "timestamp": "2026-10-21T19:44:52.644Z",
+      "user": "public",
+      "action": "NEW_INQUIRY",
+      "details": "New inquiry from Alex Turner (alex.turner@example.com)"
+    },
+    {
+      "id": "log-1",
+      "timestamp": "2026-01-01T00:00:00.000Z",
+      "user": "system",
+      "action": "INIT_SYSTEM",
+      "details": "MS Enterprise system initialized with standard datasets."
+    }
+  ],
+  "media": []
+}
