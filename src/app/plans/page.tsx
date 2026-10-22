@@ -23,26 +23,26 @@ export default function PlansPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/25 bg-white/70 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-sky-700 shadow-sm backdrop-blur-xl dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-400">
             <span>Transparent Pricing</span>
           </div>
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+          <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
             Service Plans & Pricing
           </h1>
-          <p className="mt-4 text-lg text-slate-300">
+          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
             Clear, honest pricing for custom software, targeted organic social growth, and dedicated store operations.
           </p>
         </div>
 
         {/* 1. Web Development Plans */}
         <div className="mt-20">
-          <div className="flex items-center gap-3 border-b border-white/10 pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
+          <div className="flex items-center gap-3 border-b border-slate-200/70 pb-4 dark:border-white/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-cyan-500/15 dark:text-cyan-400">
               <Icon name="Code2" className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Custom Website Development</h2>
-              <p className="text-xs text-slate-400">Lifetime live support, bespoke code, and very low monthly maintenance</p>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Custom Website Development</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Lifetime live support, bespoke code, and very low monthly maintenance</p>
             </div>
           </div>
 
@@ -55,13 +55,13 @@ export default function PlansPage() {
 
         {/* 2. Meta (Facebook) Plans */}
         <div className="mt-20">
-          <div className="flex items-center gap-3 border-b border-white/10 pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-500/10 text-sky-400">
+          <div className="flex items-center gap-3 border-b border-slate-200/70 pb-4 dark:border-white/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-400">
               <Icon name="Share2" className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Meta (Facebook) Growth Services</h2>
-              <p className="text-xs text-slate-400">Targeted organic audience growth from selected countries per client demand</p>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Meta (Facebook) Growth Services</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Targeted organic audience growth from selected countries per client demand</p>
             </div>
           </div>
 
@@ -74,13 +74,13 @@ export default function PlansPage() {
 
         {/* 3. Ecommerce VA Plans */}
         <div className="mt-20">
-          <div className="flex items-center gap-3 border-b border-white/10 pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400">
+          <div className="flex items-center gap-3 border-b border-slate-200/70 pb-4 dark:border-white/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400">
               <Icon name="ShoppingBag" className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Ecommerce Support (Virtual Assistant)</h2>
-              <p className="text-xs text-slate-400">Meticulous store operations across any platform with honest accountability</p>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Ecommerce Support (Virtual Assistant)</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Meticulous store operations across any platform with honest accountability</p>
             </div>
           </div>
 
@@ -92,15 +92,15 @@ export default function PlansPage() {
         </div>
 
         {/* Need a Custom Scope? */}
-        <div className="mt-24 rounded-3xl border border-white/10 bg-slate-900/70 p-8 text-center sm:p-12">
-          <h2 className="text-2xl font-bold text-white">Require a Tailored Specification?</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-slate-300">
+        <div className="spatial-card mt-24 rounded-3xl p-8 text-center sm:p-12 shadow-liquid-card dark:shadow-spatial-card">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Require a Tailored Specification?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-slate-600 dark:text-slate-300">
             If your project involves specialized custom APIs, multi-platform migrations, or enterprise store requirements, reach out directly. We formulate a customized proposal with exact milestone pricing.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/inquiry?service=custom"
-              className="spatial-btn-primary rounded-xl px-6 py-3 text-sm font-semibold"
+              className="spatial-btn-primary rounded-full px-6 py-3 text-sm font-semibold shadow-sm"
             >
               Request Custom Quote
             </Link>
@@ -108,9 +108,9 @@ export default function PlansPage() {
               href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="spatial-btn-secondary inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium"
+              className="spatial-btn-secondary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium"
             >
-              <Icon name="MessageSquare" className="h-4 w-4 text-emerald-400" />
+              <Icon name="MessageSquare" className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
               <span>Talk to Us on WhatsApp</span>
             </a>
           </div>
@@ -124,32 +124,31 @@ function PlanCard({ plan }: { plan: any }) {
   return (
     <TiltCard
       maxTilt={6}
-      glowColor={plan.isPopular ? 'rgba(56, 189, 248, 0.25)' : 'rgba(255, 255, 255, 0.08)'}
       className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 ${
         plan.isPopular
-          ? 'border-cyan-500/50 shadow-glow-cyan ring-1 ring-cyan-400/30'
+          ? 'border-sky-500/50 shadow-liquid-elevated ring-2 ring-sky-500/20 dark:border-cyan-500/50 dark:ring-cyan-400/30'
           : ''
       }`}
     >
       {plan.badge && (
-        <div className="absolute -top-3.5 right-6 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md">
+        <div className="absolute -top-3.5 right-6 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md">
           {plan.badge}
         </div>
       )}
 
       <div>
-        <h3 className="text-xl font-bold text-white">{plan.name}</h3>
-        <p className="mt-2 text-xs leading-relaxed text-slate-400">{plan.description}</p>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
+        <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{plan.description}</p>
 
-        <div className="mt-6 flex items-baseline gap-2 border-b border-white/10 pb-6">
-          <span className="text-4xl font-extrabold text-white">{plan.price}</span>
-          <span className="text-xs text-slate-400">/ {plan.billingPeriod}</span>
+        <div className="mt-6 flex items-baseline gap-2 border-b border-slate-200/60 pb-6 dark:border-white/10">
+          <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{plan.price}</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">/ {plan.billingPeriod}</span>
         </div>
 
-        <ul className="mt-6 space-y-3 text-xs text-slate-300">
+        <ul className="mt-6 space-y-3 text-xs text-slate-700 dark:text-slate-300">
           {plan.features.map((feat: string, idx: number) => (
             <li key={idx} className="flex items-start gap-2.5">
-              <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cyan-400" />
+              <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600 dark:text-cyan-400" />
               <span>{feat}</span>
             </li>
           ))}

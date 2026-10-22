@@ -4,125 +4,367 @@
 
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Theme: Light (Default) Canvas & Washes */
+  --bg-canvas: #F8FAFC;
+  --bg-wash-1: rgba(224, 242, 254, 0.55); /* Soft cool blue wash */
+  --bg-wash-2: rgba(230, 248, 245, 0.50); /* Soft teal wash */
+  --bg-wash-3: rgba(241, 245, 249, 0.70);
+
+  /* Text & Foreground */
+  --text-heading: #0F172A; /* Deep Slate (WCAG AA compliant > 10:1) */
+  --text-body: #334155;    /* Slate-700 (WCAG AA compliant > 7:1) */
+  --text-muted: #64748B;   /* Slate-500 */
+  --text-dim: #94A3B8;
+
+  /* Confident Accent Color (Sky / Deep Blue, no purple) */
+  --accent: #0284C7;
+  --accent-hover: #0369A1;
+  --accent-contrast: #FFFFFF;
+
+  /* Apple Liquid Glass Level 1: Subtle */
+  --glass-subtle-bg: rgba(255, 255, 255, 0.55);
+  --glass-subtle-blur: 18px;
+  --glass-subtle-border: rgba(255, 255, 255, 0.70);
+  --glass-subtle-shadow: 0 4px 16px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  /* Apple Liquid Glass Level 2: Default (Cards, Navbar, Forms, Footer) */
+  --glass-default-bg: rgba(255, 255, 255, 0.68);
+  --glass-default-blur: 24px;
+  --glass-default-border: rgba(255, 255, 255, 0.75);
+  --glass-default-edge: rgba(15, 23, 42, 0.06);
+  --glass-default-shadow: 0 8px 32px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  /* Apple Liquid Glass Level 3: Strong (Modals, Dropdowns, Drawers, Tables) */
+  --glass-strong-bg: rgba(255, 255, 255, 0.86);
+  --glass-strong-blur: 28px;
+  --glass-strong-border: rgba(255, 255, 255, 0.90);
+  --glass-strong-edge: rgba(15, 23, 42, 0.08);
+  --glass-strong-shadow: 0 16px 40px rgba(15, 23, 42, 0.09), 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 0 #FFFFFF;
+
+  /* Inputs & Forms */
+  --input-bg: rgba(255, 255, 255, 0.75);
+  --input-border: rgba(203, 213, 225, 0.75);
+}
+
+.dark {
+  /* Theme: Dark Slate Canvas & Washes */
+  --bg-canvas: #080A0E;
+  --bg-wash-1: rgba(14, 165, 233, 0.09); /* Soft cool blue wash */
+  --bg-wash-2: rgba(20, 184, 166, 0.07); /* Soft teal wash */
+  --bg-wash-3: rgba(30, 41, 59, 0.25);
+
+  /* Text & Foreground */
+  --text-heading: #F8FAFC;
+  --text-body: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+
+  /* Accent */
+  --accent: #38BDF8;
+  --accent-hover: #0EA5E9;
+  --accent-contrast: #040914;
+
+  /* Apple Liquid Glass Level 1: Subtle */
+  --glass-subtle-bg: rgba(15, 23, 42, 0.50);
+  --glass-subtle-blur: 20px;
+  --glass-subtle-border: rgba(255, 255, 255, 0.09);
+  --glass-subtle-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  /* Apple Liquid Glass Level 2: Default */
+  --glass-default-bg: rgba(15, 23, 42, 0.65);
+  --glass-default-blur: 24px;
+  --glass-default-border: rgba(255, 255, 255, 0.12);
+  --glass-default-edge: rgba(0, 0, 0, 0.4);
+  --glass-default-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  /* Apple Liquid Glass Level 3: Strong */
+  --glass-strong-bg: rgba(15, 23, 42, 0.82);
+  --glass-strong-blur: 30px;
+  --glass-strong-border: rgba(255, 255, 255, 0.16);
+  --glass-strong-edge: rgba(0, 0, 0, 0.6);
+  --glass-strong-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  /* Inputs & Forms */
+  --input-bg: rgba(15, 23, 42, 0.70);
+  --input-border: rgba(255, 255, 255, 0.14);
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(1px)) {
+  :root {
+    --glass-subtle-bg: #FFFFFF;
+    --glass-default-bg: #FFFFFF;
+    --glass-strong-bg: #FFFFFF;
+  }
+  .dark {
+    --glass-subtle-bg: #0F172A;
+    --glass-default-bg: #0F172A;
+    --glass-strong-bg: #0F172A;
+  }
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
 }
 
 body {
-  background-color: #080A0E;
-  color: #E2E8F0;
+  background-color: var(--bg-canvas);
+  color: var(--text-body);
   font-family: var(--font-sans);
   overflow-x: hidden;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Ambient visionOS Atmospheric Background Mesh */
-.spatial-ambient-canvas {
-  background-image: 
-    radial-gradient(circle 800px at 50% -100px, rgba(37, 99, 235, 0.16), transparent 70%),
-    radial-gradient(circle 600px at 85% 35%, rgba(56, 189, 248, 0.1), transparent 60%),
-    radial-gradient(circle 650px at 15% 75%, rgba(16, 185, 129, 0.07), transparent 60%),
-    radial-gradient(circle 500px at 50% 120%, rgba(37, 99, 235, 0.08), transparent 70%);
+/* ---------------- BACKDROP WASHES (Clean, Soft, No Dots, No Particles) ---------------- */
+.liquid-glass-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -10;
+  overflow: hidden;
+  background-color: var(--bg-canvas);
+  transition: background-color 0.3s ease;
 }
 
-.spatial-grid-overlay {
-  background-size: 48px 48px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-}
-
-/* Apple visionOS Spatial Glassmorphism Card */
-.spatial-card {
-  background: rgba(18, 22, 34, 0.55);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-radius: 28px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, box-shadow;
-}
-
-.spatial-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.8),
-              0 0 30px rgba(56, 189, 248, 0.18),
-              inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-/* Floating Capsule / Pill Glass Navigation */
-.spatial-pill-nav {
-  background: rgba(11, 15, 23, 0.72);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
-              0 0 30px rgba(37, 99, 235, 0.08),
-              inset 0 1px 0 rgba(255, 255, 255, 0.25);
+.liquid-glass-wash-1 {
+  position: absolute;
+  top: -120px;
+  left: 15%;
+  width: 950px;
+  height: 750px;
   border-radius: 9999px;
+  background: var(--bg-wash-1);
+  filter: blur(110px);
+  opacity: 0.9;
+  transform: translateZ(0);
 }
 
-/* Elevated Spatial Surface for visionOS Modals and Dropdowns */
-.spatial-elevated {
-  background: rgba(14, 18, 28, 0.88);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.85),
-              0 0 35px rgba(56, 189, 248, 0.12),
-              inset 0 1px 0 rgba(255, 255, 255, 0.28);
+.liquid-glass-wash-2 {
+  position: absolute;
+  top: 38%;
+  right: -100px;
+  width: 850px;
+  height: 700px;
+  border-radius: 9999px;
+  background: var(--bg-wash-2);
+  filter: blur(120px);
+  opacity: 0.85;
+  transform: translateZ(0);
+}
+
+.liquid-glass-wash-3 {
+  position: absolute;
+  bottom: -100px;
+  left: 10%;
+  width: 900px;
+  height: 650px;
+  border-radius: 9999px;
+  background: var(--bg-wash-3);
+  filter: blur(110px);
+  opacity: 0.85;
+  transform: translateZ(0);
+}
+
+/* ---------------- APPLE LIQUID GLASS UTILITY CLASSES ---------------- */
+
+/* Level 1: Subtle Surface */
+.glass-panel-subtle {
+  background: var(--glass-subtle-bg);
+  backdrop-filter: blur(var(--glass-subtle-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-subtle-blur)) saturate(160%);
+  border: 1px solid var(--glass-subtle-border);
+  box-shadow: var(--glass-subtle-shadow);
   border-radius: 24px;
 }
 
-/* visionOS Action Buttons */
-.spatial-btn-primary {
-  background: linear-gradient(135deg, #38BDF8 0%, #2563EB 100%);
-  color: #FFFFFF;
+/* Level 2: Default Surface (Cards, Containers, Public Forms) */
+.spatial-card,
+.glass-panel {
+  background: var(--glass-default-bg);
+  backdrop-filter: blur(var(--glass-default-blur)) saturate(170%);
+  -webkit-backdrop-filter: blur(var(--glass-default-blur)) saturate(170%);
+  border: 1px solid var(--glass-default-border);
+  outline: 1px solid var(--glass-default-edge);
+  outline-offset: -1px;
+  box-shadow: var(--glass-default-shadow);
+  border-radius: 28px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.spatial-card:hover,
+.glass-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.09), 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.dark .spatial-card:hover,
+.dark .glass-panel:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Floating Capsule Pill Navigation */
+.spatial-pill-nav,
+.glass-pill-nav {
+  background: var(--glass-default-bg);
+  backdrop-filter: blur(var(--glass-default-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-default-blur)) saturate(180%);
+  border: 1px solid var(--glass-default-border);
+  outline: 1px solid var(--glass-default-edge);
+  outline-offset: -1px;
+  box-shadow: var(--glass-default-shadow);
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+}
+
+/* Level 3: Strong Elevated Surface (Modals, Dropdowns, Drawers, Tables) */
+.spatial-elevated,
+.glass-elevated {
+  background: var(--glass-strong-bg);
+  backdrop-filter: blur(var(--glass-strong-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-strong-blur)) saturate(180%);
+  border: 1px solid var(--glass-strong-border);
+  outline: 1px solid var(--glass-strong-edge);
+  outline-offset: -1px;
+  box-shadow: var(--glass-strong-shadow);
+  border-radius: 24px;
+}
+
+/* ---------------- BUTTONS (Primary Solid Accent, Secondary Glass) ---------------- */
+.spatial-btn-primary,
+.glass-btn-primary {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
   font-weight: 600;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.45),
-              inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.spatial-btn-primary:hover {
-  background: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 100%);
-  color: #040914;
-  box-shadow: 0 14px 30px -5px rgba(56, 189, 248, 0.55),
-              inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transform: translateY(-2px) scale(1.02);
+.spatial-btn-primary:hover,
+.glass-btn-primary:hover {
+  background-color: var(--accent-hover);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transform: translateY(-2px);
 }
 
-.spatial-btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+.spatial-btn-secondary,
+.glass-btn-secondary {
+  background: var(--glass-subtle-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  color: #F8FAFC;
+  color: var(--text-heading);
   font-weight: 500;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4),
-              inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--glass-default-border);
+  outline: 1px solid var(--glass-default-edge);
+  outline-offset: -1px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.spatial-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(56, 189, 248, 0.4);
-  box-shadow: 0 14px 28px -5px rgba(0, 0, 0, 0.5),
-              0 0 20px rgba(56, 189, 248, 0.15),
-              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+.dark .spatial-btn-secondary,
+.dark .glass-btn-secondary {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.spatial-btn-secondary:hover,
+.glass-btn-secondary:hover {
+  background: var(--glass-default-bg);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
   transform: translateY(-2px);
+}
+
+/* ---------------- FORM INPUTS ---------------- */
+.spatial-input,
+.glass-input {
+  background: var(--input-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--input-border);
+  color: var(--text-heading);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.spatial-input:focus,
+.glass-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+/* ---------------- ADMIN PANEL FORM & TABLE DUAL-MODE LIQUID GLASS ---------------- */
+.spatial-card h1, .spatial-card h2, .spatial-card h3, .spatial-card h4 {
+  color: var(--text-heading);
+}
+
+.spatial-card p, .spatial-card label {
+  color: var(--text-body);
+}
+
+.spatial-card input[type="text"],
+.spatial-card input[type="email"],
+.spatial-card input[type="password"],
+.spatial-card input[type="tel"],
+.spatial-card input[type="number"],
+.spatial-card textarea,
+.spatial-card select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-heading);
+}
+
+.spatial-card input::placeholder,
+.spatial-card textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.spatial-card table thead tr {
+  border-color: rgba(226, 232, 240, 0.8);
+  color: var(--text-muted);
+}
+
+.dark .spatial-card table thead tr {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.spatial-card table tbody tr {
+  border-color: rgba(241, 245, 249, 0.9);
+  color: var(--text-body);
+}
+
+.dark .spatial-card table tbody tr {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.spatial-card table tbody tr:hover {
+  background-color: rgba(241, 245, 249, 0.6);
+}
+
+.dark .spatial-card table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.spatial-card .bg-slate-900\/60,
+.spatial-card .bg-slate-900\/80,
+.spatial-card .bg-slate-900 {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-heading);
 }
 
 /* 2D Vector Stroke Animations for live curves and nodes */
@@ -138,14 +380,14 @@ body {
 .svg-stroke-animated {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: strokeDraw 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: strokeDraw 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* 2D Interactive Radar Pulse */
 @keyframes radarPulse {
   0% {
     transform: scale(0.9);
-    opacity: 0.9;
+    opacity: 0.85;
   }
   70% {
     transform: scale(2.2);
@@ -165,7 +407,7 @@ body {
 
 /* Focus rings for keyboard navigation */
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
-  outline: 2px solid #38BDF8;
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -179,21 +421,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   }
 }
 
-/* Custom VisionOS Scrollbar */
+/* Apple Liquid Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080A0E;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(100, 116, 139, 0.3);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(56, 189, 248, 0.5);
+  background: rgba(100, 116, 139, 0.5);
 }

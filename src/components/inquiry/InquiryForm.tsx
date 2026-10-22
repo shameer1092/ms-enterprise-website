@@ -79,7 +79,6 @@ export const InquiryForm: React.FC = () => {
 
     // Honeypot check for bots
     if (formData.websiteHoneypot) {
-      // Silently act like it worked to baffle bots
       setSuccess(true);
       return;
     }
@@ -133,12 +132,12 @@ export const InquiryForm: React.FC = () => {
 
   if (success) {
     return (
-      <div className="spatial-card rounded-2xl p-8 sm:p-12 text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20">
+      <div className="spatial-card rounded-3xl p-8 sm:p-12 text-center shadow-liquid-card dark:shadow-spatial-card">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 ring-1 ring-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400">
           <Icon name="CheckCircle2" className="h-8 w-8" />
         </div>
-        <h3 className="mt-6 text-2xl font-bold text-white">Inquiry Received Successfully</h3>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-300">
+        <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">Inquiry Received Successfully</h3>
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600 dark:text-slate-300">
           Thank you for reaching out to MS Enterprise. Your project details have been logged in our system and routed to our team. We review all inquiries carefully and will respond to your email within 24 hours.
         </p>
 
@@ -146,7 +145,7 @@ export const InquiryForm: React.FC = () => {
           <button
             type="button"
             onClick={() => setSuccess(false)}
-            className="spatial-btn-secondary rounded-xl px-5 py-2.5 text-xs font-semibold"
+            className="spatial-btn-secondary rounded-full px-5 py-2.5 text-xs font-semibold"
           >
             Submit Another Inquiry
           </button>
@@ -154,7 +153,7 @@ export const InquiryForm: React.FC = () => {
             href="https://wa.me/15550192834"
             target="_blank"
             rel="noopener noreferrer"
-            className="spatial-btn-primary inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold"
+            className="spatial-btn-primary inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold shadow-sm"
           >
             <Icon name="MessageSquare" className="h-4 w-4" />
             <span>Open WhatsApp Live Chat</span>
@@ -165,7 +164,7 @@ export const InquiryForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="spatial-card rounded-3xl p-6 sm:p-10 shadow-spatial-card">
+    <form onSubmit={handleSubmit} noValidate className="spatial-card rounded-3xl p-6 sm:p-10 shadow-liquid-card dark:shadow-spatial-card">
       {/* Honeypot field (hidden from legitimate users) */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="websiteHoneypot">Leave this empty</label>
@@ -180,8 +179,8 @@ export const InquiryForm: React.FC = () => {
       </div>
 
       {errorMessage && (
-        <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-xs text-red-300">
-          <Icon name="AlertCircle" className="h-4 w-4 shrink-0 text-red-400" />
+        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-red-500/30 bg-red-50 p-4 text-xs text-red-700 dark:bg-red-500/10 dark:text-red-300">
+          <Icon name="AlertCircle" className="h-4 w-4 shrink-0 text-red-500" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -189,8 +188,8 @@ export const InquiryForm: React.FC = () => {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
-            Full Name <span className="text-cyan-400">*</span>
+          <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Full Name <span className="text-sky-600 dark:text-cyan-400">*</span>
           </label>
           <input
             id="name"
@@ -202,17 +201,19 @@ export const InquiryForm: React.FC = () => {
               if (errors.name) setErrors({ ...errors, name: '' });
             }}
             placeholder="John Smith"
-            className={`mt-2 w-full rounded-xl border bg-slate-900/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 ${
-              errors.name ? 'border-red-500 focus:ring-red-500' : 'border-white/10 focus:border-cyan-400 focus:ring-cyan-400'
+            className={`mt-2 w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 ${
+              errors.name
+                ? 'border-red-500 focus:ring-red-500'
+                : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
             }`}
           />
-          {errors.name && <p className="mt-1.5 text-xs text-red-400">{errors.name}</p>}
+          {errors.name && <p className="mt-1.5 text-xs text-red-500">{errors.name}</p>}
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
-            Business Email <span className="text-cyan-400">*</span>
+          <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Business Email <span className="text-sky-600 dark:text-cyan-400">*</span>
           </label>
           <input
             id="email"
@@ -224,16 +225,18 @@ export const InquiryForm: React.FC = () => {
               if (errors.email) setErrors({ ...errors, email: '' });
             }}
             placeholder="john@company.com"
-            className={`mt-2 w-full rounded-xl border bg-slate-900/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 ${
-              errors.email ? 'border-red-500 focus:ring-red-500' : 'border-white/10 focus:border-cyan-400 focus:ring-cyan-400'
+            className={`mt-2 w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 ${
+              errors.email
+                ? 'border-red-500 focus:ring-red-500'
+                : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
             }`}
           />
-          {errors.email && <p className="mt-1.5 text-xs text-red-400">{errors.email}</p>}
+          {errors.email && <p className="mt-1.5 text-xs text-red-500">{errors.email}</p>}
         </div>
 
         {/* Phone */}
         <div>
-          <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
             Phone / WhatsApp Number
           </label>
           <input
@@ -242,14 +245,14 @@ export const InquiryForm: React.FC = () => {
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             placeholder="+1 (555) 000-0000"
-            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+            className="mt-2 w-full rounded-2xl border border-slate-300/80 bg-white/80 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-white/10 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400"
           />
         </div>
 
         {/* Service Category */}
         <div>
-          <label htmlFor="service" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
-            Primary Service <span className="text-cyan-400">*</span>
+          <label htmlFor="service" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Primary Service <span className="text-sky-600 dark:text-cyan-400">*</span>
           </label>
           <select
             id="service"
@@ -259,8 +262,10 @@ export const InquiryForm: React.FC = () => {
               setFormData({ ...formData, service: e.target.value });
               if (errors.service) setErrors({ ...errors, service: '' });
             }}
-            className={`mt-2 w-full rounded-xl border bg-slate-900 px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 ${
-              errors.service ? 'border-red-500 focus:ring-red-500' : 'border-white/10 focus:border-cyan-400 focus:ring-cyan-400'
+            className={`mt-2 w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-1 dark:bg-slate-900 dark:text-white ${
+              errors.service
+                ? 'border-red-500 focus:ring-red-500'
+                : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
             }`}
           >
             <option value="">Select a service category...</option>
@@ -272,19 +277,19 @@ export const InquiryForm: React.FC = () => {
             <option value="Monthly Maintenance & Stability">Monthly Maintenance & Stability</option>
             <option value="Other Custom Inquiry">Other Custom Inquiry</option>
           </select>
-          {errors.service && <p className="mt-1.5 text-xs text-red-400">{errors.service}</p>}
+          {errors.service && <p className="mt-1.5 text-xs text-red-500">{errors.service}</p>}
         </div>
 
         {/* Budget */}
         <div>
-          <label htmlFor="budget" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <label htmlFor="budget" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
             Estimated Budget
           </label>
           <select
             id="budget"
             value={formData.budget}
             onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-sm text-white focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+            className="mt-2 w-full rounded-2xl border border-slate-300/80 bg-white/80 px-4 py-3 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-white/10 dark:bg-slate-900 dark:text-white dark:focus:border-cyan-400 dark:focus:ring-cyan-400"
           >
             <option value="">Select budget range...</option>
             <option value="Under $500">Under $500</option>
@@ -297,14 +302,14 @@ export const InquiryForm: React.FC = () => {
 
         {/* Timeline */}
         <div>
-          <label htmlFor="timeline" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <label htmlFor="timeline" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
             Expected Timeline
           </label>
           <select
             id="timeline"
             value={formData.timeline}
             onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-sm text-white focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+            className="mt-2 w-full rounded-2xl border border-slate-300/80 bg-white/80 px-4 py-3 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-white/10 dark:bg-slate-900 dark:text-white dark:focus:border-cyan-400 dark:focus:ring-cyan-400"
           >
             <option value="">Select timeline...</option>
             <option value="Immediate (Within 1 week)">Immediate (Within 1 week)</option>
@@ -317,8 +322,8 @@ export const InquiryForm: React.FC = () => {
 
       {/* Message */}
       <div className="mt-6">
-        <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
-          Project Details & Requirements <span className="text-cyan-400">*</span>
+        <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+          Project Details & Requirements <span className="text-sky-600 dark:text-cyan-400">*</span>
         </label>
         <textarea
           id="message"
@@ -330,11 +335,13 @@ export const InquiryForm: React.FC = () => {
             if (errors.message) setErrors({ ...errors, message: '' });
           }}
           placeholder="Describe what you want to build, existing bottlenecks, target audience, or specific requirements..."
-          className={`mt-2 w-full rounded-xl border bg-slate-900/80 p-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 ${
-            errors.message ? 'border-red-500 focus:ring-red-500' : 'border-white/10 focus:border-cyan-400 focus:ring-cyan-400'
+          className={`mt-2 w-full rounded-2xl border bg-white/80 p-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 ${
+            errors.message
+              ? 'border-red-500 focus:ring-red-500'
+              : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
           }`}
         />
-        {errors.message && <p className="mt-1.5 text-xs text-red-400">{errors.message}</p>}
+        {errors.message && <p className="mt-1.5 text-xs text-red-500">{errors.message}</p>}
       </div>
 
       {/* Submit Button */}
@@ -342,7 +349,7 @@ export const InquiryForm: React.FC = () => {
         <button
           type="submit"
           disabled={loading}
-          className="spatial-btn-primary flex w-full items-center justify-center gap-2 py-4 text-xs font-bold uppercase tracking-wider disabled:opacity-60 shadow-glow-cyan"
+          className="spatial-btn-primary flex w-full items-center justify-center gap-2 py-4 text-xs font-bold uppercase tracking-wider disabled:opacity-60 shadow-sm"
         >
           {loading ? (
             <>
@@ -356,7 +363,7 @@ export const InquiryForm: React.FC = () => {
             </>
           )}
         </button>
-        <p className="mt-3 text-center text-[11px] text-slate-400">
+        <p className="mt-3 text-center text-[11px] text-slate-500 dark:text-slate-400">
           We protect your privacy. Submissions are saved securely in our administrative portal.
         </p>
       </div>

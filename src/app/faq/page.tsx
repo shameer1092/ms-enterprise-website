@@ -84,14 +84,14 @@ export default function FaqPage() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 shadow-glow-cyan">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/25 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sky-700 shadow-sm backdrop-blur-xl dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300">
             <Icon name="HelpCircle" className="h-3.5 w-3.5" />
             <span>Help & Clarification</span>
           </div>
-          <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+          <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
             Frequently Asked Questions
           </h1>
-          <p className="mt-4 text-base text-slate-300">
+          <p className="mt-4 text-base text-slate-600 dark:text-slate-300">
             Transparent answers regarding development timelines, lifetime live support, Meta growth, and ecommerce VA operations.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function FaqPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search questions or keywords..."
-              className="w-full rounded-full border border-white/15 bg-slate-900/80 py-3 pl-11 pr-5 text-xs text-white placeholder-slate-500 backdrop-blur-xl focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+              className="w-full rounded-full border border-slate-200/80 bg-white/70 py-3 pl-11 pr-5 text-xs text-slate-900 placeholder-slate-400 shadow-sm backdrop-blur-xl focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-white/15 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400"
             />
           </div>
 
@@ -126,8 +126,8 @@ export default function FaqPage() {
                 onClick={() => setSelectedCategory(tab.id)}
                 className={`rounded-full px-4 py-2 text-xs font-semibold transition-all ${
                   selectedCategory === tab.id
-                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-glow-cyan'
-                    : 'bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10'
+                    ? 'bg-sky-600 text-white shadow-sm dark:bg-gradient-to-r dark:from-blue-600 dark:to-cyan-500 dark:shadow-md'
+                    : 'bg-white/70 border border-slate-200/80 text-slate-700 hover:bg-white dark:bg-white/5 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/10'
                 }`}
               >
                 {tab.label}
@@ -139,9 +139,9 @@ export default function FaqPage() {
         {/* FAQ Accordion List */}
         <div className="mt-10 space-y-4">
           {filteredFaqs.length === 0 ? (
-            <div className="rounded-3xl border border-white/10 bg-slate-900/40 p-12 text-center backdrop-blur-xl">
-              <Icon name="HelpCircle" className="mx-auto h-8 w-8 text-slate-500" />
-              <p className="mt-3 text-sm text-slate-400">
+            <div className="spatial-card rounded-3xl p-12 text-center shadow-liquid-card dark:shadow-spatial-card">
+              <Icon name="HelpCircle" className="mx-auto h-8 w-8 text-slate-400" />
+              <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
                 No matching questions found for &quot;{searchQuery}&quot;.
               </p>
             </div>
@@ -151,7 +151,7 @@ export default function FaqPage() {
               return (
                 <div
                   key={faq.id}
-                  className="spatial-card overflow-hidden rounded-3xl transition-all shadow-spatial-card"
+                  className="spatial-card overflow-hidden rounded-3xl transition-all shadow-liquid-card dark:shadow-spatial-card"
                 >
                   <button
                     type="button"
@@ -159,21 +159,21 @@ export default function FaqPage() {
                     aria-expanded={isOpen}
                     className="flex w-full items-center justify-between p-6 sm:p-7 text-left"
                   >
-                    <span className="text-base font-semibold text-white sm:text-lg">
+                    <span className="text-base font-semibold text-slate-900 sm:text-lg dark:text-white">
                       {faq.question}
                     </span>
-                    <div className="ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 border border-white/10 text-cyan-300">
+                    <div className="ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 border border-slate-200/70 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-cyan-300">
                       <Icon
                         name="ChevronDown"
                         className={`h-4 w-4 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180 text-cyan-400' : 'text-slate-400'
+                          isOpen ? 'rotate-180 text-sky-600 dark:text-cyan-400' : 'text-slate-400'
                         }`}
                       />
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="border-t border-white/5 px-6 pt-3 pb-6 text-sm leading-relaxed text-slate-300">
+                    <div className="border-t border-slate-200/60 px-6 pt-3 pb-6 text-sm leading-relaxed text-slate-600 dark:border-white/5 dark:text-slate-300">
                       {faq.answer}
                     </div>
                   )}
@@ -184,15 +184,15 @@ export default function FaqPage() {
         </div>
 
         {/* Still Have Questions Box */}
-        <div className="spatial-card mt-16 rounded-4xl border border-cyan-500/30 p-8 sm:p-10 text-center shadow-spatial-card">
-          <h2 className="text-xl font-bold text-white">Still have questions?</h2>
-          <p className="mt-2 text-xs text-slate-400">
+        <div className="spatial-card mt-16 rounded-4xl border border-sky-500/25 p-8 sm:p-10 text-center shadow-liquid-card dark:border-cyan-500/30 dark:shadow-spatial-card">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Still have questions?</h2>
+          <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
             We are always available to discuss technical specs or answer any questions before you start.
           </p>
           <div className="mt-6 flex justify-center gap-4">
             <Link
               href="/inquiry"
-              className="spatial-btn-primary px-6 py-3 text-xs font-bold uppercase tracking-wider"
+              className="spatial-btn-primary px-6 py-3 text-xs font-bold uppercase tracking-wider shadow-sm"
             >
               Ask an Inquiry
             </Link>

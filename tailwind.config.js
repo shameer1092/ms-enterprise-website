@@ -10,24 +10,25 @@ module.exports = {
     extend: {
       colors: {
         canvas: {
+          light: '#F8FAFC',
+          lightWash: '#F1F5F9',
           dark: '#080A0E',
           charcoal: '#0B0F17',
           surface: '#111726',
           elevated: '#172033',
         },
         spatial: {
-          bg: '#080A0E',
-          card: 'rgba(18, 22, 34, 0.55)',
-          surface: '#111827',
-          elevated: '#172238',
-          border: 'rgba(255, 255, 255, 0.12)',
-          borderHover: 'rgba(56, 189, 248, 0.35)',
-          muted: '#8E9EB8',
-          heading: '#FFFFFF',
-          accent: '#38BDF8', // Cyan
-          cobalt: '#2563EB', // Cobalt Blue
-          crimson: '#EF4444',
+          lightCard: 'rgba(255, 255, 255, 0.68)',
+          lightBorder: 'rgba(255, 255, 255, 0.75)',
+          lightEdge: 'rgba(15, 23, 42, 0.06)',
+          darkCard: 'rgba(15, 23, 42, 0.65)',
+          darkBorder: 'rgba(255, 255, 255, 0.12)',
+          accent: 'var(--accent, #0284C7)',
+          accentHover: 'var(--accent-hover, #0369A1)',
+          cobalt: '#1D4ED8',
+          teal: '#0D9488',
           emerald: '#10B981',
+          crimson: '#EF4444',
         },
       },
       borderRadius: {
@@ -36,24 +37,22 @@ module.exports = {
         '4xl': '36px',
       },
       boxShadow: {
-        'spatial-glass': '0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(37, 99, 235, 0.08)',
-        'spatial-card': '0 25px 60px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-        'spatial-elevated': '0 30px 70px -10px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+        // Apple Liquid Glass Light Shadows
+        'liquid-card': '0 8px 32px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.95)',
+        'liquid-elevated': '0 16px 40px rgba(15, 23, 42, 0.09), 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 0 #FFFFFF',
+        'liquid-pill': '0 6px 24px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95)',
+        // Apple Liquid Glass Dark Shadows
+        'spatial-card': '0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.18)',
+        'spatial-elevated': '0 24px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.22)',
         'spatial-pill': '0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
-        'glow-cyan': '0 0 25px -4px rgba(56, 189, 248, 0.45)',
-        'glow-cobalt': '0 0 30px -5px rgba(37, 99, 235, 0.45)',
+        'glow-accent': '0 0 25px -4px rgba(2, 132, 199, 0.35)',
       },
       animation: {
         'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
         'pulse-subtle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'radar-sweep': 'radar 4s linear infinite',
-        'float-slow': 'float 6s ease-in-out infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-8px)' },
-        },
         radar: {
           '0%': { transform: 'scale(0.8)', opacity: '0.8' },
           '100%': { transform: 'scale(2.2)', opacity: '0' },

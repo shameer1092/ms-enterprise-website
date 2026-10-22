@@ -35,35 +35,37 @@ export default function CustomDynamicPage({ params }: CustomPageProps) {
   return (
     <div className="relative py-20 md:py-28">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
-          <Link href="/" className="hover:text-cyan-400">
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+          <Link href="/" className="hover:text-sky-700 dark:hover:text-cyan-400">
             Home
           </Link>
-          <Icon name="ChevronRight" className="h-3.5 w-3.5 text-slate-600" />
-          <span className="text-cyan-400">{page.title}</span>
+          <Icon name="ChevronRight" className="h-3.5 w-3.5 text-slate-400" />
+          <span className="text-sky-700 dark:text-cyan-400 font-semibold">{page.title}</span>
         </div>
 
-        <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+        <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
           {page.title}
         </h1>
 
         {page.summary && (
-          <p className="mt-4 text-base text-slate-300">
+          <p className="mt-4 text-base text-slate-600 dark:text-slate-300">
             {page.summary}
           </p>
         )}
 
-        <div className="spatial-card mt-10 rounded-2xl p-8 sm:p-12">
-          <div className="space-y-6 text-sm leading-relaxed text-slate-300 whitespace-pre-line">
+        <div className="spatial-card mt-10 rounded-3xl p-8 sm:p-12 shadow-liquid-card dark:shadow-spatial-card">
+          <div className="space-y-6 text-sm leading-relaxed text-slate-700 whitespace-pre-line dark:text-slate-300">
             {page.content}
           </div>
 
           {page.sections && page.sections.length > 0 && (
-            <div className="mt-10 space-y-8 border-t border-white/10 pt-8">
+            <div className="mt-10 space-y-8 border-t border-slate-200/60 pt-8 dark:border-white/10">
               {page.sections.map((sec, idx) => (
                 <div key={idx}>
-                  <h2 className="text-xl font-bold text-white">{sec.heading}</h2>
-                  <p className="mt-2 text-sm text-slate-300">{sec.body}</p>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">{sec.heading}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300 whitespace-pre-line">
+                    {sec.body}
+                  </p>
                 </div>
               ))}
             </div>

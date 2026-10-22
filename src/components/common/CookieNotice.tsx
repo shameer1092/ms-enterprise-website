@@ -30,12 +30,12 @@ export const CookieNotice: React.FC = () => {
     <div
       role="region"
       aria-label="Cookie consent banner"
-      className="fixed bottom-4 left-4 right-4 z-40 max-w-xl mx-auto rounded-2xl border border-white/10 bg-slate-950/95 p-4 shadow-2xl backdrop-blur-xl sm:left-6 sm:right-auto sm:max-w-md"
+      className="fixed bottom-4 left-4 right-4 z-40 max-w-xl mx-auto rounded-3xl border border-slate-200/80 bg-white/95 p-4 shadow-liquid-elevated backdrop-blur-xl sm:left-6 sm:right-auto sm:max-w-md dark:border-white/15 dark:bg-slate-950/95 dark:shadow-2xl"
     >
       <div className="flex flex-col gap-3">
-        <p className="text-xs text-slate-300 leading-relaxed">
+        <p className="text-xs text-slate-600 leading-relaxed dark:text-slate-300">
           We use necessary cookies and anonymous technical telemetry to ensure system security and site reliability.{' '}
-          <Link href="/legal/privacy-policy" className="text-cyan-400 underline hover:text-cyan-300">
+          <Link href="/legal/privacy-policy" className="text-sky-700 underline hover:text-sky-800 dark:text-cyan-400 dark:hover:text-cyan-300">
             Privacy Policy
           </Link>
         </p>
@@ -44,14 +44,14 @@ export const CookieNotice: React.FC = () => {
           <button
             type="button"
             onClick={handleAccept}
-            className="spatial-btn-primary rounded-lg px-4 py-1.5 text-xs font-semibold"
+            className="spatial-btn-primary rounded-full px-4 py-1.5 text-xs font-semibold shadow-sm"
           >
             Accept
           </button>
           <button
             type="button"
             onClick={handleDecline}
-            className="spatial-btn-secondary rounded-lg px-4 py-1.5 text-xs text-slate-400 hover:text-white"
+            className="spatial-btn-secondary rounded-full px-4 py-1.5 text-xs text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
           >
             Essential Only
           </button>

@@ -9,41 +9,40 @@ export const HeroVisual: React.FC = () => {
 
   return (
     <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
-      {/* Ambient Multi-Tier Back-Glow Spotlight */}
-      <div className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-gradient-to-r from-blue-600/25 via-cyan-500/20 to-teal-500/10 blur-3xl opacity-80 animate-pulse-subtle" />
+      {/* Ambient Multi-Tier Back-Glow Spotlight (Light Cool Blue / Soft Teal) */}
+      <div className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-gradient-to-r from-sky-300/30 via-cyan-200/25 to-teal-100/20 blur-3xl opacity-90 dark:from-blue-600/20 dark:via-cyan-500/15 dark:to-teal-500/10" />
 
-      {/* Main VisionOS Window Frame */}
+      {/* Main Apple Liquid Glass Window Frame */}
       <TiltCard
         maxTilt={5}
-        glowColor="rgba(56, 189, 248, 0.2)"
-        className="spatial-card rounded-3xl p-6 sm:p-7 shadow-spatial-elevated"
+        className="spatial-card rounded-3xl p-6 sm:p-7 shadow-liquid-elevated dark:shadow-spatial-elevated"
       >
-        {/* visionOS Capsule Header Bar */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        {/* Capsule Header Bar */}
+        <div className="flex items-center justify-between border-b border-slate-200/60 pb-4 dark:border-white/10">
           <div className="flex items-center gap-2.5">
             {/* Window control pills */}
             <div className="flex items-center gap-1.5">
-              <span className="h-3 w-3 rounded-full bg-red-500/80 shadow-sm shadow-red-500/40" />
-              <span className="h-3 w-3 rounded-full bg-amber-500/80 shadow-sm shadow-amber-500/40" />
-              <span className="h-3 w-3 rounded-full bg-emerald-500/80 shadow-sm shadow-emerald-500/40" />
+              <span className="h-3 w-3 rounded-full bg-red-400 shadow-sm shadow-red-500/20" />
+              <span className="h-3 w-3 rounded-full bg-amber-400 shadow-sm shadow-amber-500/20" />
+              <span className="h-3 w-3 rounded-full bg-emerald-400 shadow-sm shadow-emerald-500/20" />
             </div>
-            <span className="ml-2 font-mono text-[11px] font-medium tracking-wider text-slate-400">
-              visionOS.spatial.core
+            <span className="ml-2 font-mono text-[11px] font-medium tracking-wider text-slate-500 dark:text-slate-400">
+              liquid.spatial.engine
             </span>
           </div>
 
           {/* Live System Status Node */}
-          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-300">
+          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50 px-3 py-1 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
             <span className="relative flex h-2 w-2">
-              <span className="radar-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="radar-ping absolute inline-flex h-full w-full bg-emerald-500 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             <span>Live Telemetry</span>
           </div>
         </div>
 
-        {/* visionOS Segmented Control Tabs */}
-        <div className="mt-5 grid grid-cols-3 gap-1.5 rounded-2xl bg-white/[0.03] p-1.5 border border-white/5">
+        {/* Liquid Glass Segmented Control Tabs */}
+        <div className="mt-5 grid grid-cols-3 gap-1.5 rounded-2xl border border-slate-200/60 bg-slate-100/60 p-1.5 dark:border-white/5 dark:bg-white/[0.03]">
           {[
             { id: 'architecture', label: 'Web Engine', icon: 'Code2' },
             { id: 'growth', label: 'Meta Traffic', icon: 'Share2' },
@@ -55,8 +54,8 @@ export const HeroVisual: React.FC = () => {
               onClick={() => setActiveTab(tab.id as any)}
               className={`flex items-center justify-center gap-2 rounded-xl py-2 text-xs font-semibold transition-all ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/25 ring-1 ring-white/30'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-white text-sky-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-gradient-to-r dark:from-blue-600 dark:to-cyan-500 dark:text-white dark:shadow-md dark:ring-white/30'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'
               }`}
             >
               <Icon name={tab.icon} className="h-3.5 w-3.5" />
@@ -66,19 +65,19 @@ export const HeroVisual: React.FC = () => {
         </div>
 
         {/* Interactive 2D Vector Animated Graph Section */}
-        <div className="mt-5 rounded-2xl border border-white/5 bg-slate-950/60 p-4">
+        <div className="mt-5 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-slate-950/60 dark:shadow-none">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Runtime Benchmark & Uptime
               </span>
-              <p className="mt-0.5 text-lg font-extrabold text-white">
+              <p className="mt-0.5 text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
                 {activeTab === 'architecture' && '0.42s Fast TTFB / 99.98% Uptime'}
                 {activeTab === 'growth' && '100% Organic Delivery Rate'}
                 {activeTab === 'operations' && '24m Response SLA / Zero Backlog'}
               </p>
             </div>
-            <div className="flex items-center gap-1.5 font-mono text-xs text-cyan-400">
+            <div className="flex items-center gap-1.5 font-mono text-xs font-semibold text-sky-600 dark:text-cyan-400">
               <Icon name="Zap" className="h-4 w-4" />
               <span>Real-Time</span>
             </div>
@@ -94,121 +93,71 @@ export const HeroVisual: React.FC = () => {
             >
               <defs>
                 <linearGradient id="curveGradient" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#2563EB" />
-                  <stop offset="50%" stopColor="#38BDF8" />
-                  <stop offset="100%" stopColor="#10B981" />
+                  <stop offset="0%" stopColor="#0284C7" />
+                  <stop offset="50%" stopColor="#0EA5E9" />
+                  <stop offset="100%" stopColor="#0D9488" />
                 </linearGradient>
-                <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#38BDF8" stopOpacity="0" />
+                <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.18" />
+                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0" />
                 </linearGradient>
               </defs>
 
-              {/* Background horizontal grid guides */}
-              <line x1="0" y1="20" x2="500" y2="20" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
-              <line x1="0" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
-              <line x1="0" y1="100" x2="500" y2="100" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
-
-              {/* Area fill under curve */}
+              {/* Area fill */}
               <path
-                d="M 0 100 Q 80 40 160 65 T 320 30 T 500 15 L 500 120 L 0 120 Z"
-                fill="url(#areaGradient)"
+                d="M 0 120 L 0 85 C 60 70, 110 95, 170 50 C 230 15, 280 65, 340 30 C 400 5, 450 40, 500 15 L 500 120 Z"
+                fill="url(#curveFill)"
               />
 
-              {/* Main Animated Vector Stroke Path */}
+              {/* Animated 2D Stroke */}
               <path
-                d="M 0 100 Q 80 40 160 65 T 320 30 T 500 15"
+                d="M 0 85 C 60 70, 110 95, 170 50 C 230 15, 280 65, 340 30 C 400 5, 450 40, 500 15"
                 stroke="url(#curveGradient)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
                 className="svg-stroke-animated"
               />
 
-              {/* Interactive Data Pulse Points */}
-              <g transform="translate(160, 65)">
-                <circle r="6" fill="#38BDF8" className="radar-ping opacity-60" />
-                <circle r="4" fill="#38BDF8" stroke="#080A0E" strokeWidth="2" />
-              </g>
-
-              <g transform="translate(320, 30)">
-                <circle r="6" fill="#38BDF8" className="radar-ping opacity-60" />
-                <circle r="4" fill="#38BDF8" stroke="#080A0E" strokeWidth="2" />
-              </g>
-
-              <g transform="translate(500, 15)">
-                <circle r="7" fill="#10B981" className="radar-ping opacity-75" />
-                <circle r="4.5" fill="#10B981" stroke="#080A0E" strokeWidth="2" />
+              {/* Interactive Telemetry Data Nodes */}
+              <g className="cursor-pointer">
+                <circle cx="170" cy="50" r="4.5" className="fill-sky-500 ring-2 ring-white" />
+                <circle cx="340" cy="30" r="4.5" className="fill-cyan-500 ring-2 ring-white" />
+                <circle cx="500" cy="15" r="5" className="fill-teal-500 ring-2 ring-white" />
               </g>
             </svg>
           </div>
         </div>
 
-        {/* 3 Floating Modular Data Nodes */}
-        <div className="mt-4 space-y-2.5">
-          <div
-            className={`flex items-center justify-between rounded-2xl border p-3.5 transition-all ${
-              activeTab === 'architecture'
-                ? 'border-cyan-500/40 bg-white/[0.06] shadow-lg shadow-cyan-500/10'
-                : 'border-white/5 bg-slate-950/40 hover:border-white/10'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/15 text-cyan-400">
-                <Icon name="Code2" className="h-5 w-5" />
-                <span className="radar-ping absolute -inset-1 bg-cyan-400/20" />
-              </div>
-              <div>
-                <h4 className="text-xs font-bold text-white">Custom Web Architecture</h4>
-                <p className="text-[11px] text-slate-400">Lifetime live support & deployment diagnostics</p>
-              </div>
-            </div>
-            <span className="rounded-full bg-cyan-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-cyan-300">
-              Active Scope
+        {/* 3 Interactive Liquid Glass Metric Tiles */}
+        <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="rounded-2xl border border-slate-200/60 bg-white/60 p-3 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Live Support
             </span>
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Lifetime</span>
+            </div>
+            <span className="text-[10px] text-sky-600 dark:text-cyan-400">Active</span>
           </div>
 
-          <div
-            className={`flex items-center justify-between rounded-2xl border p-3.5 transition-all ${
-              activeTab === 'growth'
-                ? 'border-cyan-500/40 bg-white/[0.06] shadow-lg shadow-cyan-500/10'
-                : 'border-white/5 bg-slate-950/40 hover:border-white/10'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/15 text-sky-400">
-                <Icon name="Share2" className="h-5 w-5" />
-                <span className="radar-ping absolute -inset-1 bg-sky-400/20" />
-              </div>
-              <div>
-                <h4 className="text-xs font-bold text-white">Targeted Meta (Facebook) Streams</h4>
-                <p className="text-[11px] text-slate-400">Multi-country organic audience delivery</p>
-              </div>
-            </div>
-            <span className="rounded-full bg-sky-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-sky-300">
-              Multi-Region
+          <div className="rounded-2xl border border-slate-200/60 bg-white/60 p-3 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Maintenance
             </span>
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Minimal</span>
+            </div>
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400">Optimized</span>
           </div>
 
-          <div
-            className={`flex items-center justify-between rounded-2xl border p-3.5 transition-all ${
-              activeTab === 'operations'
-                ? 'border-emerald-500/40 bg-white/[0.06] shadow-lg shadow-emerald-500/10'
-                : 'border-white/5 bg-slate-950/40 hover:border-white/10'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
-                <Icon name="ShoppingBag" className="h-5 w-5" />
-                <span className="radar-ping absolute -inset-1 bg-emerald-400/20" />
-              </div>
-              <div>
-                <h4 className="text-xs font-bold text-white">Ecommerce Virtual Assistant Operations</h4>
-                <p className="text-[11px] text-slate-400">Store workflows with emergency compensation</p>
-              </div>
-            </div>
-            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-300">
-              Assigned VA
+          <div className="rounded-2xl border border-slate-200/60 bg-white/60 p-3 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-slate-900/60 dark:shadow-none">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Integrations
             </span>
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Multi-OS</span>
+            </div>
+            <span className="text-[10px] text-sky-600 dark:text-cyan-400">Verified</span>
           </div>
         </div>
       </TiltCard>

@@ -27,7 +27,7 @@ export const FloatingWhatsapp: React.FC<FloatingWhatsappProps> = ({ phone, enabl
         <Icon name="MessageSquare" className="h-7 w-7 text-slate-950" />
 
         {/* Hover tooltip label */}
-        <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-lg bg-slate-900/90 px-3 py-1.5 text-xs font-medium text-white shadow-xl backdrop-blur-md opacity-0 transition-opacity duration-200 group-hover:opacity-100 border border-white/10">
+        <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-xl bg-white/95 px-3 py-1.5 text-xs font-semibold text-slate-800 shadow-md backdrop-blur-md opacity-0 transition-opacity duration-200 group-hover:opacity-100 border border-slate-200/80 dark:bg-slate-900/90 dark:text-white dark:border-white/10 dark:shadow-xl">
           Chat on WhatsApp
         </span>
       </a>

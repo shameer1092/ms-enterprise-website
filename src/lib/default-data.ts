@@ -16,6 +16,11 @@ export const defaultDatabase: DatabaseSchema = {
     address: 'Suite 400, Commercial Avenue, Business District',
     logoText: 'MS Enterprise',
     floatingWhatsappEnabled: true,
+    themeConfig: {
+      defaultTheme: 'light',
+      accentColor: '#0284C7',
+      glassIntensity: 'default',
+    },
     socialLinks: {
       facebook: 'https://facebook.com/msenterprise',
       twitter: 'https://x.com/msenterprise',

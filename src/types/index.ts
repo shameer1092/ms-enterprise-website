@@ -13,6 +13,12 @@ export interface User {
   lastLogin?: string;
 }
 
+export interface ThemeConfig {
+  defaultTheme: 'light' | 'dark' | 'system';
+  accentColor: string; // e.g. '#0284C7', '#1D4ED8', '#0D9488', '#334155'
+  glassIntensity: 'subtle' | 'default' | 'strong';
+}
+
 export interface SiteSettings {
   companyName: string;
   tagline: string;
@@ -25,6 +31,7 @@ export interface SiteSettings {
   logoUrl?: string;
   faviconUrl?: string;
   floatingWhatsappEnabled: boolean;
+  themeConfig?: ThemeConfig;
   socialLinks: {
     facebook: string;
     twitter: string;

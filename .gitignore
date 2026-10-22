@@ -29,6 +29,10 @@ yarn-error.log*
 # environment variables
 .env*.local
 
+# backups
+data/backups/
+data/*.tmp.*
+
 # netlify
 .netlify
 

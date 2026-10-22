@@ -5,20 +5,21 @@ import React, { useRef, useState, useEffect } from 'react';
 interface TiltCardProps {
   children: React.ReactNode;
   className?: string;
-  maxTilt?: number; // max tilt degrees (default 6)
+  maxTilt?: number; // max tilt degrees (default 5)
   glowColor?: string; // specular spotlight color
 }
 
 export const TiltCard: React.FC<TiltCardProps> = ({
   children,
   className = '',
-  maxTilt = 6,
-  glowColor = 'rgba(56, 189, 248, 0.15)',
+  maxTilt = 5,
+  glowColor,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50, opacity: 0 });
   const [isTouch, setIsTouch] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     // Check if device is touch-primary or user prefers reduced motion
@@ -27,6 +28,13 @@ export const TiltCard: React.FC<TiltCardProps> = ({
     if (touchCheck || motionQuery.matches) {
       setIsTouch(true);
     }
+
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    checkDark();
+    window.addEventListener('theme-changed', checkDark);
+    return () => window.removeEventListener('theme-changed', checkDark);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -56,6 +64,11 @@ export const TiltCard: React.FC<TiltCardProps> = ({
     setGlowPos((prev) => ({ ...prev, opacity: 0 }));
   };
 
+  const defaultGlow = isDark
+    ? 'rgba(56, 189, 248, 0.14)'
+    : 'rgba(2, 132, 199, 0.08)';
+  const activeGlow = glowColor || defaultGlow;
+
   return (
     <div
       style={{ perspective: isTouch ? 'none' : '1200px' }}
@@ -73,19 +86,19 @@ export const TiltCard: React.FC<TiltCardProps> = ({
         }}
         className={`relative overflow-hidden ${className}`}
       >
-        {/* Dynamic Specular Glare Overlay tracking the cursor */}
+        {/* Dynamic Specular Glare Overlay tracking cursor */}
         {!isTouch && (
           <div
             className="pointer-events-none absolute -inset-px rounded-[inherit] transition-opacity duration-300"
             style={{
               opacity: glowPos.opacity,
-              background: `radial-gradient(circle 320px at ${glowPos.x}% ${glowPos.y}%, ${glowColor}, transparent 70%)`,
+              background: `radial-gradient(circle 320px at ${glowPos.x}% ${glowPos.y}%, ${activeGlow}, transparent 70%)`,
             }}
           />
         )}
 
-        {/* Specular Top Edge Highlight */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+        {/* Specular Top Edge Light Highlight */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/20" />
 
         {children}
       </div>

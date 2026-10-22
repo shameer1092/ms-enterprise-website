@@ -9,6 +9,11 @@
     "address": "Suite 400, Commercial Avenue, Business District",
     "logoText": "MS Enterprise",
     "floatingWhatsappEnabled": true,
+    "themeConfig": {
+      "defaultTheme": "light",
+      "accentColor": "#0284C7",
+      "glassIntensity": "default"
+    },
     "socialLinks": {
       "facebook": "https://facebook.com/msenterprise",
       "twitter": "https://x.com/msenterprise",
@@ -365,6 +370,29 @@
       "order": 6,
       "createdAt": "2026-10-21T20:22:14.517Z",
       "updatedAt": "2026-10-21T20:22:14.517Z"
+    },
+    {
+      "title": "Veritas Analytics Hub",
+      "slug": "test-project-1792683427807",
+      "serviceCategory": "web",
+      "client": "Veritas Global",
+      "summary": "Cloud monitoring system with low maintenance architecture.",
+      "description": "Complete bespoke UI with spatial card hierarchy and lifetime live support.",
+      "techStack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "keyOutcomes": [
+        "Instant load times",
+        "Zero backlog"
+      ],
+      "published": true,
+      "showInNav": true,
+      "id": "proj-1792683427826",
+      "order": 7,
+      "createdAt": "2026-10-22T15:37:07.826Z",
+      "updatedAt": "2026-10-22T15:37:07.826Z"
     }
   ],
   "plans": [
@@ -595,6 +623,19 @@
       "timeline": "2 to 4 weeks",
       "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
       "ip": "::1",
+      "id": "inq-1792683427247",
+      "status": "unread",
+      "createdAt": "2026-10-22T15:37:07.247Z"
+    },
+    {
+      "name": "Alex Turner",
+      "email": "alex.turner@example.com",
+      "phone": "+1 555 987 6543",
+      "service": "Custom Website Development",
+      "budget": "$1,500 - $3,500",
+      "timeline": "2 to 4 weeks",
+      "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
+      "ip": "::1",
       "id": "inq-1792614134286",
       "status": "unread",
       "createdAt": "2026-10-21T20:22:14.286Z"
@@ -789,6 +830,13 @@
           "href": "/projects/test-project-1792614134508",
           "order": 6,
           "visible": true
+        },
+        {
+          "id": "nav-proj-proj-1792683427826",
+          "label": "Veritas Analytics Hub",
+          "href": "/projects/test-project-1792683427807",
+          "order": 7,
+          "visible": true
         }
       ]
     },
@@ -817,7 +865,7 @@
       "role": "owner",
       "twoFactorEnabled": false,
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-10-21T20:22:14.490Z"
+      "lastLogin": "2026-10-22T15:37:07.766Z"
     },
     {
       "id": "usr-editor",
@@ -831,6 +879,20 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "log-1792683427826-cp5e",
+      "timestamp": "2026-10-22T15:37:07.826Z",
+      "user": "admin",
+      "action": "CREATE_PROJECT",
+      "details": "Created project: Veritas Analytics Hub"
+    },
+    {
+      "id": "log-1792683427247-dfrf",
+      "timestamp": "2026-10-22T15:37:07.247Z",
+      "user": "public",
+      "action": "NEW_INQUIRY",
+      "details": "New inquiry from Alex Turner (alex.turner@example.com)"
+    },
     {
       "id": "log-1792614134517-d4bj",
       "timestamp": "2026-10-21T20:22:14.517Z",
