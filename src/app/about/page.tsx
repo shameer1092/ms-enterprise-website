@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Icon } from '@/components/common/Icon';
 import { TiltCard } from '@/components/spatial/TiltCard';
-import { FeedbackForum } from '@/components/FeedbackForum';
 
 export const metadata: Metadata = {
   title: 'About MS Enterprise | Decentralized Precision & Enterprise Execution',
@@ -493,8 +492,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ---------------- CLIENT FEEDBACK FORUM ---------------- */}
-      <FeedbackForum />
 
       {/* ---------------- 6. DIRECT DISPATCH CTA SECTION ---------------- */}
       <section className="relative mt-20 px-4 sm:px-6 lg:px-8">
