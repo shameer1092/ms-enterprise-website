@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/common/Icon';
 
 interface FloatingWhatsappProps {
@@ -9,6 +10,13 @@ interface FloatingWhatsappProps {
 }
 
 export const FloatingWhatsapp: React.FC<FloatingWhatsappProps> = ({ phone, enabled }) => {
+  const pathname = usePathname();
+
+  // Hide floating WhatsApp on admin console routes
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   if (!enabled || !phone) return null;
 
   const cleanPhone = phone.replace(/[^0-9]/g, '');

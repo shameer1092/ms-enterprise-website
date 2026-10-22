@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { SiteSettings, ServiceItem } from '@/types';
 import { Logo } from '@/components/common/Logo';
 import { Icon } from '@/components/common/Icon';
@@ -10,7 +13,13 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ settings, services }) => {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Hide public footer on all admin portal routes
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <footer className="relative mt-24 border-t border-slate-200/80 bg-white/70 backdrop-blur-2xl pt-16 pb-12 shadow-liquid-card dark:border-white/10 dark:bg-[#080A0E]/85 dark:shadow-none">

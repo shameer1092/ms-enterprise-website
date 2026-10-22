@@ -16,6 +16,11 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ navigation, settings }) => {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Hide public navbar on all admin portal routes to avoid duplicate headers
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<Record<string, boolean>>({});
   const [scrolled, setScrolled] = useState(false);
