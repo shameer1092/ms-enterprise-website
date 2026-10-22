@@ -204,36 +204,42 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {plans.map((plan) => (
+          {/* Top 3 Primary Packages */}
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {plans.slice(0, 3).map((plan) => (
               <TiltCard
                 key={plan.id}
                 maxTilt={6}
-                className={`spatial-card relative flex flex-col justify-between rounded-3xl p-8 ${
+                className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 pt-9 ${
                   plan.isPopular
                     ? 'border-sky-500/50 shadow-liquid-elevated ring-2 ring-sky-500/20 dark:border-cyan-500/50 dark:ring-cyan-400/30'
                     : ''
                 }`}
               >
                 {plan.badge && (
-                  <div className="absolute -top-3.5 right-6 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md">
+                  <div className="absolute -top-3.5 right-6 z-20 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md ring-2 ring-white dark:ring-slate-900">
                     {plan.badge}
                   </div>
                 )}
 
-                <div>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
-                    {plan.serviceTitle}
-                  </span>
-                  <h3 className="mt-2 text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
-                  <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">{plan.description}</p>
+                <div className="flex flex-1 flex-col">
+                  <div className="min-h-[64px]">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
+                      {plan.serviceTitle}
+                    </span>
+                    <h3 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
+                  </div>
+
+                  <p className="mt-2 min-h-[44px] text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    {plan.description}
+                  </p>
 
                   <div className="mt-6 flex items-baseline gap-2 border-b border-slate-200/60 pb-6 dark:border-white/10">
                     <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{plan.price}</span>
                     <span className="text-xs text-slate-500 dark:text-slate-400">/ {plan.billingPeriod}</span>
                   </div>
 
-                  <ul className="mt-6 space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                  <ul className="mt-6 flex-1 space-y-3 text-xs text-slate-700 dark:text-slate-300">
                     {plan.features.map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2.5">
                         <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600 dark:text-cyan-400" />
@@ -256,6 +262,67 @@ export default function HomePage() {
               </TiltCard>
             ))}
           </div>
+
+          {/* Centered Specialized Retainers (Row 2: Meta Growth & Ecommerce Support) */}
+          {plans.length > 3 && (
+            <div className="mt-8 mx-auto grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
+              {plans.slice(3).map((plan) => (
+                <TiltCard
+                  key={plan.id}
+                  maxTilt={6}
+                  className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 pt-9 ${
+                    plan.isPopular
+                      ? 'border-sky-500/50 shadow-liquid-elevated ring-2 ring-sky-500/20 dark:border-cyan-500/50 dark:ring-cyan-400/30'
+                      : ''
+                  }`}
+                >
+                  {plan.badge && (
+                    <div className="absolute -top-3.5 right-6 z-20 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md ring-2 ring-white dark:ring-slate-900">
+                      {plan.badge}
+                    </div>
+                  )}
+
+                  <div className="flex flex-1 flex-col">
+                    <div className="min-h-[64px]">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
+                        {plan.serviceTitle}
+                      </span>
+                      <h3 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
+                    </div>
+
+                    <p className="mt-2 min-h-[44px] text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                      {plan.description}
+                    </p>
+
+                    <div className="mt-6 flex items-baseline gap-2 border-b border-slate-200/60 pb-6 dark:border-white/10">
+                      <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{plan.price}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">/ {plan.billingPeriod}</span>
+                    </div>
+
+                    <ul className="mt-6 flex-1 space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                      {plan.features.map((feat, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-2.5">
+                          <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600 dark:text-cyan-400" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-8 pt-4">
+                    <Link
+                      href={plan.ctaLink}
+                      className={`block w-full py-3 text-center text-xs font-bold uppercase tracking-wider transition-all ${
+                        plan.isPopular ? 'spatial-btn-primary' : 'spatial-btn-secondary'
+                      }`}
+                    >
+                      {plan.ctaText}
+                    </Link>
+                  </div>
+                </TiltCard>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -21,7 +21,7 @@ export const Footer: React.FC<FooterProps> = ({ settings, services }) => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5">
           {/* Col 1: Brand & Overview (Spans 2 cols on lg) */}
           <div className="lg:col-span-2">
-            <Logo companyName={settings.companyName} />
+            <Logo companyName={settings.companyName} size="lg" />
             <p className="mt-4 max-w-sm text-xs leading-relaxed text-slate-600 dark:text-slate-400">
               {settings.description}
             </p>

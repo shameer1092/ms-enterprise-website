@@ -124,28 +124,30 @@ function PlanCard({ plan }: { plan: any }) {
   return (
     <TiltCard
       maxTilt={6}
-      className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 ${
+      className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 pt-9 ${
         plan.isPopular
           ? 'border-sky-500/50 shadow-liquid-elevated ring-2 ring-sky-500/20 dark:border-cyan-500/50 dark:ring-cyan-400/30'
           : ''
       }`}
     >
       {plan.badge && (
-        <div className="absolute -top-3.5 right-6 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md">
+        <div className="absolute -top-3.5 right-6 z-20 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md ring-2 ring-white dark:ring-slate-900">
           {plan.badge}
         </div>
       )}
 
-      <div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
-        <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{plan.description}</p>
+      <div className="flex flex-1 flex-col">
+        <div className="min-h-[56px]">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
+        </div>
+        <p className="mt-1 min-h-[44px] text-xs leading-relaxed text-slate-600 dark:text-slate-400">{plan.description}</p>
 
         <div className="mt-6 flex items-baseline gap-2 border-b border-slate-200/60 pb-6 dark:border-white/10">
           <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{plan.price}</span>
           <span className="text-xs text-slate-500 dark:text-slate-400">/ {plan.billingPeriod}</span>
         </div>
 
-        <ul className="mt-6 space-y-3 text-xs text-slate-700 dark:text-slate-300">
+        <ul className="mt-6 flex-1 space-y-3 text-xs text-slate-700 dark:text-slate-300">
           {plan.features.map((feat: string, idx: number) => (
             <li key={idx} className="flex items-start gap-2.5">
               <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600 dark:text-cyan-400" />

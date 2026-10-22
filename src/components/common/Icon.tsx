@@ -41,6 +41,9 @@ import {
   Compass,
   Cpu,
   Zap,
+  Star,
+  Terminal,
+  Send,
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -85,6 +88,9 @@ const iconMap: Record<string, React.ElementType> = {
   Compass,
   Cpu,
   Zap,
+  Star,
+  Terminal,
+  Send,
 };
 
 interface IconProps {

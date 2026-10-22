@@ -393,6 +393,29 @@
       "order": 7,
       "createdAt": "2026-10-22T15:37:07.826Z",
       "updatedAt": "2026-10-22T15:37:07.826Z"
+    },
+    {
+      "title": "Veritas Analytics Hub",
+      "slug": "test-project-1792687378713",
+      "serviceCategory": "web",
+      "client": "Veritas Global",
+      "summary": "Cloud monitoring system with low maintenance architecture.",
+      "description": "Complete bespoke UI with spatial card hierarchy and lifetime live support.",
+      "techStack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "keyOutcomes": [
+        "Instant load times",
+        "Zero backlog"
+      ],
+      "published": true,
+      "showInNav": true,
+      "id": "proj-1792687378712",
+      "order": 8,
+      "createdAt": "2026-10-22T16:42:58.712Z",
+      "updatedAt": "2026-10-22T16:42:58.712Z"
     }
   ],
   "plans": [
@@ -623,6 +646,19 @@
       "timeline": "2 to 4 weeks",
       "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
       "ip": "::1",
+      "id": "inq-1792687378383",
+      "status": "unread",
+      "createdAt": "2026-10-22T16:42:58.383Z"
+    },
+    {
+      "name": "Alex Turner",
+      "email": "alex.turner@example.com",
+      "phone": "+1 555 987 6543",
+      "service": "Custom Website Development",
+      "budget": "$1,500 - $3,500",
+      "timeline": "2 to 4 weeks",
+      "message": "Looking for a custom ecommerce portal redesign with competitor benchmarking.",
+      "ip": "::1",
       "id": "inq-1792683427247",
       "status": "unread",
       "createdAt": "2026-10-22T15:37:07.247Z"
@@ -837,6 +873,13 @@
           "href": "/projects/test-project-1792683427807",
           "order": 7,
           "visible": true
+        },
+        {
+          "id": "nav-proj-proj-1792687378712",
+          "label": "Veritas Analytics Hub",
+          "href": "/projects/test-project-1792687378713",
+          "order": 8,
+          "visible": true
         }
       ]
     },
@@ -865,7 +908,7 @@
       "role": "owner",
       "twoFactorEnabled": false,
       "createdAt": "2026-01-01T00:00:00.000Z",
-      "lastLogin": "2026-10-22T15:37:07.766Z"
+      "lastLogin": "2026-10-22T16:42:58.680Z"
     },
     {
       "id": "usr-editor",
@@ -879,6 +922,20 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "log-1792687378712-2ksw",
+      "timestamp": "2026-10-22T16:42:58.712Z",
+      "user": "admin",
+      "action": "CREATE_PROJECT",
+      "details": "Created project: Veritas Analytics Hub"
+    },
+    {
+      "id": "log-1792687378384-wrff",
+      "timestamp": "2026-10-22T16:42:58.384Z",
+      "user": "public",
+      "action": "NEW_INQUIRY",
+      "details": "New inquiry from Alex Turner (alex.turner@example.com)"
+    },
     {
       "id": "log-1792683427826-cp5e",
       "timestamp": "2026-10-22T15:37:07.826Z",

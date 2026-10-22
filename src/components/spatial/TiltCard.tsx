@@ -7,6 +7,7 @@ interface TiltCardProps {
   className?: string;
   maxTilt?: number; // max tilt degrees (default 5)
   glowColor?: string; // specular spotlight color
+  overflowHidden?: boolean;
 }
 
 export const TiltCard: React.FC<TiltCardProps> = ({
@@ -14,6 +15,7 @@ export const TiltCard: React.FC<TiltCardProps> = ({
   className = '',
   maxTilt = 5,
   glowColor,
+  overflowHidden = false,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
@@ -72,7 +74,7 @@ export const TiltCard: React.FC<TiltCardProps> = ({
   return (
     <div
       style={{ perspective: isTouch ? 'none' : '1200px' }}
-      className="relative transition-transform duration-200"
+      className="relative h-full transition-transform duration-200"
     >
       <div
         ref={cardRef}
@@ -84,12 +86,12 @@ export const TiltCard: React.FC<TiltCardProps> = ({
             : `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) translateZ(0)`,
           transition: 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease',
         }}
-        className={`relative overflow-hidden ${className}`}
+        className={`relative h-full ${overflowHidden ? 'overflow-hidden' : ''} ${className}`}
       >
         {/* Dynamic Specular Glare Overlay tracking cursor */}
         {!isTouch && (
           <div
-            className="pointer-events-none absolute -inset-px rounded-[inherit] transition-opacity duration-300"
+            className="pointer-events-none absolute -inset-px rounded-[inherit] overflow-hidden transition-opacity duration-300"
             style={{
               opacity: glowPos.opacity,
               background: `radial-gradient(circle 320px at ${glowPos.x}% ${glowPos.y}%, ${activeGlow}, transparent 70%)`,
@@ -98,7 +100,7 @@ export const TiltCard: React.FC<TiltCardProps> = ({
         )}
 
         {/* Specular Top Edge Light Highlight */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/20" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] rounded-t-[inherit] bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/20" />
 
         {children}
       </div>
