@@ -35,8 +35,8 @@ export default function PortalGatewayPage() {
         throw new Error(data.error || 'Authentication failed. Please verify credentials.');
       }
 
-      // Successful login routes directly into secure console
-      router.push('/admin/dashboard');
+      // Full navigation ensures new session cookie is attached to server request
+      window.location.href = '/admin/dashboard';
     } catch (err: any) {
       setError(err.message || 'Authentication failed');
     } finally {

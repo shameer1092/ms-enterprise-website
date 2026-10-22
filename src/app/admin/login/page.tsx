@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
         throw new Error(data.error || 'Login failed. Please check credentials.');
       }
 
-      router.push('/admin/dashboard');
+      window.location.href = '/admin/dashboard';
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {

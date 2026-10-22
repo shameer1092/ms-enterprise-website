@@ -3,6 +3,7 @@ import './globals.css';
 import { getSettings, getNavigation, getServices } from '@/lib/db';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { PublicLayoutWrapper } from '@/components/layout/PublicLayoutWrapper';
 import { FloatingWhatsapp } from '@/components/common/FloatingWhatsapp';
 import { JsonLd } from '@/components/common/JsonLd';
 import { CookieNotice } from '@/components/common/CookieNotice';
@@ -109,20 +110,19 @@ export default function RootLayout({
           <div className="liquid-glass-wash-3" />
         </div>
 
-        <div className="flex min-h-screen flex-col">
-          <Navbar navigation={navigation} settings={settings} />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <Footer settings={settings} services={services} />
-        </div>
-
-        {/* Floating WhatsApp Action */}
-        <FloatingWhatsapp
-          phone={settings.whatsapp}
-          enabled={settings.floatingWhatsappEnabled}
-        />
-        <CookieNotice />
+        <PublicLayoutWrapper
+          navbar={<Navbar navigation={navigation} settings={settings} />}
+          footer={<Footer settings={settings} services={services} />}
+          floatingWhatsapp={
+            <FloatingWhatsapp
+              phone={settings.whatsapp}
+              enabled={settings.floatingWhatsappEnabled}
+            />
+          }
+          cookieNotice={<CookieNotice />}
+        >
+          {children}
+        </PublicLayoutWrapper>
         <JsonLd settings={settings} />
       </body>
     </html>

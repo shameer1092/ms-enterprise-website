@@ -30,7 +30,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     fetch('/api/admin/me')
       .then((res) => {
         if (!res.ok) {
-          router.push('/admin/login');
+          router.push('/portal-gateway-7f9a');
           return null;
         }
         return res.json();
@@ -39,11 +39,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         if (data && data.authenticated) {
           setUser(data.user);
         } else {
-          router.push('/admin/login');
+          router.push('/portal-gateway-7f9a');
         }
       })
       .catch(() => {
-        router.push('/admin/login');
+        router.push('/portal-gateway-7f9a');
       })
       .finally(() => setLoading(false));
   }, [pathname, isLoginPage, router]);

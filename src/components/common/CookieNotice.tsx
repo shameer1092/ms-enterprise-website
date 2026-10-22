@@ -2,27 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export const CookieNotice: React.FC = () => {
-  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Never show cookie notice on admin portal
-    if (pathname?.startsWith('/admin')) {
-      return;
-    }
     const consent = localStorage.getItem('ms_cookie_consent');
     if (!consent) {
       const timer = setTimeout(() => setVisible(true), 1200);
       return () => clearTimeout(timer);
     }
-  }, [pathname]);
-
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
+  }, []);
 
   const handleAccept = () => {
     localStorage.setItem('ms_cookie_consent', 'accepted');
