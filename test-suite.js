@@ -60,7 +60,7 @@ async function runTests() {
   let emDashFiles = [];
   for (const f of srcFiles) {
     const content = fs.readFileSync(f, 'utf-8');
-    if (content.includes('\u2014') || content.includes('—')) {
+    if (content.includes(String.fromCharCode(8212))) {
       emDashCount++;
       emDashFiles.push(f);
     }
@@ -305,6 +305,53 @@ async function runTests() {
     assert(backupData.success === true, `Database snapshot created: ${backupData.filename}`);
   } catch (e) {
     assert(false, 'Database backup creation', e.message);
+  }
+
+  // 8. OWASP & Zero-Trust Security Verification
+  console.log('\n>>> 8. Verifying Zero-Trust Obfuscation & Security Headers');
+  // 8a. Probing /admin without auth must return 404
+  try {
+    const unauthAdmin = await request({
+      host: 'localhost',
+      port: 3000,
+      path: '/admin',
+      method: 'GET',
+    });
+    assert(unauthAdmin.statusCode === 404, `Probing /admin without auth returns HTTP 404 (Got: ${unauthAdmin.statusCode})`);
+  } catch (e) {
+    assert(false, 'Unauth admin probe', e.message);
+  }
+
+  // 8b. Secret entry point /portal-gateway-7f9a returns 200
+  try {
+    const portalRes = await request({
+      host: 'localhost',
+      port: 3000,
+      path: '/portal-gateway-7f9a',
+      method: 'GET',
+    });
+    assert(portalRes.statusCode === 200, 'Obfuscated entry point /portal-gateway-7f9a returns HTTP 200');
+  } catch (e) {
+    assert(false, 'Portal gateway request', e.message);
+  }
+
+  // 8c. Footer has NO Admin Access link
+  const footerContent = fs.readFileSync(path.join(__dirname, 'src/components/layout/Footer.tsx'), 'utf8');
+  assert(!footerContent.includes('Admin Access'), 'Footer has zero public Admin Access links');
+
+  // 8d. Security headers verification
+  try {
+    const homeHead = await request({
+      host: 'localhost',
+      port: 3000,
+      path: '/',
+      method: 'GET',
+    });
+    assert(homeHead.headers['x-frame-options'] === 'DENY', 'X-Frame-Options: DENY header present');
+    assert(homeHead.headers['x-content-type-options'] === 'nosniff', 'X-Content-Type-Options: nosniff header present');
+    assert(Boolean(homeHead.headers['content-security-policy']), 'Content-Security-Policy header present');
+  } catch (e) {
+    assert(false, 'Security headers test', e.message);
   }
 
   console.log('\n=====================================================');

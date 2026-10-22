@@ -7,6 +7,9 @@ import { getUserByUsername, getUserById } from './db';
 const JWT_SECRET = process.env.JWT_SECRET || 'ms-enterprise-super-secure-spatial-ui-jwt-secret-2026';
 const TOKEN_COOKIE_NAME = 'ms_admin_token';
 
+// Constant-time comparison dummy hash (bcrypt work factor 12) to mitigate user enumeration timing attacks
+export const DUMMY_BCRYPT_HASH = bcrypt.hashSync('dummy_timing_salt_ms_enterprise_2026', 12);
+
 export interface TokenPayload {
   userId: string;
   username: string;
@@ -15,7 +18,7 @@ export interface TokenPayload {
 }
 
 export function hashPassword(plain: string): string {
-  return bcrypt.hashSync(plain, 10);
+  return bcrypt.hashSync(plain, 12);
 }
 
 export function verifyPassword(plain: string, hashed: string): boolean {

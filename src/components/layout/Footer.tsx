@@ -140,14 +140,6 @@ export const Footer: React.FC<FooterProps> = ({ settings, services }) => {
                   Start Project Inquiry
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/admin/login"
-                  className="text-slate-400 transition-colors hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
-                >
-                  Admin Access
-                </Link>
-              </li>
             </ul>
           </div>
 

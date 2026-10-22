@@ -11,7 +11,7 @@ This guide provides instructions for deploying, hosting, and maintaining the MS 
 - **Data Layer:** File-backed transactional atomic database stored in `data/ms_database.json` with automatic backup rotations in `data/backups/`.
 - **Authentication:** JWT session tokens stored in secure `httpOnly` cookies with bcrypt password hashing and optional 2FA / security PIN verification.
 - **Icons:** SVG icons via `lucide-react`. Zero emojis used anywhere in the codebase.
-- **Copy Standards:** Strict avoidance of em dashes (`—`) across all text strings and pages.
+- **Copy Standards:** Strict avoidance of em dashes across all text strings and pages.
 
 ---
 

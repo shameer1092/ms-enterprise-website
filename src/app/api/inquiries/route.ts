@@ -1,59 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addInquiry } from '@/lib/db';
 import { sendInquiryNotification } from '@/lib/email';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { inquirySchema } from '@/lib/validations';
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. IP extraction & Rate limiting
-    const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
-    const rateCheck = checkRateLimit(ip, 5, 60000); // 5 submissions per minute max
-
-    if (!rateCheck.allowed) {
-      return NextResponse.json(
-        { error: 'Too many submissions. Please wait a minute before submitting again.' },
-        { status: 429 }
-      );
-    }
+    // 1. IP extraction
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
 
     const body = await req.json();
-    const { name, email, phone, service, budget, timeline, message, honeypot } = body;
+    const { honeypot } = body;
 
     // 2. Anti-spam honeypot detection
     if (honeypot) {
-      // Fake success for bots
+      // Fake success response for bots
       return NextResponse.json({ success: true, message: 'Inquiry processed.' });
     }
 
-    // 3. Validation
-    if (!name || typeof name !== 'string' || name.trim().length === 0) {
-      return NextResponse.json({ error: 'Name is required.' }, { status: 400 });
-    }
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
-    }
-
-    if (!service || typeof service !== 'string') {
-      return NextResponse.json({ error: 'Service category is required.' }, { status: 400 });
-    }
-
-    if (!message || message.trim().length < 15) {
+    // 3. Strict Zod Schema Validation
+    const parsed = inquirySchema.safeParse(body);
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Project details must be at least 15 characters long.' },
+        {
+          error: 'Validation failed: ' + parsed.error.issues.map((e) => e.message).join(', '),
+          details: parsed.error.issues,
+        },
         { status: 400 }
       );
     }
 
-    // 4. Save to database
+    const { name, email, phone, service, budget, timeline, message } = parsed.data;
+
+    // 4. Save sanitized inquiry to database
     const savedInquiry = addInquiry({
-      name: name.trim().slice(0, 150),
-      email: email.trim().toLowerCase().slice(0, 150),
-      phone: phone ? phone.trim().slice(0, 50) : '',
-      service: service.trim().slice(0, 100),
-      budget: budget ? budget.trim().slice(0, 50) : '',
-      timeline: timeline ? timeline.trim().slice(0, 50) : '',
-      message: message.trim().slice(0, 5000),
+      name,
+      email,
+      phone: phone || '',
+      service,
+      budget: budget || '',
+      timeline: timeline || '',
+      message,
       ip,
     });
 

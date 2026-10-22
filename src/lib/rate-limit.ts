@@ -1,31 +1,58 @@
-// Lightweight in-memory rate limiter for form submissions and login attempts
-const ipRequestCounts = new Map<string, { count: number; resetTime: number }>();
-
-export function checkRateLimit(ip: string, limit = 10, windowMs = 60000): { allowed: boolean; remaining: number } {
-  const now = Date.now();
-  const record = ipRequestCounts.get(ip);
-
-  if (!record || now > record.resetTime) {
-    ipRequestCounts.set(ip, { count: 1, resetTime: now + windowMs });
-    return { allowed: true, remaining: limit - 1 };
-  }
-
-  if (record.count >= limit) {
-    return { allowed: false, remaining: 0 };
-  }
-
-  record.count += 1;
-  return { allowed: true, remaining: limit - record.count };
+interface RateLimitRecord {
+  timestamps: number[];
 }
 
-// Clean up stale rate limit entries periodically
-if (typeof setInterval !== 'undefined') {
-  setInterval(() => {
-    const now = Date.now();
-    ipRequestCounts.forEach((record, ip) => {
-      if (now > record.resetTime) {
-        ipRequestCounts.delete(ip);
-      }
-    });
-  }, 300000);
+const windowMs = 15 * 60 * 1000; // 15 minutes
+const maxAttempts = 5; // 5 attempts per window
+
+// In-memory sliding window store
+const ipAttempts = new Map<string, RateLimitRecord>();
+
+// Cleanup stale records periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of ipAttempts.entries()) {
+    const validTimestamps = record.timestamps.filter((t) => now - t < windowMs);
+    if (validTimestamps.length === 0) {
+      ipAttempts.delete(ip);
+    } else {
+      record.timestamps = validTimestamps;
+    }
+  }
+}, 5 * 60 * 1000);
+
+export function checkLoginRateLimit(ip: string): {
+  success: boolean;
+  remaining: number;
+  retryAfter: number;
+} {
+  const now = Date.now();
+  const record = ipAttempts.get(ip) || { timestamps: [] };
+
+  // Filter timestamps within current sliding window
+  const activeTimestamps = record.timestamps.filter((t) => now - t < windowMs);
+
+  if (activeTimestamps.length >= maxAttempts) {
+    const oldestTimestamp = activeTimestamps[0];
+    const retryAfterSeconds = Math.ceil((oldestTimestamp + windowMs - now) / 1000);
+    return {
+      success: false,
+      remaining: 0,
+      retryAfter: Math.max(1, retryAfterSeconds),
+    };
+  }
+
+  // Record this attempt
+  activeTimestamps.push(now);
+  ipAttempts.set(ip, { timestamps: activeTimestamps });
+
+  return {
+    success: true,
+    remaining: maxAttempts - activeTimestamps.length,
+    retryAfter: 0,
+  };
+}
+
+export function resetLoginRateLimit(ip: string): void {
+  ipAttempts.delete(ip);
 }
