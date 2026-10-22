@@ -8,8 +8,8 @@ import { ThemeSwitcher } from '@/components/common/ThemeSwitcher';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('Admin@12345');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [twoFactorCode, setTwoFactorCode] = useState('');
   const [requires2FA, setRequires2FA] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-5" autoComplete="off">
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Username
@@ -88,9 +88,10 @@ export default function AdminLoginPage() {
                 <input
                   type="text"
                   required
+                  autoComplete="off"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
+                  placeholder="Enter username"
                   className="w-full rounded-2xl border border-slate-300/80 bg-white/80 py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-white/10 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500"
                 />
               </div>
@@ -108,9 +109,10 @@ export default function AdminLoginPage() {
                 <input
                   type="password"
                   required
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
+                  placeholder="Enter password"
                   className="w-full rounded-2xl border border-slate-300/80 bg-white/80 py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-white/10 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500"
                 />
               </div>

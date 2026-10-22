@@ -9,8 +9,8 @@ import { TiltCard } from '@/components/spatial/TiltCard';
 
 export default function PortalGatewayPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('Admin@12345');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -74,7 +74,7 @@ export default function PortalGatewayPage() {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-5" autoComplete="off">
             <div>
               <label
                 htmlFor="username"
@@ -88,10 +88,11 @@ export default function PortalGatewayPage() {
                   name="username"
                   type="text"
                   required
+                  autoComplete="off"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="spatial-input w-full rounded-xl pl-10 pr-4 py-2.5 text-xs"
-                  placeholder="admin"
+                  placeholder="Enter username"
                 />
                 <Icon
                   name="User"
@@ -113,10 +114,11 @@ export default function PortalGatewayPage() {
                   name="password"
                   type="password"
                   required
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="spatial-input w-full rounded-xl pl-10 pr-4 py-2.5 text-xs"
-                  placeholder="••••••••••••"
+                  placeholder="Enter security key"
                 />
                 <Icon
                   name="Lock"
