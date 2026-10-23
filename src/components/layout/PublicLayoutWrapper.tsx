@@ -10,6 +10,7 @@ interface PublicLayoutWrapperProps {
   floatingWhatsapp: React.ReactNode;
   cookieNotice: React.ReactNode;
   bitmojiCompanion?: React.ReactNode;
+  threeBackground?: React.ReactNode;
 }
 
 export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
@@ -19,12 +20,13 @@ export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
   floatingWhatsapp,
   cookieNotice,
   bitmojiCompanion,
+  threeBackground,
 }) => {
   const pathname = usePathname();
   const isAdminOrPortal =
     pathname?.startsWith('/admin') || pathname?.startsWith('/portal-gateway');
 
-  // For administrative console or portal gateway, isolate from public website chrome
+  // For administrative console or portal gateway, isolate from public website chrome & 3D effects
   if (isAdminOrPortal) {
     return (
       <main id="main-content" className="flex-1">
@@ -36,6 +38,7 @@ export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
   // Standard public website shell with mobile-first zero overflow
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden relative z-10 bg-transparent">
+      {threeBackground}
       {navbar}
       <main id="main-content" className="flex-1 bg-transparent">
         {children}

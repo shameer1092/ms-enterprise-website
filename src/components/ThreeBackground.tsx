@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import * as THREE from 'three';
 
 interface ThreeBackgroundProps {
@@ -8,6 +9,10 @@ interface ThreeBackgroundProps {
 }
 
 export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = '' }) => {
+  const pathname = usePathname();
+  const isAdminOrPortal =
+    pathname?.startsWith('/admin') || pathname?.startsWith('/portal-gateway');
+
   const mountRef = useRef<HTMLDivElement>(null);
   const [fps, setFps] = useState<number>(60);
   const [subsystem, setSubsystem] = useState<string>('01_SPATIAL_CORE_ONLINE');
@@ -27,6 +32,7 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
   };
 
   useEffect(() => {
+    if (isAdminOrPortal) return;
     const container = mountRef.current;
     if (!container) return;
 
@@ -643,6 +649,10 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     const nextState = !isOrbitActive;
     window.dispatchEvent(new CustomEvent('toggle-3d-orbit', { detail: { active: nextState } }));
   };
+
+  if (isAdminOrPortal) {
+    return null;
+  }
 
   return (
     <>

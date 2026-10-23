@@ -5,7 +5,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PublicLayoutWrapper } from '@/components/layout/PublicLayoutWrapper';
 import { FloatingWhatsapp } from '@/components/common/FloatingWhatsapp';
-import { BitmojiCompanion } from '@/components/BitmojiCompanion';
+import { FloatingAvatarCompanion } from '@/components/FloatingAvatarCompanion';
 import { ThreeBackground } from '@/components/ThreeBackground';
 import { JsonLd } from '@/components/common/JsonLd';
 import { CookieNotice } from '@/components/common/CookieNotice';
@@ -107,10 +107,8 @@ export default function RootLayout({
         {/* 60% Dominant Canvas Base */}
         <div className="site-backdrop" aria-hidden="true" />
 
-        {/* 3D Spatial Quantum Engine in 60-30-10 Luxury Brand Palette */}
-        <ThreeBackground />
-
         <PublicLayoutWrapper
+          threeBackground={<ThreeBackground />}
           navbar={<Navbar navigation={navigation} settings={settings} />}
           footer={<Footer settings={settings} services={services} />}
           floatingWhatsapp={
@@ -119,7 +117,7 @@ export default function RootLayout({
               enabled={settings.floatingWhatsappEnabled}
             />
           }
-          bitmojiCompanion={<BitmojiCompanion />}
+          bitmojiCompanion={<FloatingAvatarCompanion />}
           cookieNotice={<CookieNotice />}
         >
           {children}
