@@ -103,7 +103,7 @@ export const BitmojiCompanion: React.FC = () => {
 
   const [emotion, setEmotionState] = useState<BitmojiEmotion>('happy');
   const [dialogueText, setDialogueText] = useState<string>(
-    'Hey there! Ready to build something fast? Tap anything on the page to see me react!'
+    'Hey there! Ready to build something fast? Watch my eyes follow your cursor!'
   );
   const [dialogueTag, setDialogueTag] = useState<string>('PARTNER STANDARD');
   const [dialogueEmoji, setDialogueEmoji] = useState<string>('👋');
@@ -113,14 +113,31 @@ export const BitmojiCompanion: React.FC = () => {
   const [isSquashing, setIsSquashing] = useState<boolean>(false);
   const [activeParticles, setActiveParticles] = useState<{ id: number; symbol: string; x: number }[]>([]);
   const [directQuoteIdx, setDirectQuoteIdx] = useState<number>(0);
+  const [eyeOffset, setEyeOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  // DOM node references for 60fps hardware-accelerated eye and head tracking
   const companionRef = useRef<HTMLDivElement>(null);
+  const avatarButtonRef = useRef<HTMLButtonElement>(null);
+  const leftEyePupilRef = useRef<SVGCircleElement>(null);
+  const rightEyePupilRef = useRef<SVGCircleElement>(null);
+  const leftEyeGlintRef = useRef<SVGCircleElement>(null);
+  const rightEyeGlintRef = useRef<SVGCircleElement>(null);
+  const headGroupRef = useRef<SVGGElement>(null);
+
   const bubbleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isSleepingRef = useRef<boolean>(false);
+  const lastTextThoughtTimeRef = useRef<number>(0);
+  const lastHoveredElementRef = useRef<Element | null>(null);
+
+  // Sync ref with state
+  useEffect(() => {
+    isSleepingRef.current = isSleeping;
+  }, [isSleeping]);
 
   // Trigger emotion with optional custom text and emoji
   const triggerEmotion = useCallback(
     (newEmotion: BitmojiEmotion, customText?: string, customEmoji?: string, customTag?: string) => {
-      if (isSleeping && newEmotion !== 'sleepy') {
+      if (isSleepingRef.current && newEmotion !== 'sleepy') {
         setIsSleeping(false);
       }
 
@@ -135,7 +152,7 @@ export const BitmojiCompanion: React.FC = () => {
       const newParticles = config.particles.map((symbol, i) => ({
         id: Date.now() + i,
         symbol,
-        x: (i - 1) * 22, // Spread particles horizontally
+        x: (i - 1) * 22,
       }));
       setActiveParticles(newParticles);
       setTimeout(() => {
@@ -146,16 +163,15 @@ export const BitmojiCompanion: React.FC = () => {
       setIsSquashing(true);
       setTimeout(() => setIsSquashing(false), 450);
 
-      // Refresh bubble auto-hide if desired (or keep visible)
       if (bubbleTimeoutRef.current) clearTimeout(bubbleTimeoutRef.current);
       bubbleTimeoutRef.current = setTimeout(() => {
-        // Keep bubble open for readability, but don't force-close
-      }, 5000);
+        // Keep open for readability
+      }, 6000);
     },
-    [isSleeping]
+    []
   );
 
-  // Sleep state change reaction
+  // Sleep state reaction
   useEffect(() => {
     if (isSleeping) {
       setEmotionState('sleepy');
@@ -165,7 +181,7 @@ export const BitmojiCompanion: React.FC = () => {
     }
   }, [isSleeping]);
 
-  // Listen for custom 3D orbit and external trigger events
+  // External events (3D orbit and emotion bus)
   useEffect(() => {
     const handle3DOrbit = (e: any) => {
       const active = e.detail?.active;
@@ -201,28 +217,216 @@ export const BitmojiCompanion: React.FC = () => {
     };
   }, [triggerEmotion]);
 
-  // --- GLOBAL CLICK INTERACTION ENGINE ---
-  // Listens to clicks on the entire page and reflects dynamic emotions!
+  // --- 1. DYNAMIC CURSOR-TRACKING EYES & TEXT-HOVER INTELLIGENCE ENGINE ---
+  useEffect(() => {
+    if (isAdminOrPortal) return;
+
+    // Helper: Generate intelligent short detail when hovering over text
+    const generateThoughtAboutText = (fullText: string, el: HTMLElement) => {
+      const lower = fullText.toLowerCase();
+
+      let insightText = '';
+      let tag = 'ARCHITECT INSIGHT';
+      let emoji = '🧐';
+
+      if (lower.includes('without agency bloat') || lower.includes('agency bloat')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'By eliminating bloated account managers and retainers, 100% of your budget goes directly to senior software architects! 💡';
+        emoji = '✂️';
+      } else if (lower.includes('no non-technical intermediaries') || lower.includes('intermediaries')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Direct founder communication! Rana & Moiz speak fluent code — zero broken promises or lost Jira tickets! 🧠';
+        emoji = '🤝';
+      } else if (lower.includes('direct architect access')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'You get direct Slack & WhatsApp communication with the engineers actually writing your code from Day 1. 🚀';
+        emoji = '⚡';
+      } else if (lower.includes('zero middle managers')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'No junior coordinators billing $150/hr just to forward your emails. Pure high-speed production output! 💎';
+        emoji = '🛡️';
+      } else if (lower.includes('lifetime live support')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'We maintain ownership long after launch: real-time uptime monitoring, security patches, and instant bug fixes included! 🔒';
+        emoji = '✨';
+      } else if (lower.includes('low monthly maintenance')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Transparent, flat-rate monthly support so you never get surprise maintenance invoices or hidden lock-ins! 📊';
+        emoji = '💰';
+      } else if (lower.includes('custom website') || lower.includes('pillar 01') || lower.includes('web platforms')) {
+        tag = 'READING THIS PART';
+        insightText =
+          'Custom Next.js 14 App Router platform with zero template bloat, pristine TypeScript, and sub-second load times! 💻⚡';
+        emoji = '💻';
+      } else if (lower.includes('sub-second') || lower.includes('speed') || lower.includes('high-performing')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Engineered for 99+ Google Core Web Vitals scores, optimized asset bundles, and instant server-side hydration! ⚡';
+        emoji = '🏎️';
+      } else if (lower.includes('competitor-informed') || lower.includes('redesign')) {
+        tag = 'ARCHITECT INSIGHT';
+        insightText =
+          'We deconstruct your top 3 competitors’ conversion funnels and outperform them in speed, aesthetics, and UX flow! 📈';
+        emoji = '🎯';
+      } else if (lower.includes('meta organic growth') || lower.includes('pillar 02') || lower.includes('scale online stores')) {
+        tag = 'READING THIS PART';
+        insightText =
+          'Targeting high-intent buyers on Facebook through organic viral loops and engaging communities without ad burns! 📈🔥';
+        emoji = '🔥';
+      } else if (lower.includes('virtual assistant') || lower.includes('pillar 03') || lower.includes('store va')) {
+        tag = 'READING THIS PART';
+        insightText =
+          'Dedicated 24/7 Shopify & WooCommerce management: catalog syncing, order fulfillment, and live chat support! 🛒';
+        emoji = '🛒';
+      } else if (lower.includes('rana') || lower.includes('moiz') || lower.includes('founders') || lower.includes('leadership')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Rana architects the backend code & WebGL engines; Moiz scales Meta traffic, customer acquisition, and growth operations! 🤝';
+        emoji = '👥';
+      } else if (lower.includes('plan') || lower.includes('pricing') || lower.includes('tier')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Sprint-based flat deliverables. No inflated retainers or surprise scope-creep costs! 💎';
+        emoji = '💎';
+      } else if (lower.includes('faq') || lower.includes('question') || lower.includes('why')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Total transparency before writing a single line of code. If a template fits better, we’ll honestly tell you! 🔍';
+        emoji = '💡';
+      } else if (lower.includes('3d') || lower.includes('quantum') || lower.includes('spatial')) {
+        tag = 'THINKING ABOUT THIS';
+        insightText =
+          'Procedural WebGL 3D Quantum Engine rendering at 60fps with ACES Filmic tonemapping! Look at those rings spin! 🪐';
+        emoji = '🪐';
+      } else {
+        const cleanSnippet = fullText.replace(/\s+/g, ' ').slice(0, 52);
+        tag = 'THINKING ABOUT THIS';
+        insightText = `Reading "${cleanSnippet}..." — Engineered with precision for speed, conversions, and clean UX! 🧐✨`;
+        emoji = '💡';
+      }
+
+      triggerEmotion('thinking', insightText, emoji, tag);
+    };
+
+    // Main pointer tracker: handles both desktop cursor and mobile touches
+    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+      const pointerX = 'touches' in e && e.touches.length > 0 ? e.touches[0].clientX : (e as MouseEvent).clientX;
+      const pointerY = 'touches' in e && e.touches.length > 0 ? e.touches[0].clientY : (e as MouseEvent).clientY;
+
+      if (pointerX === undefined || pointerY === undefined) return;
+
+      // 1. UPDATE EYE GAZE (Pupils always follow the cursor arrow / finger touch)
+      if (avatarButtonRef.current) {
+        const rect = avatarButtonRef.current.getBoundingClientRect();
+        const avatarCenterX = rect.left + rect.width / 2;
+        const avatarCenterY = rect.top + rect.height / 2;
+
+        const dx = pointerX - avatarCenterX;
+        const dy = pointerY - avatarCenterY;
+        const angle = Math.atan2(dy, dx);
+        const dist = Math.hypot(dx, dy);
+
+        // Normalize offset: maximum 2.6 units in SVG coordinate space
+        const factor = Math.min(1, dist / 280);
+        const maxOffset = 2.6;
+        const lookX = Math.cos(angle) * maxOffset * factor;
+        const lookY = Math.sin(angle) * maxOffset * factor;
+
+        // Apply hardware-accelerated direct SVG attributes (60fps lag-free)
+        if (leftEyePupilRef.current) {
+          leftEyePupilRef.current.setAttribute('cx', (42 + lookX).toFixed(2));
+          leftEyePupilRef.current.setAttribute('cy', (45 + lookY).toFixed(2));
+        }
+        if (leftEyeGlintRef.current) {
+          leftEyeGlintRef.current.setAttribute('cx', (42 + lookX * 0.7 - 0.7).toFixed(2));
+          leftEyeGlintRef.current.setAttribute('cy', (45 + lookY * 0.7 - 0.7).toFixed(2));
+        }
+        if (rightEyePupilRef.current) {
+          rightEyePupilRef.current.setAttribute('cx', (58 + lookX).toFixed(2));
+          rightEyePupilRef.current.setAttribute('cy', (45 + lookY).toFixed(2));
+        }
+        if (rightEyeGlintRef.current) {
+          rightEyeGlintRef.current.setAttribute('cx', (58 + lookX * 0.7 - 0.7).toFixed(2));
+          rightEyeGlintRef.current.setAttribute('cy', (45 + lookY * 0.7 - 0.7).toFixed(2));
+        }
+
+        // Subtle head tilt towards cursor / touch point (-4deg to +4deg)
+        if (headGroupRef.current) {
+          const tiltDeg = Math.max(-4, Math.min(4, (dx / window.innerWidth) * 7));
+          headGroupRef.current.style.transform = `rotate(${tiltDeg}deg)`;
+          headGroupRef.current.style.transformOrigin = '50px 50px';
+        }
+
+        setEyeOffset({ x: lookX, y: lookY });
+      }
+
+      // 2. TEXT HOVER / TOUCH THINKING REACTION
+      if (isSleepingRef.current) return;
+
+      const element = document.elementFromPoint(pointerX, pointerY);
+      if (!element) return;
+
+      if (companionRef.current && companionRef.current.contains(element)) return;
+
+      // Find closest meaningful text element
+      const textEl = element.closest(
+        'h1, h2, h3, h4, p, li, blockquote, .spatial-card, .partner-card, .liquid-glass, [data-thought]'
+      ) as HTMLElement | null;
+
+      if (!textEl) return;
+      if (textEl === lastHoveredElementRef.current) return;
+
+      const text = (textEl.textContent || '').trim();
+      if (text.length < 12) return;
+
+      // Throttle text thinking so it does not overwhelm (at least 2.8s between thoughts)
+      const now = Date.now();
+      if (now - lastTextThoughtTimeRef.current < 2800) return;
+
+      // Random trigger chance (as requested: "as cursor is moved on a text randomly it will start thinking")
+      // 45% probability when encountering a new text element
+      if (Math.random() > 0.45) return;
+
+      lastTextThoughtTimeRef.current = now;
+      lastHoveredElementRef.current = textEl;
+      generateThoughtAboutText(text, textEl);
+    };
+
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+    window.addEventListener('touchmove', handlePointerMove, { passive: true });
+    window.addEventListener('touchstart', handlePointerMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handlePointerMove);
+      window.removeEventListener('touchmove', handlePointerMove);
+      window.removeEventListener('touchstart', handlePointerMove);
+    };
+  }, [isAdminOrPortal, triggerEmotion]);
+
+  // --- 2. GLOBAL CLICK INTERACTION ENGINE ---
   useEffect(() => {
     if (isAdminOrPortal) return;
 
     const handleDocumentClick = (e: MouseEvent) => {
-      // Don't intercept clicks inside the companion itself
       if (companionRef.current && companionRef.current.contains(e.target as Node)) {
         return;
       }
 
-      if (isSleeping) return;
+      if (isSleepingRef.current) return;
 
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
-      // Find closest interactive element
       const interactiveEl = target.closest(
         'button, a, input, select, textarea, [role="button"], summary, [data-interactive]'
       ) as HTMLElement | null;
 
-      // Extract context cues
       const text = (interactiveEl?.textContent || target.textContent || '').trim().toLowerCase();
       const href = (interactiveEl?.getAttribute('href') || '').toLowerCase();
       const aria = (interactiveEl?.getAttribute('aria-label') || '').toLowerCase();
@@ -230,7 +434,7 @@ export const BitmojiCompanion: React.FC = () => {
       const id = (interactiveEl?.id || target.id || '').toLowerCase();
       const combined = `${text} ${href} ${aria} ${title} ${id}`;
 
-      // 1. Inquiry / CTA / "Start a Conversation"
+      // 1. Inquiry / CTA
       if (
         combined.includes('inquiry') ||
         combined.includes('conversation') ||
@@ -247,7 +451,7 @@ export const BitmojiCompanion: React.FC = () => {
         return;
       }
 
-      // 2. 3D Engine / Architecture / Orbit
+      // 2. 3D Engine / Architecture
       if (
         combined.includes('3d') ||
         combined.includes('architecture') ||
@@ -275,7 +479,7 @@ export const BitmojiCompanion: React.FC = () => {
         return;
       }
 
-      // 4. Phone / Call
+      // 4. Phone Call
       if (combined.includes('tel:') || combined.includes('phone') || combined.includes('call')) {
         triggerEmotion(
           'happy',
@@ -286,7 +490,7 @@ export const BitmojiCompanion: React.FC = () => {
         return;
       }
 
-      // 5. Web Development Pillar
+      // 5. Web Dev Pillar
       if (
         combined.includes('custom website') ||
         combined.includes('web-dev') ||
@@ -354,7 +558,7 @@ export const BitmojiCompanion: React.FC = () => {
         return;
       }
 
-      // 9. Theme Switcher (Dark / Light)
+      // 9. Theme Switcher
       if (
         combined.includes('theme') ||
         combined.includes('dark') ||
@@ -382,7 +586,7 @@ export const BitmojiCompanion: React.FC = () => {
         return;
       }
 
-      // 10. FAQ / Accordion / Questions
+      // 10. FAQ / Questions
       if (
         combined.includes('faq') ||
         combined.includes('question') ||
@@ -398,7 +602,7 @@ export const BitmojiCompanion: React.FC = () => {
         return;
       }
 
-      // 11. Generic Click anywhere else: Cycle vibrant interactive emotions
+      // 11. Generic Click
       const genericEmotions: { em: BitmojiEmotion; text: string; emoji: string }[] = [
         { em: 'wink', text: 'Checking that out? Great eye for detail! 😉', emoji: '✨' },
         { em: 'happy', text: 'Exploring the platform? Let me know if you need anything! 😊', emoji: '👋' },
@@ -416,7 +620,7 @@ export const BitmojiCompanion: React.FC = () => {
     return () => {
       document.removeEventListener('click', handleDocumentClick, true);
     };
-  }, [isAdminOrPortal, isSleeping, triggerEmotion]);
+  }, [isAdminOrPortal, triggerEmotion]);
 
   // Click directly on the Bitmoji avatar
   const handleAvatarDirectClick = (e: React.MouseEvent) => {
@@ -428,7 +632,6 @@ export const BitmojiCompanion: React.FC = () => {
       return;
     }
 
-    // 35% chance to do a playful 360 comic backflip
     if (Math.random() < 0.35 && !isBackflipping) {
       setIsBackflipping(true);
       triggerEmotion('surprised', 'Whoosh! Missed me! 😜💨 360° backflip roll!', '💨', 'ACROBATICS');
@@ -436,7 +639,6 @@ export const BitmojiCompanion: React.FC = () => {
       return;
     }
 
-    // Cycle funny direct remarks
     const quote = DIRECT_CLICK_QUOTES[directQuoteIdx % DIRECT_CLICK_QUOTES.length];
     setDirectQuoteIdx((prev) => prev + 1);
     triggerEmotion(quote.emotion, quote.text, quote.emoji, 'POKE REACTION');
@@ -522,7 +724,7 @@ export const BitmojiCompanion: React.FC = () => {
           <div
             role="status"
             aria-live="polite"
-            className="pointer-events-auto relative mb-3 w-[270px] sm:w-[300px] liquid-glass p-3.5 rounded-2xl shadow-partner-card-hover border border-white/70 dark:border-white/15 animate-fade-in transition-all duration-300"
+            className="pointer-events-auto relative mb-3 w-[270px] sm:w-[310px] liquid-glass p-3.5 rounded-2xl shadow-partner-card-hover border border-white/70 dark:border-white/15 animate-fade-in transition-all duration-300"
           >
             {/* Header pill & controls */}
             <div className="flex items-center justify-between pb-1.5 border-b border-[#E5E7EB]/70 dark:border-[#2A2D34]">
@@ -624,12 +826,13 @@ export const BitmojiCompanion: React.FC = () => {
             </button>
           )}
 
-          {/* AVATAR BODY CONTAINER */}
+          {/* AVATAR BODY BUTTON */}
           <button
+            ref={avatarButtonRef}
             type="button"
             onClick={handleAvatarDirectClick}
             aria-label={`Interactive Bitmoji Companion (${emotion} emotion)`}
-            title="Click me to cycle playful emotions and reactions!"
+            title="My eyes follow your cursor! Hover text to see me think!"
             className={`group relative flex h-[76px] w-[76px] sm:h-[84px] sm:w-[84px] items-center justify-center rounded-full bg-gradient-to-br from-white/95 to-[#F5E6BE]/90 p-1.5 shadow-partner-card-hover border-2 border-white/80 transition-all duration-300 hover:scale-105 active:scale-95 dark:from-[#1E2024] dark:to-[#121316] dark:border-[#D4AF37]/50 ${
               isBackflipping ? 'bitmoji-backflip' : ''
             } ${isSquashing ? 'bitmoji-squash' : ''} ${
@@ -682,30 +885,25 @@ export const BitmojiCompanion: React.FC = () => {
 
               {/* --- 1. HOODIE BODY & SHOULDERS --- */}
               <g id="body">
-                {/* Shoulder Base */}
                 <path
                   d="M 20 86 Q 50 72 80 86 L 86 100 L 14 100 Z"
                   fill="url(#hoodieGrad)"
                 />
-                {/* Hoodie Neck Collar */}
                 <path
                   d="M 32 75 Q 50 83 68 75 Q 50 90 32 75 Z"
                   fill="#1B1D22"
                   stroke="#D4AF37"
                   strokeWidth="0.8"
                 />
-                {/* Gold Hoodie Drawstrings */}
                 <path
                   d="M 44 80 L 44 92 M 56 80 L 56 92"
                   stroke="#D4AF37"
                   strokeWidth="1.2"
                   strokeLinecap="round"
                 />
-                {/* Golden Aglets */}
                 <circle cx="44" cy="93" r="1.2" fill="#F5E6BE" />
                 <circle cx="56" cy="93" r="1.2" fill="#F5E6BE" />
 
-                {/* Mini MS Monogram on left chest */}
                 <text
                   x="30"
                   y="92"
@@ -718,426 +916,480 @@ export const BitmojiCompanion: React.FC = () => {
                 </text>
               </g>
 
-              {/* --- 2. EARS --- */}
-              <g id="ears">
-                <ellipse cx="28" cy="48" rx="4" ry="6" fill="url(#skinGrad)" />
-                <ellipse cx="28.5" cy="48" rx="2.2" ry="3.8" fill="#DFA060" />
+              {/* --- HEAD & FACE GROUP (Subtly tilts towards cursor) --- */}
+              <g id="headGroup" ref={headGroupRef}>
+                {/* 2. EARS */}
+                <g id="ears">
+                  <ellipse cx="28" cy="48" rx="4" ry="6" fill="url(#skinGrad)" />
+                  <ellipse cx="28.5" cy="48" rx="2.2" ry="3.8" fill="#DFA060" />
 
-                <ellipse cx="72" cy="48" rx="4" ry="6" fill="url(#skinGrad)" />
-                <ellipse cx="71.5" cy="48" rx="2.2" ry="3.8" fill="#DFA060" />
-              </g>
+                  <ellipse cx="72" cy="48" rx="4" ry="6" fill="url(#skinGrad)" />
+                  <ellipse cx="71.5" cy="48" rx="2.2" ry="3.8" fill="#DFA060" />
+                </g>
 
-              {/* --- 3. FACE & HEAD SHAPE --- */}
-              <g id="head">
-                <ellipse cx="50" cy="47" rx="22" ry="25" fill="url(#skinGrad)" />
-                {/* Soft chin curve */}
-                <path
-                  d="M 36 56 Q 50 72 64 56 Z"
-                  fill="url(#skinGrad)"
-                />
-              </g>
+                {/* 3. FACE SHAPE */}
+                <g id="head">
+                  <ellipse cx="50" cy="47" rx="22" ry="25" fill="url(#skinGrad)" />
+                  <path
+                    d="M 36 56 Q 50 72 64 56 Z"
+                    fill="url(#skinGrad)"
+                  />
+                </g>
 
-              {/* --- 4. MODERN POMPADOUR / FADE HAIR --- */}
-              <g id="hair">
-                {/* Main Hair Volume */}
-                <path
-                  d="M 27 44 C 25 32 30 20 42 17 C 54 14 68 18 73 26 C 77 34 75 42 73 45 C 70 38 66 32 58 31 C 48 30 38 34 32 44 Z"
-                  fill="url(#hairGrad)"
-                />
-                {/* Hair Sweep Front Quiff */}
-                <path
-                  d="M 33 28 C 38 20 50 16 64 19 C 72 21 76 28 75 33 C 71 27 60 23 48 24 C 40 25 35 27 33 28 Z"
-                  fill="#3E3029"
-                />
-                {/* Sideburns */}
-                <path
-                  d="M 28 42 L 29 48 L 31 46 L 30 42 Z"
-                  fill="#1B1411"
-                />
-                <path
-                  d="M 72 42 L 71 48 L 69 46 L 70 42 Z"
-                  fill="#1B1411"
-                />
-              </g>
+                {/* 4. MODERN POMPADOUR / FADE HAIR */}
+                <g id="hair">
+                  <path
+                    d="M 27 44 C 25 32 30 20 42 17 C 54 14 68 18 73 26 C 77 34 75 42 73 45 C 70 38 66 32 58 31 C 48 30 38 34 32 44 Z"
+                    fill="url(#hairGrad)"
+                  />
+                  <path
+                    d="M 33 28 C 38 20 50 16 64 19 C 72 21 76 28 75 33 C 71 27 60 23 48 24 C 40 25 35 27 33 28 Z"
+                    fill="#3E3029"
+                  />
+                  <path d="M 28 42 L 29 48 L 31 46 L 30 42 Z" fill="#1B1411" />
+                  <path d="M 72 42 L 71 48 L 69 46 L 70 42 Z" fill="#1B1411" />
+                </g>
 
-              {/* --- 5. DYNAMIC EYEBROWS (BASED ON EMOTION) --- */}
-              <g id="eyebrows">
-                {emotion === 'thinking' ? (
-                  <>
-                    {/* Left raised inquisitive eyebrow */}
-                    <path
-                      d="M 36 34 Q 42 29 47 33"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    {/* Right furrowed thoughtful eyebrow */}
-                    <path
-                      d="M 53 36 Q 58 38 64 36"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                ) : emotion === 'surprised' ? (
-                  <>
-                    {/* High arched shocked brows */}
-                    <path
-                      d="M 36 32 Q 42 27 47 32"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M 53 32 Q 58 27 64 32"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                ) : emotion === 'wink' ? (
-                  <>
-                    {/* Left arched playfully, right relaxed */}
-                    <path
-                      d="M 36 36 Q 42 38 47 36"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M 53 33 Q 58 29 64 33"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                ) : emotion === 'excited' || emotion === 'celebrate' ? (
-                  <>
-                    {/* High happy brows */}
-                    <path
-                      d="M 36 34 Q 42 30 47 34"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M 53 34 Q 58 30 64 34"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                ) : (
-                  <>
-                    {/* Standard Confident Brows */}
-                    <path
-                      d="M 36 35 Q 42 33 47 36"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M 53 36 Q 58 33 64 35"
-                      stroke="#1B1411"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                )}
-              </g>
-
-              {/* --- 6. DYNAMIC EYES (BASED ON EMOTION) --- */}
-              <g id="eyes">
-                {emotion === 'excited' ? (
-                  /* 4-Point Sparkling Golden Star Eyes */
-                  <>
-                    <g transform="translate(42, 45)" className="star-twinkle-anim">
-                      <polygon points="0,-5 1.5,-1.5 5,0 1.5,1.5 0,5 -1.5,1.5 -5,0 -1.5,-1.5" fill="#D4AF37" />
-                      <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
-                    </g>
-                    <g transform="translate(58, 45)" className="star-twinkle-anim">
-                      <polygon points="0,-5 1.5,-1.5 5,0 1.5,1.5 0,5 -1.5,1.5 -5,0 -1.5,-1.5" fill="#D4AF37" />
-                      <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
-                    </g>
-                  </>
-                ) : emotion === 'love' ? (
-                  /* Beating Heart Eyes */
-                  <>
-                    <g transform="translate(42, 45)" className="heart-beat-anim">
+                {/* 5. DYNAMIC EYEBROWS */}
+                <g id="eyebrows">
+                  {emotion === 'thinking' ? (
+                    <>
                       <path
-                        d="M 0 2 A 2 2 0 0 0 -3.5 -1.5 A 2 2 0 0 0 -4 -3.5 A 2 2 0 0 0 0 -5 A 2 2 0 0 0 4 -3.5 A 2 2 0 0 0 3.5 -1.5 Z"
-                        transform="scale(0.8) translate(0, 3)"
-                        fill="#E11D48"
+                        d="M 36 34 Q 42 29 47 33"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 53 36 Q 58 38 64 36"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                    </>
+                  ) : emotion === 'surprised' ? (
+                    <>
+                      <path
+                        d="M 36 32 Q 42 27 47 32"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 53 32 Q 58 27 64 32"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                    </>
+                  ) : emotion === 'wink' ? (
+                    <>
+                      <path
+                        d="M 36 36 Q 42 38 47 36"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 53 33 Q 58 29 64 33"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                    </>
+                  ) : emotion === 'excited' || emotion === 'celebrate' ? (
+                    <>
+                      <path
+                        d="M 36 34 Q 42 30 47 34"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 53 34 Q 58 30 64 34"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <path
+                        d="M 36 35 Q 42 33 47 36"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 53 36 Q 58 33 64 35"
+                        stroke="#1B1411"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                    </>
+                  )}
+                </g>
+
+                {/* 6. DYNAMIC EYES WITH ACTIVE CURSOR & TOUCH TRACKING */}
+                <g id="eyes">
+                  {emotion === 'excited' ? (
+                    /* 4-Point Sparkling Golden Star Eyes */
+                    <>
+                      <g transform={`translate(${42 + eyeOffset.x * 0.4}, ${45 + eyeOffset.y * 0.4})`} className="star-twinkle-anim">
+                        <polygon points="0,-5 1.5,-1.5 5,0 1.5,1.5 0,5 -1.5,1.5 -5,0 -1.5,-1.5" fill="#D4AF37" />
+                        <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
+                      </g>
+                      <g transform={`translate(${58 + eyeOffset.x * 0.4}, ${45 + eyeOffset.y * 0.4})`} className="star-twinkle-anim">
+                        <polygon points="0,-5 1.5,-1.5 5,0 1.5,1.5 0,5 -1.5,1.5 -5,0 -1.5,-1.5" fill="#D4AF37" />
+                        <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
+                      </g>
+                    </>
+                  ) : emotion === 'love' ? (
+                    /* Beating Heart Eyes */
+                    <>
+                      <g transform={`translate(${42 + eyeOffset.x * 0.4}, ${45 + eyeOffset.y * 0.4})`} className="heart-beat-anim">
+                        <path
+                          d="M 0 2 A 2 2 0 0 0 -3.5 -1.5 A 2 2 0 0 0 -4 -3.5 A 2 2 0 0 0 0 -5 A 2 2 0 0 0 4 -3.5 A 2 2 0 0 0 3.5 -1.5 Z"
+                          transform="scale(0.8) translate(0, 3)"
+                          fill="#E11D48"
+                        />
+                      </g>
+                      <g transform={`translate(${58 + eyeOffset.x * 0.4}, ${45 + eyeOffset.y * 0.4})`} className="heart-beat-anim">
+                        <path
+                          d="M 0 2 A 2 2 0 0 0 -3.5 -1.5 A 2 2 0 0 0 -4 -3.5 A 2 2 0 0 0 0 -5 A 2 2 0 0 0 4 -3.5 A 2 2 0 0 0 3.5 -1.5 Z"
+                          transform="scale(0.8) translate(0, 3)"
+                          fill="#E11D48"
+                        />
+                      </g>
+                    </>
+                  ) : emotion === 'wink' ? (
+                    /* Left Eye Winking, Right Eye Open Actively Tracking Pointer */
+                    <>
+                      <path
+                        d="M 37 46 Q 42 49 47 46"
+                        stroke="#121316"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <ellipse cx="58" cy="45" rx="5.4" ry="4.5" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="0.6" />
+                      <circle
+                        ref={rightEyePupilRef}
+                        cx={58 + eyeOffset.x}
+                        cy={45 + eyeOffset.y}
+                        r="3.0"
+                        fill="#121316"
+                      />
+                      <circle
+                        ref={rightEyeGlintRef}
+                        cx={58 + eyeOffset.x * 0.7 - 0.7}
+                        cy={45 + eyeOffset.y * 0.7 - 0.7}
+                        r="1.1"
+                        fill="#FFFFFF"
+                      />
+                    </>
+                  ) : emotion === 'happy' ? (
+                    /* Friendly Curved Crescent Eyes with gentle cursor tilt */
+                    <g transform={`translate(${eyeOffset.x * 0.3}, ${eyeOffset.y * 0.3})`}>
+                      <path
+                        d="M 38 46 Q 42 42 46 46"
+                        stroke="#121316"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 54 46 Q 58 42 62 46"
+                        stroke="#121316"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        fill="none"
                       />
                     </g>
-                    <g transform="translate(58, 45)" className="heart-beat-anim">
-                      <path
-                        d="M 0 2 A 2 2 0 0 0 -3.5 -1.5 A 2 2 0 0 0 -4 -3.5 A 2 2 0 0 0 0 -5 A 2 2 0 0 0 4 -3.5 A 2 2 0 0 0 3.5 -1.5 Z"
-                        transform="scale(0.8) translate(0, 3)"
-                        fill="#E11D48"
+                  ) : emotion === 'surprised' ? (
+                    /* Shocked Eyes Actively Tracking Pointer */
+                    <>
+                      <ellipse cx="42" cy="45" rx="5.8" ry="5.2" fill="#FFFFFF" stroke="#121316" strokeWidth="1.2" />
+                      <circle
+                        ref={leftEyePupilRef}
+                        cx={42 + eyeOffset.x * 0.8}
+                        cy={45 + eyeOffset.y * 0.8}
+                        r="2.2"
+                        fill="#121316"
                       />
-                    </g>
-                  </>
-                ) : emotion === 'wink' ? (
-                  /* Left Eye Winking, Right Eye Open Sparkling */
-                  <>
-                    {/* Wink line with cute lash */}
-                    <path
-                      d="M 37 46 Q 42 49 47 46"
-                      stroke="#121316"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <circle cx="58" cy="45" r="3.2" fill="#121316" />
-                    <circle cx="57" cy="43.8" r="1.1" fill="#FFFFFF" />
-                  </>
-                ) : emotion === 'happy' ? (
-                  /* Friendly Curved Crescent Eyes */
-                  <>
-                    <path
-                      d="M 38 46 Q 42 42 46 46"
-                      stroke="#121316"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M 54 46 Q 58 42 62 46"
-                      stroke="#121316"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                ) : emotion === 'surprised' ? (
-                  /* Big Round Shocked Eyes */
-                  <>
-                    <circle cx="42" cy="45" r="4.8" fill="#FFFFFF" stroke="#121316" strokeWidth="1.2" />
-                    <circle cx="42" cy="45" r="2.2" fill="#121316" />
-                    <circle cx="41.2" cy="44.2" r="0.8" fill="#FFFFFF" />
+                      <circle
+                        ref={leftEyeGlintRef}
+                        cx={41.2 + eyeOffset.x * 0.6}
+                        cy={44.2 + eyeOffset.y * 0.6}
+                        r="0.8"
+                        fill="#FFFFFF"
+                      />
 
-                    <circle cx="58" cy="45" r="4.8" fill="#FFFFFF" stroke="#121316" strokeWidth="1.2" />
-                    <circle cx="58" cy="45" r="2.2" fill="#121316" />
-                    <circle cx="57.2" cy="44.2" r="0.8" fill="#FFFFFF" />
-                  </>
-                ) : emotion === 'sleepy' ? (
-                  /* Relaxed Sleepy Closed Eyes */
-                  <>
-                    <path
-                      d="M 38 46 Q 42 48 46 46"
-                      stroke="#121316"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <path
-                      d="M 54 46 Q 58 48 62 46"
-                      stroke="#121316"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                  </>
-                ) : emotion === 'tech' ? (
-                  /* Glowing Cyber Amber Eyes */
-                  <>
-                    <circle cx="42" cy="45" r="3.6" fill="#121316" />
-                    <circle cx="42" cy="45" r="2.5" fill="#D4AF37" />
-                    <circle cx="42" cy="45" r="1.2" fill="#FFFFFF" />
+                      <ellipse cx="58" cy="45" rx="5.8" ry="5.2" fill="#FFFFFF" stroke="#121316" strokeWidth="1.2" />
+                      <circle
+                        ref={rightEyePupilRef}
+                        cx={58 + eyeOffset.x * 0.8}
+                        cy={45 + eyeOffset.y * 0.8}
+                        r="2.2"
+                        fill="#121316"
+                      />
+                      <circle
+                        ref={rightEyeGlintRef}
+                        cx={57.2 + eyeOffset.x * 0.6}
+                        cy={44.2 + eyeOffset.y * 0.6}
+                        r="0.8"
+                        fill="#FFFFFF"
+                      />
+                    </>
+                  ) : emotion === 'sleepy' ? (
+                    /* Relaxed Sleepy Closed Eyes */
+                    <>
+                      <path
+                        d="M 38 46 Q 42 48 46 46"
+                        stroke="#121316"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        d="M 54 46 Q 58 48 62 46"
+                        stroke="#121316"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                    </>
+                  ) : emotion === 'tech' ? (
+                    /* Glowing Cyber Amber Eyes tracking cursor */
+                    <>
+                      <ellipse cx="42" cy="45" rx="5.2" ry="4.4" fill="#121316" stroke="#D4AF37" strokeWidth="0.8" />
+                      <circle
+                        ref={leftEyePupilRef}
+                        cx={42 + eyeOffset.x}
+                        cy={45 + eyeOffset.y}
+                        r="2.8"
+                        fill="#D4AF37"
+                      />
+                      <circle
+                        ref={leftEyeGlintRef}
+                        cx={42 + eyeOffset.x * 0.7 - 0.7}
+                        cy={45 + eyeOffset.y * 0.7 - 0.7}
+                        r="1.1"
+                        fill="#FFFFFF"
+                      />
 
-                    <circle cx="58" cy="45" r="3.6" fill="#121316" />
-                    <circle cx="58" cy="45" r="2.5" fill="#D4AF37" />
-                    <circle cx="58" cy="45" r="1.2" fill="#FFFFFF" />
-                  </>
-                ) : (
-                  /* Standard / Thinking Sharp Eyes */
-                  <>
-                    <circle cx={emotion === 'thinking' ? 43.5 : 42} cy={emotion === 'thinking' ? 44 : 45} r="3.2" fill="#121316" />
-                    <circle cx={emotion === 'thinking' ? 42.8 : 41.2} cy={emotion === 'thinking' ? 43 : 43.8} r="1.1" fill="#FFFFFF" />
+                      <ellipse cx="58" cy="45" rx="5.2" ry="4.4" fill="#121316" stroke="#D4AF37" strokeWidth="0.8" />
+                      <circle
+                        ref={rightEyePupilRef}
+                        cx={58 + eyeOffset.x}
+                        cy={45 + eyeOffset.y}
+                        r="2.8"
+                        fill="#D4AF37"
+                      />
+                      <circle
+                        ref={rightEyeGlintRef}
+                        cx={58 + eyeOffset.x * 0.7 - 0.7}
+                        cy={45 + eyeOffset.y * 0.7 - 0.7}
+                        r="1.1"
+                        fill="#FFFFFF"
+                      />
+                    </>
+                  ) : (
+                    /* Standard, Thinking, and Cool: Sclera + Tracking Pupils */
+                    <>
+                      <ellipse cx="42" cy="45" rx="5.4" ry="4.5" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="0.6" />
+                      <circle
+                        ref={leftEyePupilRef}
+                        cx={42 + eyeOffset.x}
+                        cy={45 + eyeOffset.y}
+                        r="3.0"
+                        fill="#121316"
+                      />
+                      <circle
+                        ref={leftEyeGlintRef}
+                        cx={42 + eyeOffset.x * 0.7 - 0.7}
+                        cy={45 + eyeOffset.y * 0.7 - 0.7}
+                        r="1.1"
+                        fill="#FFFFFF"
+                      />
 
-                    <circle cx={emotion === 'thinking' ? 59.5 : 58} cy={emotion === 'thinking' ? 44 : 45} r="3.2" fill="#121316" />
-                    <circle cx={emotion === 'thinking' ? 58.8 : 57.2} cy={emotion === 'thinking' ? 43 : 43.8} r="1.1" fill="#FFFFFF" />
-                  </>
+                      <ellipse cx="58" cy="45" rx="5.4" ry="4.5" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="0.6" />
+                      <circle
+                        ref={rightEyePupilRef}
+                        cx={58 + eyeOffset.x}
+                        cy={45 + eyeOffset.y}
+                        r="3.0"
+                        fill="#121316"
+                      />
+                      <circle
+                        ref={rightEyeGlintRef}
+                        cx={58 + eyeOffset.x * 0.7 - 0.7}
+                        cy={45 + eyeOffset.y * 0.7 - 0.7}
+                        r="1.1"
+                        fill="#FFFFFF"
+                      />
+                    </>
+                  )}
+                </g>
+
+                {/* 7. DESIGNER GLASSES (DYNAMIC SUNGLASSES IN COOL MODE) */}
+                <g id="glasses">
+                  {emotion === 'cool' ? (
+                    <>
+                      <path
+                        d="M 33 40 Q 42 38 49 40 L 48 51 Q 41 53 34 50 Z"
+                        fill="url(#shadesGrad)"
+                        stroke="url(#goldRimGrad)"
+                        strokeWidth="1.2"
+                      />
+                      <path
+                        d="M 51 40 Q 58 38 67 40 L 66 50 Q 59 53 52 51 Z"
+                        fill="url(#shadesGrad)"
+                        stroke="url(#goldRimGrad)"
+                        strokeWidth="1.2"
+                      />
+                      <path
+                        d="M 48 41 L 52 41"
+                        stroke="url(#goldRimGrad)"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M 36 42 L 40 48 M 41 42 L 44 47"
+                        stroke="#FFFFFF"
+                        strokeWidth="0.8"
+                        strokeLinecap="round"
+                        opacity="0.6"
+                      />
+                      <path
+                        d="M 54 42 L 58 48 M 59 42 L 62 47"
+                        stroke="#FFFFFF"
+                        strokeWidth="0.8"
+                        strokeLinecap="round"
+                        opacity="0.6"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <circle
+                        cx="42"
+                        cy="45"
+                        r="7.5"
+                        fill="rgba(255,255,255,0.06)"
+                        stroke="url(#goldRimGrad)"
+                        strokeWidth="1.5"
+                      />
+                      <circle
+                        cx="58"
+                        cy="45"
+                        r="7.5"
+                        fill="rgba(255,255,255,0.06)"
+                        stroke="url(#goldRimGrad)"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M 49.5 44 Q 50 42.5 50.5 44"
+                        stroke="url(#goldRimGrad)"
+                        strokeWidth="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M 38 41 L 40 43"
+                        stroke="#FFFFFF"
+                        strokeWidth="0.9"
+                        strokeLinecap="round"
+                        opacity="0.7"
+                      />
+                      <path
+                        d="M 54 41 L 56 43"
+                        stroke="#FFFFFF"
+                        strokeWidth="0.9"
+                        strokeLinecap="round"
+                        opacity="0.7"
+                      />
+                    </>
+                  )}
+                </g>
+
+                {/* 8. NOSE */}
+                <path
+                  d="M 49.5 48 Q 50 51 48.5 51.5"
+                  stroke="#DFA060"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+
+                {/* 9. BLUSHING ROSY CHEEKS */}
+                {(emotion === 'love' || emotion === 'excited' || emotion === 'happy' || emotion === 'wink') && (
+                  <g id="cheeks">
+                    <ellipse cx="34" cy="51" rx="4" ry="2.2" fill="#FF7B7B" opacity="0.45" />
+                    <ellipse cx="66" cy="51" rx="4" ry="2.2" fill="#FF7B7B" opacity="0.45" />
+                  </g>
                 )}
-              </g>
 
-              {/* --- 7. DESIGNER GLASSES (TURNS INTO SUNGLASSES IN COOL MODE) --- */}
-              <g id="glasses">
-                {emotion === 'cool' ? (
-                  /* Sleek Dark Aviator / Wayfarer Sunglasses with Sheen */
-                  <>
-                    {/* Left Dark Lens */}
+                {/* 10. DYNAMIC MOUTH */}
+                <g id="mouth">
+                  {emotion === 'excited' || emotion === 'celebrate' ? (
                     <path
-                      d="M 33 40 Q 42 38 49 40 L 48 51 Q 41 53 34 50 Z"
-                      fill="url(#shadesGrad)"
-                      stroke="url(#goldRimGrad)"
-                      strokeWidth="1.2"
+                      d="M 42 53 Q 50 63 58 53 Z"
+                      fill="#991B1B"
+                      stroke="#7F1D1D"
+                      strokeWidth="0.8"
                     />
-                    {/* Right Dark Lens */}
+                  ) : emotion === 'cool' ? (
                     <path
-                      d="M 51 40 Q 58 38 67 40 L 66 50 Q 59 53 52 51 Z"
-                      fill="url(#shadesGrad)"
-                      stroke="url(#goldRimGrad)"
-                      strokeWidth="1.2"
+                      d="M 44 54 Q 52 57 58 52"
+                      stroke="#8C2C24"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      fill="none"
                     />
-                    {/* Bridge */}
+                  ) : emotion === 'thinking' ? (
                     <path
-                      d="M 48 41 L 52 41"
-                      stroke="url(#goldRimGrad)"
+                      d="M 45 54 Q 50 53 55 55"
+                      stroke="#8C2C24"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                  ) : emotion === 'surprised' ? (
+                    <ellipse cx="50" cy="56" rx="3.5" ry="4.5" fill="#7F1D1D" stroke="#991B1B" strokeWidth="0.8" />
+                  ) : emotion === 'love' ? (
+                    <path d="M 43 53 Q 50 61 57 53 Z" fill="#8C2C24" />
+                  ) : emotion === 'sleepy' ? (
+                    <path
+                      d="M 46 55 Q 50 56 54 55"
+                      stroke="#8C2C24"
                       strokeWidth="1.8"
                       strokeLinecap="round"
-                    />
-                    {/* Specular Glint Reflection Lines */}
-                    <path
-                      d="M 36 42 L 40 48 M 41 42 L 44 47"
-                      stroke="#FFFFFF"
-                      strokeWidth="0.8"
-                      strokeLinecap="round"
-                      opacity="0.6"
-                    />
-                    <path
-                      d="M 54 42 L 58 48 M 59 42 L 62 47"
-                      stroke="#FFFFFF"
-                      strokeWidth="0.8"
-                      strokeLinecap="round"
-                      opacity="0.6"
-                    />
-                  </>
-                ) : (
-                  /* Round Gold & Obsidian Designer Frames */
-                  <>
-                    <circle
-                      cx="42"
-                      cy="45"
-                      r="7.5"
-                      fill="rgba(255,255,255,0.06)"
-                      stroke="url(#goldRimGrad)"
-                      strokeWidth="1.5"
-                    />
-                    <circle
-                      cx="58"
-                      cy="45"
-                      r="7.5"
-                      fill="rgba(255,255,255,0.06)"
-                      stroke="url(#goldRimGrad)"
-                      strokeWidth="1.5"
-                    />
-                    {/* Bridge */}
-                    <path
-                      d="M 49.5 44 Q 50 42.5 50.5 44"
-                      stroke="url(#goldRimGrad)"
-                      strokeWidth="1.5"
                       fill="none"
                     />
-                    {/* Specular Glint */}
+                  ) : (
                     <path
-                      d="M 38 41 L 40 43"
-                      stroke="#FFFFFF"
-                      strokeWidth="0.9"
+                      d="M 43 53 Q 50 58 57 53"
+                      stroke="#8C2C24"
+                      strokeWidth="2.2"
                       strokeLinecap="round"
-                      opacity="0.7"
+                      fill="none"
                     />
-                    <path
-                      d="M 54 41 L 56 43"
-                      stroke="#FFFFFF"
-                      strokeWidth="0.9"
-                      strokeLinecap="round"
-                      opacity="0.7"
-                    />
-                  </>
-                )}
-              </g>
-
-              {/* --- 8. NOSE --- */}
-              <path
-                d="M 49.5 48 Q 50 51 48.5 51.5"
-                stroke="#DFA060"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                fill="none"
-              />
-
-              {/* --- 9. BLUSHING ROSY CHEEKS --- */}
-              {(emotion === 'love' || emotion === 'excited' || emotion === 'happy' || emotion === 'wink') && (
-                <g id="cheeks">
-                  <ellipse cx="34" cy="51" rx="4" ry="2.2" fill="#FF7B7B" opacity="0.45" />
-                  <ellipse cx="66" cy="51" rx="4" ry="2.2" fill="#FF7B7B" opacity="0.45" />
+                  )}
                 </g>
-              )}
-
-              {/* --- 10. DYNAMIC MOUTH --- */}
-              <g id="mouth">
-                {emotion === 'excited' || emotion === 'celebrate' ? (
-                  /* Big Open Joyful Smile */
-                  <path
-                    d="M 42 53 Q 50 63 58 53 Z"
-                    fill="#991B1B"
-                    stroke="#7F1D1D"
-                    strokeWidth="0.8"
-                  />
-                ) : emotion === 'cool' ? (
-                  /* Confident Stylish Smirk */
-                  <path
-                    d="M 44 54 Q 52 57 58 52"
-                    stroke="#8C2C24"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                ) : emotion === 'thinking' ? (
-                  /* Pensive Slightly Pursed Wry Mouth */
-                  <path
-                    d="M 45 54 Q 50 53 55 55"
-                    stroke="#8C2C24"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                ) : emotion === 'surprised' ? (
-                  /* Open 'O' Shocked Mouth */
-                  <ellipse cx="50" cy="56" rx="3.5" ry="4.5" fill="#7F1D1D" stroke="#991B1B" strokeWidth="0.8" />
-                ) : emotion === 'love' ? (
-                  /* Warm Beaming Open Smile */
-                  <path
-                    d="M 43 53 Q 50 61 57 53 Z"
-                    fill="#8C2C24"
-                  />
-                ) : emotion === 'sleepy' ? (
-                  /* Gentle Sleeping Line */
-                  <path
-                    d="M 46 55 Q 50 56 54 55"
-                    stroke="#8C2C24"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                ) : (
-                  /* Friendly Warm Smile */
-                  <path
-                    d="M 43 53 Q 50 58 57 53"
-                    stroke="#8C2C24"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                )}
               </g>
 
               {/* --- 11. DYNAMIC HAND GESTURES --- */}
               <g id="gestures">
                 {emotion === 'happy' && (
-                  /* Waving Hand */
                   <g className="origin-bottom-left" style={{ transformOrigin: '76px 76px' }}>
                     <path
                       d="M 76 74 Q 84 62 86 52 Q 88 51 89 53 Q 87 63 80 76 Z"
@@ -1153,7 +1405,6 @@ export const BitmojiCompanion: React.FC = () => {
                 )}
 
                 {emotion === 'wink' && (
-                  /* Thumbs Up */
                   <g>
                     <rect x="74" y="70" width="7" height="6" rx="2" fill="#1E2024" />
                     <circle cx="82" cy="70" r="4.5" fill="url(#skinGrad)" />
@@ -1167,7 +1418,6 @@ export const BitmojiCompanion: React.FC = () => {
                 )}
 
                 {emotion === 'thinking' && (
-                  /* Hand on Chin */
                   <g>
                     <path
                       d="M 56 68 Q 54 59 51 58"
@@ -1181,7 +1431,6 @@ export const BitmojiCompanion: React.FC = () => {
                 )}
 
                 {emotion === 'cool' && (
-                  /* Peace Sign ✌️ */
                   <g>
                     <circle cx="82" cy="68" r="4" fill="url(#skinGrad)" />
                     <rect x="80" y="58" width="2" height="9" rx="1" fill="url(#skinGrad)" />
@@ -1190,7 +1439,6 @@ export const BitmojiCompanion: React.FC = () => {
                 )}
 
                 {(emotion === 'excited' || emotion === 'celebrate') && (
-                  /* Cheering Hands Up \o/ */
                   <g>
                     <path
                       d="M 22 75 L 14 58 Q 15 56 18 57 L 26 73 Z"
@@ -1212,7 +1460,6 @@ export const BitmojiCompanion: React.FC = () => {
                 <g id="partyHat">
                   <polygon points="46,18 54,18 50,2" fill="#D4AF37" stroke="#F5E6BE" strokeWidth="0.8" />
                   <circle cx="50" cy="2" r="2" fill="#E11D48" />
-                  {/* Party Hat Stripes */}
                   <line x1="48" y1="12" x2="52" y2="12" stroke="#FFFFFF" strokeWidth="1" />
                 </g>
               )}
