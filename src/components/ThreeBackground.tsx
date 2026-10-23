@@ -43,7 +43,7 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     const getHeight = () => window.innerHeight;
 
     const camera = new THREE.PerspectiveCamera(45, getWidth() / getHeight(), 0.1, 100);
-    camera.position.set(0, 0, 12.5);
+    camera.position.set(0, 0, 11.2);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -255,13 +255,13 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     const particleSystem = new THREE.Points(particleGeo, particleMat);
     scene.add(particleSystem);
 
-    // --- 5. SCROLL KEYFRAME DEFINITIONS (7 Detailed Section Keyframes) ---
+    // --- 5. SCROLL KEYFRAME DEFINITIONS (7 Detailed Section Keyframes, Sized Bold & Heroic) ---
     const keyframes = [
       {
-        progress: 0.0, // Section 1: Hero (Docked at Right, High Specularity)
-        pos: { x: 3.8, y: 0.0, z: -3.0 },
+        progress: 0.0, // Section 1: Hero (Docked Right, Bold & Majestic)
+        pos: { x: 3.3, y: 0.1, z: 0.2 },
         rot: { x: 0.2, y: -0.4, z: 0.1 },
-        scale: 0.95,
+        scale: 1.65,
         subsystem: '01_SPATIAL_CORE_ONLINE',
         wireframe: false,
         satSpread: 1.0,
@@ -269,62 +269,62 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
       },
       {
         progress: 0.2, // Section 2: Custom Web Dev (Docked Left, Exploded Architecture)
-        pos: { x: -4.8, y: -0.1, z: -3.5 },
+        pos: { x: -3.3, y: 0.0, z: 0.0 },
         rot: { x: 1.2, y: 1.57, z: -0.4 },
-        scale: 0.95,
+        scale: 1.55,
         subsystem: '02_CODE_MESH_PIPELINE',
         wireframe: true,
-        satSpread: 1.2,
+        satSpread: 1.25,
         coreColor: '#1E2024', // Matte Black Wireframe with Gold Cage
       },
       {
         progress: 0.38, // Section 3: Meta Growth (Docked Right, Wide Satellites)
-        pos: { x: 4.8, y: 0.1, z: -3.5 },
+        pos: { x: 3.3, y: 0.1, z: 0.0 },
         rot: { x: -0.4, y: 3.14, z: 0.6 },
-        scale: 0.95,
+        scale: 1.6,
         subsystem: '03_META_ORGANIC_NETWORK',
         wireframe: false,
-        satSpread: 1.8,
+        satSpread: 1.7,
         coreColor: '#B8860B', // Rich Amber Gold
       },
       {
         progress: 0.55, // Section 4: Store VA Ops (Docked Left, Precision Vault)
-        pos: { x: -4.8, y: -0.1, z: -3.5 },
+        pos: { x: -3.3, y: 0.0, z: 0.0 },
         rot: { x: 0.6, y: 4.71, z: -0.2 },
-        scale: 0.95,
+        scale: 1.55,
         subsystem: '04_ECOMMERCE_DATA_VAULT',
         wireframe: false,
-        satSpread: 0.85,
+        satSpread: 0.9,
         coreColor: '#121316', // Deep Obsidian Vault
       },
       {
-        progress: 0.72, // Section 5: Founders & Leadership (Pushed DEEP below cards on 3D floor)
-        pos: { x: 0.0, y: -1.4, z: -6.5 },
+        progress: 0.72, // Section 5: Founders & Leadership (Centered Background Horizon)
+        pos: { x: 0.0, y: -0.9, z: -2.0 },
         rot: { x: 0.3, y: 5.5, z: 0.1 },
-        scale: 0.6,
+        scale: 1.35,
         subsystem: '05_LEADERSHIP_CORE',
         wireframe: false,
-        satSpread: 0.75,
+        satSpread: 0.8,
         coreColor: '#D4AF37', // Golden Core deep in floor horizon
       },
       {
         progress: 0.86, // Section 6: Plans & Pricing (Deep background horizon)
-        pos: { x: 0.0, y: -1.4, z: -6.5 },
+        pos: { x: 0.0, y: -0.9, z: -2.0 },
         rot: { x: 0.2, y: 6.0, z: 0.0 },
-        scale: 0.6,
+        scale: 1.35,
         subsystem: '06_TIER_ARCHITECTURE',
         wireframe: false,
-        satSpread: 0.9,
+        satSpread: 0.95,
         coreColor: '#1E2024',
       },
       {
         progress: 1.0, // Section 7: Quick Consultation / Enterprise Monolith
-        pos: { x: 0.0, y: -0.2, z: -6.0 },
+        pos: { x: 0.0, y: 0.0, z: -0.6 },
         rot: { x: 0.1, y: 6.28, z: 0.0 },
-        scale: 0.75,
+        scale: 1.7,
         subsystem: '07_ENTERPRISE_MONOLITH',
         wireframe: false,
-        satSpread: 1.2,
+        satSpread: 1.3,
         coreColor: '#D4AF37',
       },
     ];
@@ -334,16 +334,16 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     }
 
     const currentTransform = {
-      pos: { x: 3.8, y: 0.0, z: -3.0 },
+      pos: { x: 3.3, y: 0.1, z: 0.2 },
       rot: { x: 0.2, y: -0.4, z: 0.1 },
-      scale: 0.95,
+      scale: 1.65,
       satSpread: 1.0,
     };
 
     const targetTransform = {
-      pos: { x: 3.8, y: 0.0, z: -3.0 },
+      pos: { x: 3.3, y: 0.1, z: 0.2 },
       rot: { x: 0.2, y: -0.4, z: 0.1 },
-      scale: 0.95,
+      scale: 1.65,
       satSpread: 1.0,
     };
 
@@ -379,12 +379,28 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
       targetTransform.scale = lerp(start.scale, end.scale, easeT);
       targetTransform.satSpread = lerp(start.satSpread, end.satSpread, easeT);
 
-      // Responsive mobile adaptation: push deep back and scale down so it never collides with text
-      if (window.innerWidth < 1024) {
+      // Responsive mobile & tablet adaptation: make it bold, centered and glorious on mobile
+      const isMobile = window.innerWidth < 1024;
+      const isSmallMobile = window.innerWidth < 640;
+
+      if (isMobile) {
         targetTransform.pos.x = 0;
-        targetTransform.pos.y = -0.5;
-        targetTransform.pos.z = -6.0;
-        targetTransform.scale = targetTransform.scale * 0.38;
+        if (p < 0.15) {
+          // Hero mobile dock: prominent, centered, perfectly framed
+          targetTransform.pos.y = isSmallMobile ? 0.2 : 0.3;
+          targetTransform.pos.z = -1.2;
+          targetTransform.scale = isSmallMobile ? 1.05 : 1.25;
+        } else if (p < 0.65) {
+          // Pillars mobile: centered behind cards with rich ambient aura
+          targetTransform.pos.y = isSmallMobile ? -0.3 : -0.2;
+          targetTransform.pos.z = -1.5;
+          targetTransform.scale = isSmallMobile ? 0.95 : 1.15;
+        } else {
+          // Deep sections mobile
+          targetTransform.pos.y = -0.6;
+          targetTransform.pos.z = -2.0;
+          targetTransform.scale = isSmallMobile ? 0.9 : 1.1;
+        }
       }
 
       if (start.subsystem !== lastSubsystem) {
