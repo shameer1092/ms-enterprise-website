@@ -55,6 +55,13 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
 
+    renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.inset = '0';
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.pointerEvents = 'none';
+    renderer.domElement.style.zIndex = '0';
+
     container.appendChild(renderer.domElement);
 
     // --- 2. LUXURY BASELINE FLOOR (Gold & Stone Grid Helper) ---
@@ -248,57 +255,77 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     const particleSystem = new THREE.Points(particleGeo, particleMat);
     scene.add(particleSystem);
 
-    // --- 5. SCROLL KEYFRAME DEFINITIONS (5 Sections) ---
+    // --- 5. SCROLL KEYFRAME DEFINITIONS (7 Detailed Section Keyframes) ---
     const keyframes = [
       {
         progress: 0.0, // Section 1: Hero (Docked at Right, High Specularity)
-        pos: { x: 3.6, y: 0.0, z: -2.8 },
+        pos: { x: 3.8, y: 0.0, z: -3.0 },
         rot: { x: 0.2, y: -0.4, z: 0.1 },
-        scale: 1.0,
+        scale: 0.95,
         subsystem: '01_SPATIAL_CORE_ONLINE',
         wireframe: false,
         satSpread: 1.0,
         coreColor: '#D4AF37', // Marigold Gold
       },
       {
-        progress: 0.25, // Section 2: Where We Differ / Web Dev (Exploded Structural Architecture)
-        pos: { x: -4.0, y: -0.1, z: -3.2 },
+        progress: 0.2, // Section 2: Custom Web Dev (Docked Left, Exploded Architecture)
+        pos: { x: -4.8, y: -0.1, z: -3.5 },
         rot: { x: 1.2, y: 1.57, z: -0.4 },
-        scale: 1.0,
+        scale: 0.95,
         subsystem: '02_CODE_MESH_PIPELINE',
         wireframe: true,
         satSpread: 1.2,
         coreColor: '#1E2024', // Matte Black Wireframe with Gold Cage
       },
       {
-        progress: 0.5, // Section 3: Meta Growth (Global Organic Audience, Wide Satellites)
-        pos: { x: 4.0, y: 0.1, z: -3.2 },
+        progress: 0.38, // Section 3: Meta Growth (Docked Right, Wide Satellites)
+        pos: { x: 4.8, y: 0.1, z: -3.5 },
         rot: { x: -0.4, y: 3.14, z: 0.6 },
-        scale: 1.0,
+        scale: 0.95,
         subsystem: '03_META_ORGANIC_NETWORK',
         wireframe: false,
         satSpread: 1.8,
         coreColor: '#B8860B', // Rich Amber Gold
       },
       {
-        progress: 0.75, // Section 4: Founders / Store VA (Disciplined Precision Vault)
-        pos: { x: -4.0, y: -0.1, z: -3.2 },
+        progress: 0.55, // Section 4: Store VA Ops (Docked Left, Precision Vault)
+        pos: { x: -4.8, y: -0.1, z: -3.5 },
         rot: { x: 0.6, y: 4.71, z: -0.2 },
-        scale: 1.0,
+        scale: 0.95,
         subsystem: '04_ECOMMERCE_DATA_VAULT',
         wireframe: false,
         satSpread: 0.85,
         coreColor: '#121316', // Deep Obsidian Vault
       },
       {
-        progress: 1.0, // Section 5: Consultation / Enterprise Monolith (Centered, Heroic)
-        pos: { x: 0.0, y: 0.2, z: -5.0 },
-        rot: { x: 0.1, y: 6.28, z: 0.0 },
-        scale: 1.05,
-        subsystem: '05_ENTERPRISE_MONOLITH',
+        progress: 0.72, // Section 5: Founders & Leadership (Pushed DEEP below cards on 3D floor)
+        pos: { x: 0.0, y: -1.4, z: -6.5 },
+        rot: { x: 0.3, y: 5.5, z: 0.1 },
+        scale: 0.6,
+        subsystem: '05_LEADERSHIP_CORE',
         wireframe: false,
-        satSpread: 1.4,
-        coreColor: '#D4AF37', // Polished Gold & Obsidian Monolith
+        satSpread: 0.75,
+        coreColor: '#D4AF37', // Golden Core deep in floor horizon
+      },
+      {
+        progress: 0.86, // Section 6: Plans & Pricing (Deep background horizon)
+        pos: { x: 0.0, y: -1.4, z: -6.5 },
+        rot: { x: 0.2, y: 6.0, z: 0.0 },
+        scale: 0.6,
+        subsystem: '06_TIER_ARCHITECTURE',
+        wireframe: false,
+        satSpread: 0.9,
+        coreColor: '#1E2024',
+      },
+      {
+        progress: 1.0, // Section 7: Quick Consultation / Enterprise Monolith
+        pos: { x: 0.0, y: -0.2, z: -6.0 },
+        rot: { x: 0.1, y: 6.28, z: 0.0 },
+        scale: 0.75,
+        subsystem: '07_ENTERPRISE_MONOLITH',
+        wireframe: false,
+        satSpread: 1.2,
+        coreColor: '#D4AF37',
       },
     ];
 
@@ -307,16 +334,16 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     }
 
     const currentTransform = {
-      pos: { x: 3.6, y: 0.0, z: -2.8 },
+      pos: { x: 3.8, y: 0.0, z: -3.0 },
       rot: { x: 0.2, y: -0.4, z: 0.1 },
-      scale: 1.0,
+      scale: 0.95,
       satSpread: 1.0,
     };
 
     const targetTransform = {
-      pos: { x: 3.6, y: 0.0, z: -2.8 },
+      pos: { x: 3.8, y: 0.0, z: -3.0 },
       rot: { x: 0.2, y: -0.4, z: 0.1 },
-      scale: 1.0,
+      scale: 0.95,
       satSpread: 1.0,
     };
 
@@ -592,19 +619,11 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
       isOrbiting = e.detail?.active ?? !isOrbiting;
       setIsOrbitActive(isOrbiting);
       if (isOrbiting) {
-        container.style.pointerEvents = 'auto';
-        container.style.cursor = 'grab';
-        container.style.zIndex = '45';
-        container.classList.add('interactive-orbit');
-        notify('✦ 3D Free-Orbit Active: Click & drag anywhere to inspect the core.');
+        notify('✦ 3D Free-Orbit Active: Drag anywhere to rotate the 3D core in background.');
       } else {
-        container.style.pointerEvents = 'none';
-        container.style.cursor = 'default';
-        container.style.zIndex = '1';
-        container.classList.remove('interactive-orbit');
         userDrag.x *= 0.1;
         userDrag.y *= 0.1;
-        notify('✦ Scrollytelling Telemetry Re-synced.');
+        notify('✦ Scrollytelling Re-synced.');
       }
     };
     window.addEventListener('toggle-3d-orbit', handleToggleOrbit);
@@ -671,6 +690,7 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
         id="webgl-canvas-container"
         aria-hidden="true"
         className={`fixed inset-0 pointer-events-none z-0 overflow-hidden ${className}`}
+        style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}
       />
 
       {/* FLOATING HUD TOAST NOTIFICATION */}

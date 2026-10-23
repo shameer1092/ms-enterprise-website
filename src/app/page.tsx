@@ -366,8 +366,8 @@ export default function HomePage() {
       </section>
 
       {/* ---------------- 5. THE PARTNER STANDARD & FOUNDERS (HANDS-ON LEADERSHIP) ---------------- */}
-      <section id="about" className="relative py-24 bg-transparent scroll-mt-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
+      <section id="about" className="relative z-20 py-24 bg-transparent scroll-mt-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 relative z-20">
           <div className="mx-auto max-w-3xl text-center space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-white/80 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#121316] shadow-sm backdrop-blur-md dark:bg-[#1E2024]/80 dark:text-white dark:border-[#D4AF37]/40">
               <MapPin className="h-3.5 w-3.5 text-[#D4AF37]" />
@@ -440,9 +440,9 @@ export default function HomePage() {
           </div>
 
           {/* 2 Founders Cards */}
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 max-w-5xl mx-auto relative z-20">
             {/* Founder 1: Rana ShaMeer */}
-            <div className="glass-panel-elevated p-8 sm:p-9 rounded-3xl">
+            <div className="glass-panel-elevated p-8 sm:p-9 rounded-3xl relative z-20">
               <div className="flex items-start justify-between">
                 <div>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#121316] text-[#D4AF37] px-3 py-1 text-xs font-bold uppercase tracking-wider dark:bg-white dark:text-[#121316]">
@@ -494,7 +494,7 @@ export default function HomePage() {
             </div>
 
             {/* Founder 2: Moiz Zaffer */}
-            <div className="glass-panel-elevated p-8 sm:p-9 rounded-3xl">
+            <div className="glass-panel-elevated p-8 sm:p-9 rounded-3xl relative z-20">
               <div className="flex items-start justify-between">
                 <div>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#121316] text-[#D4AF37] px-3 py-1 text-xs font-bold uppercase tracking-wider dark:bg-white dark:text-[#121316]">
@@ -551,9 +551,9 @@ export default function HomePage() {
       {/* ---------------- 6. STANDARDIZED PACKAGES & CONSULTATION INQUIRY (STAGE 1.0 - 3D MONOLITH CENTER) ---------------- */}
       <section
         id="pricing-inquiry"
-        className="relative py-24 bg-transparent scroll-mt-16"
+        className="relative z-20 py-24 bg-transparent scroll-mt-16"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 space-y-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 space-y-16 relative z-20">
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#B8860B] dark:text-[#E5B238] font-bold">
               Transparent Pricing & Direct Engagement

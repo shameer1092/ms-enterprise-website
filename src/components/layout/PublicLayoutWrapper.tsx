@@ -39,9 +39,17 @@ export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
   return (
     <>
       {threeBackground}
-      <div className="flex min-h-screen flex-col overflow-x-hidden relative z-10 bg-transparent">
+      <div
+        id="site-content-wrapper"
+        className="flex min-h-screen flex-col overflow-x-hidden relative z-20 bg-transparent"
+        style={{ position: 'relative', zIndex: 20 }}
+      >
         {navbar}
-        <main id="main-content" className="flex-1 bg-transparent relative z-10">
+        <main
+          id="main-content"
+          className="flex-1 bg-transparent relative z-20"
+          style={{ position: 'relative', zIndex: 20 }}
+        >
           {children}
         </main>
         {footer}
