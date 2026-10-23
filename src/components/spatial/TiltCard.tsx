@@ -67,8 +67,8 @@ export const TiltCard: React.FC<TiltCardProps> = ({
   };
 
   const defaultGlow = isDark
-    ? 'rgba(56, 189, 248, 0.14)'
-    : 'rgba(2, 132, 199, 0.08)';
+    ? 'rgba(229, 178, 56, 0.12)'
+    : 'rgba(212, 175, 55, 0.10)';
   const activeGlow = glowColor || defaultGlow;
 
   return (

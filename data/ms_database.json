@@ -11,7 +11,7 @@
     "floatingWhatsappEnabled": true,
     "themeConfig": {
       "defaultTheme": "light",
-      "accentColor": "#0284C7",
+      "accentColor": "#D4AF37",
       "glassIntensity": "default"
     },
     "socialLinks": {
@@ -37,14 +37,14 @@
   },
   "content": {
     "hero": {
-      "badge": "Professional Digital Solutions",
-      "titleLine1": "Engineered for Performance.",
-      "titleHighlight": "Built with Precision.",
-      "subtitle": "MS Enterprise delivers custom website development with lifetime support, strategic organic Meta growth across target markets, and dedicated ecommerce store operations.",
-      "primaryCtaText": "Request an Inquiry",
+      "badge": "The Partner Standard • No Agency Nonsense",
+      "titleLine1": "We build high-performing web platforms and scale online stores —",
+      "titleHighlight": "without agency bloat.",
+      "subtitle": "No non-technical intermediaries. No inflated retainers. You work directly with experienced software architects and growth operators who take full ownership of your project.",
+      "primaryCtaText": "Start a Conversation",
       "primaryCtaLink": "/inquiry",
-      "secondaryCtaText": "Explore Service Plans",
-      "secondaryCtaLink": "/plans",
+      "secondaryCtaText": "Explore Services",
+      "secondaryCtaLink": "#services",
       "trustPills": [
         "Lifetime Live Support",
         "Direct Developer Access",

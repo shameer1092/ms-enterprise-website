@@ -1,402 +1,765 @@
 import React from 'react';
 import Link from 'next/link';
-import { getContent, getServices, getPlans, getSettings } from '@/lib/db';
-import { Icon } from '@/components/common/Icon';
-import { TiltCard } from '@/components/spatial/TiltCard';
-import { HeroVisual } from '@/components/spatial/HeroVisual';
+import { getSettings, getServices } from '@/lib/db';
+import { QuickInquiryForm } from '@/components/inquiry/QuickInquiryForm';
+import { Inspect3DButton } from '@/components/spatial/Inspect3DButton';
+import {
+  Code2,
+  Share2,
+  ShoppingBag,
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  Users,
+  Linkedin,
+  MapPin,
+  MessageSquare,
+  Mail,
+  Award,
+  Clock,
+  Sparkles,
+  Layers,
+  Check,
+} from 'lucide-react';
 
 export default function HomePage() {
-  const content = getContent();
-  const services = getServices();
-  const plans = getPlans().filter((p) => p.isPopular || p.order <= 3);
   const settings = getSettings();
+  const services = getServices();
+  const cleanPhone = settings.phone.replace(/[^0-9+]/g, '');
+  const cleanWhatsApp = settings.whatsapp.replace(/[^0-9]/g, '');
 
   return (
-    <div className="relative">
-      {/* ---------------- 1. HERO SECTION WITH APPLE LIQUID GLASS PREVIEW ---------------- */}
-      <section className="relative overflow-hidden pt-12 pb-24 md:pt-20 md:pb-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
-            {/* Left Column: Heading & Value Proposition */}
-            <div className="lg:col-span-7">
-              {/* Liquid Glass Pill Badge with Live 2D Radar Pulse */}
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-sky-500/25 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sky-700 shadow-sm backdrop-blur-xl dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300">
-                <span className="relative flex h-2 w-2">
-                  <span className="radar-ping absolute inline-flex h-full w-full bg-sky-500 opacity-80 dark:bg-cyan-400" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500 dark:bg-cyan-400" />
-                </span>
-                <span>{content.hero.badge}</span>
+    <div className="relative overflow-x-hidden bg-transparent">
+      {/* ---------------- 1. HERO SECTION (SCROLLYTELLING STAGE 0.0 - 3D DOCKED RIGHT) ---------------- */}
+      <section
+        id="hero"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 pt-20 pb-16 bg-transparent"
+      >
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10">
+          {/* Left Column: Heading & Value Proposition (7 Cols) */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Partner Standard Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#B8860B] shadow-sm dark:bg-[#D4AF37]/15 dark:text-[#E5B238]">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D4AF37]" />
+              </span>
+              <span>The Partner Standard • No Agency Bloat</span>
+            </div>
+
+            {/* High-Impact Headline */}
+            <h1 className="text-3xl font-extrabold tracking-tight text-[#121316] sm:text-5xl lg:text-[3.25rem] leading-[1.12] dark:text-white">
+              We build high-performing web platforms and scale online stores —{' '}
+              <span className="text-[#D4AF37] underline decoration-[#D4AF37]/40 underline-offset-8">
+                without agency bloat.
+              </span>
+            </h1>
+
+            {/* Humanized Subtitle */}
+            <p className="max-w-2xl text-base leading-relaxed text-[#2B2D33] sm:text-lg dark:text-[#E5E7EB]">
+              No non-technical intermediaries. No inflated retainers. You work directly with experienced software architects and growth operators who take full ownership of your project.
+            </p>
+
+            {/* Action Buttons: 60-30-10 Gold & Matte Dark */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Link
+                href="/inquiry"
+                className="spatial-btn-primary group inline-flex items-center gap-2.5"
+              >
+                <span>Start a Conversation</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+
+              <a
+                href="#web-dev"
+                className="spatial-btn-secondary inline-flex items-center gap-2"
+              >
+                <span>Explore 3D Architecture</span>
+                <span className="text-[#D4AF37] font-bold">↓</span>
+              </a>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="border-t border-[#E5E7EB] pt-6 dark:border-[#2A2D34]">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                {[
+                  'Direct Architect Access',
+                  'Zero Middle Managers',
+                  'Lifetime Live Support',
+                  'Low Monthly Maintenance',
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 text-xs font-semibold text-[#121316] dark:text-[#E5E7EB]"
+                  >
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#D4AF37]/20 text-[#B8860B] dark:text-[#E5B238]">
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                    </div>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Dedicated 3D Spatial Centerpiece Dock (5 Cols) */}
+          <div className="lg:col-span-5 h-[340px] sm:h-[420px] lg:h-[620px] relative flex flex-col items-center justify-end pb-4 pointer-events-none">
+            {/* Quick 360 Orbit Inspect Pill */}
+            <Inspect3DButton variant="badge" />
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 2. PILLAR 01: CUSTOM WEBSITE DEVELOPMENT (STAGE 0.25 - 3D EXPLODED WIREFRAME LEFT) ---------------- */}
+      <section
+        id="web-dev"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16"
+      >
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Spacing: Dedicated 3D Exploded Structural Core Dock (6 Cols) */}
+          <div className="lg:col-span-6 order-2 lg:order-1 h-[320px] sm:h-[400px] lg:h-[600px] pointer-events-none flex items-end justify-center pb-4">
+            <span className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] bg-white/70 dark:bg-[#1E2024]/70 px-3 py-1 rounded-full border border-[#E5E7EB] dark:border-[#2A2D34] backdrop-blur-md">
+              ✦ Exploded Lattice Structural Core
+            </span>
+          </div>
+
+          {/* Right Column: Web Dev Content & Glass Panels (6 Cols) */}
+          <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
+              <span className="h-2 w-2 rounded bg-[#D4AF37]" />
+              <span>Pillar 01 • Core Engineering</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
+              Custom Website <br />
+              <span className="text-[#D4AF37]">Development & Spatial UI</span>
+            </h2>
+
+            <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
+              Tailored web platforms, custom ecommerce stores, company portals, and competitor-informed redesigns. We eliminate template locks to give you raw performance, pristine codebases, and direct developer communication.
+            </p>
+
+            <div className="space-y-3.5 pt-2">
+              <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
+                <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#B8860B] dark:text-[#E5B238] font-mono text-xs font-bold shrink-0">
+                  01
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-[#121316] dark:text-white">
+                    No Generic Template Locks
+                  </h3>
+                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                    Bespoke spatial design engineered ground-up with Next.js App Router and TypeScript. Modular asset pipelines, sub-second TTFB, and zero technical debt.
+                  </p>
+                </div>
               </div>
 
-              {/* Main Headline */}
-              <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl leading-[1.1] dark:text-white">
-                <span>{content.hero.titleLine1}</span>{' '}
-                <span className="bg-gradient-to-r from-sky-600 via-blue-600 to-teal-600 bg-clip-text text-transparent dark:from-sky-400 dark:via-cyan-300 dark:to-teal-300">
-                  {content.hero.titleHighlight}
-                </span>
-              </h1>
+              <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
+                <div className="w-9 h-9 rounded-xl bg-[#121316]/10 dark:bg-white/10 border border-[#E5E7EB] dark:border-[#2A2D34] flex items-center justify-center text-[#121316] dark:text-white font-mono text-xs font-bold shrink-0">
+                  02
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-[#121316] dark:text-white">
+                    Competitor-Informed Redesign
+                  </h3>
+                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                    We dissect your top 5 competitors, isolate functional bottlenecks, and reconstruct your digital footprint with superior UX and conversion speed.
+                  </p>
+                </div>
+              </div>
 
-              {/* Subtitle */}
-              <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-                {content.hero.subtitle}
+              <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
+                <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#B8860B] dark:text-[#E5B238] font-mono text-xs font-bold shrink-0">
+                  03
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-[#121316] dark:text-white">
+                    Guaranteed Lifetime Live Support
+                  </h3>
+                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                    You deal with the exact software engineers who built the system. Unconditional standby assistance whenever you need updates, security patches, or features.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/services/web-development"
+                className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
+              >
+                <span>Explore Full Web Engineering Specs</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 3. PILLAR 02: META SERVICES (STAGE 0.50 - 3D GLOBAL AUDIENCE DOCKED RIGHT) ---------------- */}
+      <section
+        id="meta-growth"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16"
+      >
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Meta Services Content (6 Cols) */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Pillar 02 • Organic Growth Ecosystem</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
+              Meta (Facebook) <br />
+              <span className="text-[#D4AF37]">Multi-Country Reach</span>
+            </h2>
+
+            <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
+              Organic Facebook page scaling, targeted community nurturing, and multi-country audience traffic synchronized with your business demographics without artificial inflation or bot farming.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="glass-panel p-5 rounded-2xl">
+                <div className="text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-bold mb-1">
+                  100%
+                </div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#121316] dark:text-white">
+                  Organic & Bot-Free
+                </h3>
+                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                  Strict avoidance of synthetic metrics. Real community engagement with actual purchasing power and long-term brand retention.
+                </p>
+              </div>
+
+              <div className="glass-panel p-5 rounded-2xl">
+                <div className="text-2xl font-mono text-[#D4AF37] font-bold mb-1">
+                  Multi-Geo
+                </div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#121316] dark:text-white">
+                  Target Country Focus
+                </h3>
+                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                  Deploy audience routing pipelines tailored to specific regional territories (USA, UK, Gulf, Europe) and language preferences.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#121316] dark:text-[#E5B238] flex items-center gap-3">
+              <span className="h-2 w-2 rounded-full bg-[#D4AF37] animate-ping shrink-0" />
+              <span>
+                TELEMETRY STATUS: Active social matrix synchronization with verified demographic retention protocols supervised by Moiz Zaffer.
+              </span>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/services/meta-services"
+                className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
+              >
+                <span>Explore Meta Community Strategies</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Spacing: Dedicated 3D Global Audience Node Dock (6 Cols) */}
+          <div className="lg:col-span-6 h-[320px] sm:h-[400px] lg:h-[600px] pointer-events-none flex items-end justify-center pb-4">
+            <span className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] bg-white/70 dark:bg-[#1E2024]/70 px-3 py-1 rounded-full border border-[#E5E7EB] dark:border-[#2A2D34] backdrop-blur-md">
+              ✦ Global Audience Satellite Matrix
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 4. PILLAR 03: ECOMMERCE SUPPORT & VA OPS (STAGE 0.75 - 3D OBSIDIAN VAULT LEFT) ---------------- */}
+      <section
+        id="ecommerce-ops"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16"
+      >
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Spacing: Dedicated 3D Obsidian Vault Dock (6 Cols) */}
+          <div className="lg:col-span-6 order-2 lg:order-1 h-[320px] sm:h-[400px] lg:h-[600px] pointer-events-none flex items-end justify-center pb-4">
+            <span className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] bg-white/70 dark:bg-[#1E2024]/70 px-3 py-1 rounded-full border border-[#E5E7EB] dark:border-[#2A2D34] backdrop-blur-md">
+              ✦ Deep Obsidian Precision Vault
+            </span>
+          </div>
+
+          {/* Right Column: VA Operations Content & Stat Panels (6 Cols) */}
+          <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
+              <span className="h-2 w-2 rounded bg-[#D4AF37]" />
+              <span>Pillar 03 • Operations & Virtual Assistance</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
+              Ecommerce Support & <br />
+              <span className="text-[#D4AF37]">Dedicated VA Store Ops</span>
+            </h2>
+
+            <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
+              Uninterrupted store management across Shopify, WooCommerce, Amazon, eBay, and bespoke systems. From bulk catalog uploads to supply chain alerts and live dispute handling.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <div className="glass-panel p-4 rounded-2xl text-center">
+                <span className="text-2xl block mb-1">📦</span>
+                <span className="text-xs font-bold text-[#121316] dark:text-white block">
+                  Inventory Audits
+                </span>
+                <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                  Stock velocity & alerts
+                </span>
+              </div>
+              <div className="glass-panel p-4 rounded-2xl text-center">
+                <span className="text-2xl block mb-1">⚡</span>
+                <span className="text-xs font-bold text-[#121316] dark:text-white block">
+                  Order Processing
+                </span>
+                <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                  Fulfillment & tracking
+                </span>
+              </div>
+              <div className="glass-panel p-4 rounded-2xl text-center">
+                <span className="text-2xl block mb-1">🤝</span>
+                <span className="text-xs font-bold text-[#121316] dark:text-white block">
+                  Supplier Sync
+                </span>
+                <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                  Disputes & vendor care
+                </span>
+              </div>
+            </div>
+
+            {/* Full-Time VA Operations Highlight Panel */}
+            <div className="glass-panel-elevated p-6 rounded-2xl border-l-4 border-l-[#D4AF37]">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238] font-bold">
+                  Dedicated Full-Time VA Operations
+                </span>
+                <span className="text-xs font-mono font-bold text-[#121316] dark:text-white">
+                  $490 / month
+                </span>
+              </div>
+              <p className="text-xs text-[#2B2D33] dark:text-[#E5E7EB] leading-relaxed">
+                40 hours weekly of full store operations, catalog management, supplier coordination, and direct Slack/WhatsApp channel access.
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/services/ecommerce-support"
+                className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
+              >
+                <span>Explore Store VA Operations</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 5. THE PARTNER STANDARD & FOUNDERS (HANDS-ON LEADERSHIP) ---------------- */}
+      <section id="about" className="relative py-24 bg-transparent scroll-mt-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
+          <div className="mx-auto max-w-3xl text-center space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-white/80 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#121316] shadow-sm backdrop-blur-md dark:bg-[#1E2024]/80 dark:text-white dark:border-[#D4AF37]/40">
+              <MapPin className="h-3.5 w-3.5 text-[#D4AF37]" />
+              <span>Founded in 2026 • Dera Ghazi Khan (DG Khan), Punjab, Pakistan</span>
+            </div>
+
+            <h2 className="text-3xl font-extrabold tracking-tight text-[#121316] sm:text-4xl dark:text-white">
+              Hands-On Leadership. Direct Accountability.
+            </h2>
+            <p className="text-base text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed">
+              When you hire MS Enterprise, you don&apos;t get pawned off to junior contractors. You collaborate directly with our two founding leads who bring deep technical discipline and verified track records.
+            </p>
+          </div>
+
+          {/* 3 Partner Standard Differences */}
+          <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#121316]">
+                  <span>01 • Direct Access</span>
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-[#121316] dark:text-white">
+                  Direct Architect Access
+                </h3>
+                <p className="mt-3 text-xs leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
+                  Talk directly to the software engineers writing your code and managing your campaigns. No non-technical account managers who simply forward emails or lose critical details in translation.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[#E5E7EB] dark:border-[#2A2D34] flex items-center gap-2 text-xs font-semibold text-[#121316] dark:text-[#E5B238]">
+                <Zap className="h-4 w-4 text-[#D4AF37]" />
+                <span>Fast iteration without delays</span>
+              </div>
+            </div>
+
+            <div className="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#121316]">
+                  <span>02 • Agile Network</span>
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-[#121316] dark:text-white">
+                  Decentralized Network Agility
+                </h3>
+                <p className="mt-3 text-xs leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
+                  A vetted network of independent specialists supervised by core founding leads. Enterprise quality and rapid turnaround without 4x agency markups or bloated overhead.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[#E5E7EB] dark:border-[#2A2D34] flex items-center gap-2 text-xs font-semibold text-[#121316] dark:text-[#E5B238]">
+                <Users className="h-4 w-4 text-[#D4AF37]" />
+                <span>Supervised by Rana & Moiz</span>
+              </div>
+            </div>
+
+            <div className="glass-panel p-8 rounded-3xl flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#121316]">
+                  <span>03 • Long-Term Value</span>
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-[#121316] dark:text-white">
+                  Lifetime Accountability
+                </h3>
+                <p className="mt-3 text-xs leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
+                  Guaranteed uptime, direct live support, and low monthly maintenance. We don&apos;t build a platform and disappear; we stay in your corner for the long haul.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[#E5E7EB] dark:border-[#2A2D34] flex items-center gap-2 text-xs font-semibold text-[#121316] dark:text-[#E5B238]">
+                <ShieldCheck className="h-4 w-4 text-[#D4AF37]" />
+                <span>Honest guarantees & stability</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 2 Founders Cards */}
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+            {/* Founder 1: Rana ShaMeer */}
+            <div className="glass-panel-elevated p-8 sm:p-9 rounded-3xl">
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#121316] text-[#D4AF37] px-3 py-1 text-xs font-bold uppercase tracking-wider dark:bg-white dark:text-[#121316]">
+                    <Code2 className="h-3.5 w-3.5" />
+                    <span>Technical Architecture</span>
+                  </span>
+                  <h3 className="mt-4 text-2xl font-bold text-[#121316] dark:text-white">
+                    Rana ShaMeer
+                  </h3>
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238] mt-0.5">
+                    Founder & Technical Systems Architect
+                  </p>
+                </div>
+
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#D4AF37]/15 text-[#B8860B] font-mono font-bold text-xs uppercase text-center border border-[#D4AF37]/30 dark:text-[#E5B238]">
+                  4 YRS EXP
+                </div>
+              </div>
+
+              <p className="mt-5 text-sm leading-relaxed text-[#2B2D33] dark:text-[#9CA3AF]">
+                Rana brings <strong>4 years of industry experience</strong> in high-performance full-stack web engineering, cybersecurity, and Next.js systems. He personally reviews every pull request, optimizes page rendering speeds, and guarantees long-term codebase maintainability.
               </p>
 
-              {/* Fluid Pill Action Buttons */}
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link
-                  href={content.hero.primaryCtaLink}
-                  className="spatial-btn-primary inline-flex items-center gap-2.5 px-6 py-3.5 text-sm font-semibold shadow-sm"
-                >
-                  <span>{content.hero.primaryCtaText}</span>
-                  <Icon name="ArrowRight" className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={content.hero.secondaryCtaLink}
-                  className="spatial-btn-secondary inline-flex items-center gap-2.5 px-6 py-3.5 text-sm font-medium"
-                >
-                  <span>{content.hero.secondaryCtaText}</span>
-                  <Icon name="ChevronRight" className="h-4 w-4 text-slate-400" />
-                </Link>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {['Next.js App Router', 'TypeScript', 'Cybersecurity', 'API Systems'].map((skill, i) => (
+                  <span
+                    key={i}
+                    className="rounded-lg bg-white/70 border border-[#E5E7EB] px-2.5 py-1 text-[11px] font-semibold text-[#121316] dark:bg-[#121316]/70 dark:border-[#2A2D34] dark:text-[#E5E7EB]"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
 
-              {/* Trust Indicators */}
-              <div className="mt-12 border-t border-slate-200/70 pt-6 dark:border-white/10">
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                  {content.hero.trustPills.map((pill, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs font-medium text-slate-700 dark:text-slate-300">
-                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-700 ring-1 ring-sky-500/20 dark:bg-cyan-500/15 dark:text-cyan-400 dark:ring-cyan-500/30">
-                        <Icon name="Check" className="h-3.5 w-3.5" />
-                      </div>
-                      <span>{pill}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="mt-8 pt-6 border-t border-[#E5E7EB] flex items-center justify-between dark:border-[#2A2D34]">
+                <span className="text-xs font-medium text-[#6B7280] dark:text-[#9CA3AF]">
+                  Direct Engineering Oversight
+                </span>
+                <a
+                  href="https://www.linkedin.com/in/rana-shameer/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="spatial-btn-secondary inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold"
+                >
+                  <Linkedin className="h-3.5 w-3.5 text-[#D4AF37]" />
+                  <span>LinkedIn Profile</span>
+                </a>
               </div>
             </div>
 
-            {/* Right Column: Apple Liquid Glass Interactive Window */}
-            <div className="lg:col-span-5">
-              <HeroVisual />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- 2. SERVICES OVERVIEW (TILT GLASS CARDS) ---------------- */}
-      <section className="relative py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/25 bg-white/70 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-sky-700 shadow-sm backdrop-blur-xl dark:border-cyan-500/25 dark:bg-cyan-500/10 dark:text-cyan-300">
-              <Icon name="Compass" className="h-3.5 w-3.5" />
-              <span>Core Capabilities</span>
-            </div>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-              Specialized Services Built with Accountability
-            </h2>
-            <p className="mt-4 text-base text-slate-600 dark:text-slate-400">
-              High-performance engineering, organic Meta social expansion, and diligent ecommerce store operations tailored to your business goals.
-            </p>
-          </div>
-
-          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
-            {services.map((srv) => (
-              <TiltCard
-                key={srv.id}
-                maxTilt={6}
-                className="spatial-card flex h-full flex-col justify-between rounded-3xl p-8"
-              >
+            {/* Founder 2: Moiz Zaffer */}
+            <div className="glass-panel-elevated p-8 sm:p-9 rounded-3xl">
+              <div className="flex items-start justify-between">
                 <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-sky-700 ring-1 ring-sky-500/20 shadow-sm dark:bg-cyan-500/15 dark:text-cyan-400 dark:ring-cyan-500/30">
-                      <Icon name={srv.iconName} className="h-6 w-6" />
-                    </div>
-                    <span className="rounded-full bg-slate-100/80 px-3 py-1 text-xs font-semibold tracking-wider uppercase text-slate-700 border border-slate-200/80 dark:bg-white/5 dark:text-slate-300 dark:border-white/10">
-                      {srv.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-6 text-xl font-bold text-slate-900 dark:text-white">{srv.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    {srv.summary}
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#121316] text-[#D4AF37] px-3 py-1 text-xs font-bold uppercase tracking-wider dark:bg-white dark:text-[#121316]">
+                    <Share2 className="h-3.5 w-3.5" />
+                    <span>Growth & Operations</span>
+                  </span>
+                  <h3 className="mt-4 text-2xl font-bold text-[#121316] dark:text-white">
+                    Moiz Zaffer
+                  </h3>
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238] mt-0.5">
+                    Co-Founder & Growth / Operations Director
                   </p>
-
-                  <ul className="mt-6 space-y-3 border-t border-slate-200/60 pt-6 text-xs text-slate-700 dark:border-white/10 dark:text-slate-300">
-                    {srv.highlights.slice(0, 4).map((h, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5">
-                        <Icon name="CheckCircle2" className="mt-0.5 h-4 w-4 shrink-0 text-sky-600 dark:text-cyan-400" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
-                <div className="mt-8 pt-4">
-                  <Link
-                    href={`/services/${srv.slug}`}
-                    className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-700 transition-colors hover:text-sky-800 dark:text-cyan-300 dark:hover:text-cyan-200"
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#D4AF37]/15 text-[#B8860B] font-mono font-bold text-xs uppercase text-center border border-[#D4AF37]/30 dark:text-[#E5B238]">
+                  4 YRS EXP
+                </div>
+              </div>
+
+              <p className="mt-5 text-sm leading-relaxed text-[#2B2D33] dark:text-[#9CA3AF]">
+                Moiz has <strong>4 years of industry experience</strong> driving organic Facebook page audience expansion and overseeing international ecommerce store operations. He manages our virtual assistant team to ensure flawless inventory synchronization and daily fulfillment.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {['Meta Organic Growth', 'Ecommerce VA', 'Shopify & Amazon', 'Audience Building'].map((skill, i) => (
+                  <span
+                    key={i}
+                    className="rounded-lg bg-white/70 border border-[#E5E7EB] px-2.5 py-1 text-[11px] font-semibold text-[#121316] dark:bg-[#121316]/70 dark:border-[#2A2D34] dark:text-[#E5E7EB]"
                   >
-                    <span>Explore Service Details</span>
-                    <Icon
-                      name="ArrowRight"
-                      className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1.5"
-                    />
-                  </Link>
-                </div>
-              </TiltCard>
-            ))}
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-[#E5E7EB] flex items-center justify-between dark:border-[#2A2D34]">
+                <span className="text-xs font-medium text-[#6B7280] dark:text-[#9CA3AF]">
+                  Direct Operations Oversight
+                </span>
+                <a
+                  href="https://www.linkedin.com/in/moizkhan65/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="spatial-btn-secondary inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold"
+                >
+                  <Linkedin className="h-3.5 w-3.5 text-[#D4AF37]" />
+                  <span>LinkedIn Profile</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ---------------- 3. WHY CHOOSE US (SEGMENTED MODULAR WIDGETS) ---------------- */}
-      <section className="relative py-24 border-y border-slate-200/70 bg-white/40 dark:border-white/10 dark:bg-slate-950/40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
-              Our Principles
+      {/* ---------------- 6. STANDARDIZED PACKAGES & CONSULTATION INQUIRY (STAGE 1.0 - 3D MONOLITH CENTER) ---------------- */}
+      <section
+        id="pricing-inquiry"
+        className="relative py-24 bg-transparent scroll-mt-16"
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12 space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#B8860B] dark:text-[#E5B238] font-bold">
+              Transparent Pricing & Direct Engagement
             </span>
-            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-              {content.whyChooseUs.heading}
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white">
+              Engineered Packages. Ready for Deployment.
             </h2>
-            <p className="mt-4 text-base text-slate-600 dark:text-slate-400">
-              {content.whyChooseUs.subheading}
+            <p className="text-base text-[#6B7280] dark:text-[#9CA3AF]">
+              Select a standardized blueprint or connect with our technical engineers for a custom enterprise audit.
             </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {content.whyChooseUs.pillars.map((pillar, idx) => (
-              <TiltCard
-                key={idx}
-                maxTilt={6}
-                className="spatial-card rounded-3xl p-7"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-100 text-sky-700 ring-1 ring-sky-500/20 shadow-sm dark:bg-cyan-500/15 dark:text-cyan-400 dark:ring-cyan-500/25">
-                  <Icon name={pillar.icon} className="h-5 w-5" />
+          {/* 3 Core Packages (Matching Demo HTML & Database) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1: Essential Web Platform */}
+            <div className="glass-panel p-7 rounded-3xl flex flex-col justify-between hover:scale-[1.02] transition-transform">
+              <div className="space-y-4">
+                <div className="text-xs font-mono font-bold text-[#B8860B] dark:text-[#E5B238] uppercase">
+                  Custom Website Development
                 </div>
-                <h3 className="mt-5 text-base font-bold text-slate-900 dark:text-white">{pillar.title}</h3>
-                <p className="mt-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-                  {pillar.description}
-                </p>
-              </TiltCard>
-            ))}
-          </div>
-        </div>
-      </section>
+                <h3 className="text-xl font-bold text-[#121316] dark:text-white">
+                  Essential Web Platform
+                </h3>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-mono font-extrabold text-[#121316] dark:text-white">
+                    $450
+                  </span>
+                  <span className="text-xs text-[#6B7280] dark:text-[#9CA3AF] font-mono">
+                    / one-time
+                  </span>
+                </div>
+                <ul className="text-xs text-[#2B2D33] dark:text-[#E5E7EB] space-y-2.5 pt-3 border-t border-[#E5E7EB] dark:border-[#2A2D34]">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Up to 5 custom designed pages
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Zero generic templates (100% custom code)
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Lifetime live technical support
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Speed & accessibility optimization
+                  </li>
+                </ul>
+              </div>
+              <Link
+                href="/inquiry?service=web&plan=Essential+Web+Platform"
+                className="mt-8 w-full py-3 rounded-xl text-xs font-mono uppercase font-bold tracking-wider text-center bg-[#FBFBFA] border border-[#E5E7EB] text-[#121316] hover:bg-[#D4AF37] hover:text-[#121316] hover:border-[#D4AF37] transition-all dark:bg-[#121316] dark:border-[#2A2D34] dark:text-white"
+              >
+                Select Essential Plan
+              </Link>
+            </div>
 
-      {/* ---------------- 4. FEATURED PLANS (APPLE LIQUID GLASS PRICING) ---------------- */}
-      <section className="relative py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
-                Transparent Pricing
+            {/* Card 2: Professional Custom / Ecommerce (Most Popular with Gold Highlight) */}
+            <div className="glass-panel-elevated p-7 rounded-3xl flex flex-col justify-between border-2 border-[#D4AF37] relative hover:scale-[1.03] transition-transform shadow-xl">
+              <div className="absolute -top-3.5 right-6 px-3.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[#D4AF37] text-[#121316] shadow-sm">
+                Most Popular
+              </div>
+              <div className="space-y-4">
+                <div className="text-xs font-mono font-bold text-[#D4AF37] uppercase">
+                  Custom Website Development
+                </div>
+                <h3 className="text-xl font-bold text-[#121316] dark:text-white">
+                  Professional / Ecommerce
+                </h3>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-mono font-extrabold text-[#D4AF37]">
+                    $950
+                  </span>
+                  <span className="text-xs text-[#6B7280] dark:text-[#9CA3AF] font-mono">
+                    / one-time
+                  </span>
+                </div>
+                <ul className="text-xs text-[#2B2D33] dark:text-[#E5E7EB] space-y-2.5 pt-3 border-t border-[#E5E7EB] dark:border-[#2A2D34]">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Bespoke Spatial UI layout & animations
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Full custom ecommerce / business portal
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Competitor audit & blueprint redesign
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#D4AF37] font-bold">✓</span> Direct developer live support channel
+                  </li>
+                </ul>
+              </div>
+              <Link
+                href="/inquiry?service=web&plan=Professional+Custom"
+                className="mt-8 w-full py-3 rounded-xl text-xs font-mono uppercase font-bold tracking-wider text-center bg-[#D4AF37] text-[#121316] hover:bg-[#B8860B] hover:text-white transition-all shadow-md"
+              >
+                Select Professional Plan
+              </Link>
+            </div>
+
+            {/* Card 3: Meta Multi-Country Stream */}
+            <div className="glass-panel p-7 rounded-3xl flex flex-col justify-between hover:scale-[1.02] transition-transform">
+              <div className="space-y-4">
+                <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase">
+                  Meta (Facebook) Services
+                </div>
+                <h3 className="text-xl font-bold text-[#121316] dark:text-white">
+                  Multi-Country Stream
+                </h3>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-mono font-extrabold text-[#121316] dark:text-white">
+                    $340
+                  </span>
+                  <span className="text-xs text-[#6B7280] dark:text-[#9CA3AF] font-mono">
+                    / monthly
+                  </span>
+                </div>
+                <ul className="text-xs text-[#2B2D33] dark:text-[#E5E7EB] space-y-2.5 pt-3 border-t border-[#E5E7EB] dark:border-[#2A2D34]">
+                  <li className="flex items-center gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> Up to 4 selected target countries
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> Demographic-specific content flow
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 100% authentic organic growth
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> Continuous community outreach
+                  </li>
+                </ul>
+              </div>
+              <Link
+                href="/inquiry?service=meta&plan=Meta+Multi-Country+Stream"
+                className="mt-8 w-full py-3 rounded-xl text-xs font-mono uppercase font-bold tracking-wider text-center bg-[#FBFBFA] border border-[#E5E7EB] text-[#121316] hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all dark:bg-[#121316] dark:border-[#2A2D34] dark:text-white"
+              >
+                Select Growth Stream
+              </Link>
+            </div>
+          </div>
+
+          {/* Quick Consultation Inquiry Form */}
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center pt-8">
+            <div className="lg:col-span-5 space-y-6">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37]/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238]">
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>Let&apos;s Talk</span>
               </span>
-              <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-                Featured Service Packages
-              </h2>
-            </div>
-            <Link
-              href="/plans"
-              className="spatial-btn-secondary inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold"
-            >
-              <span>View All Plans</span>
-              <Icon name="ArrowRight" className="h-3.5 w-3.5" />
-            </Link>
-          </div>
 
-          {/* Top 3 Primary Packages */}
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {plans.slice(0, 3).map((plan) => (
-              <TiltCard
-                key={plan.id}
-                maxTilt={6}
-                className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 pt-9 ${
-                  plan.isPopular
-                    ? 'border-sky-500/50 shadow-liquid-elevated ring-2 ring-sky-500/20 dark:border-cyan-500/50 dark:ring-cyan-400/30'
-                    : ''
-                }`}
-              >
-                {plan.badge && (
-                  <div className="absolute -top-3.5 right-6 z-20 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md ring-2 ring-white dark:ring-slate-900">
-                    {plan.badge}
-                  </div>
-                )}
+              <h3 className="text-3xl font-extrabold tracking-tight text-[#121316] sm:text-4xl dark:text-white">
+                Ready to build something fast without agency nonsense?
+              </h3>
 
-                <div className="flex flex-1 flex-col">
-                  <div className="min-h-[64px]">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
-                      {plan.serviceTitle}
-                    </span>
-                    <h3 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
-                  </div>
+              <p className="text-base leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
+                Tell us about what you want to build or scale. We review your specifications, competitor landscape, and provide an honest assessment, fixed quote, and realistic delivery timeline.
+              </p>
 
-                  <p className="mt-2 min-h-[44px] text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-                    {plan.description}
-                  </p>
-
-                  <div className="mt-6 flex items-baseline gap-2 border-b border-slate-200/60 pb-6 dark:border-white/10">
-                    <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{plan.price}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">/ {plan.billingPeriod}</span>
-                  </div>
-
-                  <ul className="mt-6 flex-1 space-y-3 text-xs text-slate-700 dark:text-slate-300">
-                    {plan.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2.5">
-                        <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600 dark:text-cyan-400" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-8 pt-4">
-                  <Link
-                    href={plan.ctaLink}
-                    className={`block w-full py-3 text-center text-xs font-bold uppercase tracking-wider transition-all ${
-                      plan.isPopular ? 'spatial-btn-primary' : 'spatial-btn-secondary'
-                    }`}
-                  >
-                    {plan.ctaText}
-                  </Link>
-                </div>
-              </TiltCard>
-            ))}
-          </div>
-
-          {/* Centered Specialized Retainers (Row 2: Meta Growth & Ecommerce Support) */}
-          {plans.length > 3 && (
-            <div className="mt-8 mx-auto grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
-              {plans.slice(3).map((plan) => (
-                <TiltCard
-                  key={plan.id}
-                  maxTilt={6}
-                  className={`spatial-card relative flex h-full flex-col justify-between rounded-3xl p-8 pt-9 ${
-                    plan.isPopular
-                      ? 'border-sky-500/50 shadow-liquid-elevated ring-2 ring-sky-500/20 dark:border-cyan-500/50 dark:ring-cyan-400/30'
-                      : ''
-                  }`}
+              <div className="space-y-4 pt-2">
+                <a
+                  href={`https://wa.me/${cleanWhatsApp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-panel flex items-center gap-4 rounded-2xl p-4 transition-colors hover:border-[#D4AF37]"
                 >
-                  {plan.badge && (
-                    <div className="absolute -top-3.5 right-6 z-20 rounded-full bg-gradient-to-r from-sky-600 to-blue-700 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-md ring-2 ring-white dark:ring-slate-900">
-                      {plan.badge}
-                    </div>
-                  )}
-
-                  <div className="flex flex-1 flex-col">
-                    <div className="min-h-[64px]">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 dark:text-cyan-400">
-                        {plan.serviceTitle}
-                      </span>
-                      <h3 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
-                    </div>
-
-                    <p className="mt-2 min-h-[44px] text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-                      {plan.description}
-                    </p>
-
-                    <div className="mt-6 flex items-baseline gap-2 border-b border-slate-200/60 pb-6 dark:border-white/10">
-                      <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{plan.price}</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">/ {plan.billingPeriod}</span>
-                    </div>
-
-                    <ul className="mt-6 flex-1 space-y-3 text-xs text-slate-700 dark:text-slate-300">
-                      {plan.features.map((feat, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-2.5">
-                          <Icon name="Check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600 dark:text-cyan-400" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-sm">
+                    <MessageSquare className="h-6 w-6" />
                   </div>
-
-                  <div className="mt-8 pt-4">
-                    <Link
-                      href={plan.ctaLink}
-                      className={`block w-full py-3 text-center text-xs font-bold uppercase tracking-wider transition-all ${
-                        plan.isPopular ? 'spatial-btn-primary' : 'spatial-btn-secondary'
-                      }`}
-                    >
-                      {plan.ctaText}
-                    </Link>
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#6B7280] dark:text-[#9CA3AF]">
+                      WhatsApp Direct Desk
+                    </div>
+                    <div className="text-sm font-bold text-[#121316] dark:text-white">
+                      Instant response during active hours
+                    </div>
                   </div>
-                </TiltCard>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+                </a>
 
-      {/* ---------------- 5. INQUIRY SHORTCUT (LIQUID GLASS CALLOUT) ---------------- */}
-      <section className="relative py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <TiltCard
-            maxTilt={4}
-            className="spatial-card relative overflow-hidden rounded-4xl p-8 sm:p-12 lg:p-16 border border-slate-200/80 shadow-liquid-elevated dark:border-cyan-500/30 dark:shadow-spatial-elevated"
-          >
-            {/* Ambient Multi-Hue Sphere in background */}
-            <div className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-gradient-to-br from-sky-400/20 via-cyan-300/15 to-transparent blur-3xl dark:from-blue-600/20 dark:via-cyan-500/15" />
+                <a
+                  href={`mailto:${settings.email}`}
+                  className="glass-panel flex items-center gap-4 rounded-2xl p-4 transition-colors hover:border-[#D4AF37]"
+                >
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#121316] text-[#D4AF37] shadow-sm dark:bg-white dark:text-[#121316]">
+                    <Mail className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#6B7280] dark:text-[#9CA3AF]">
+                      Direct Email Line
+                    </div>
+                    <div className="text-sm font-bold text-[#121316] dark:text-white">
+                      {settings.email}
+                    </div>
+                  </div>
+                </a>
 
-            <div className="relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-8">
-                <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/25 bg-white/70 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-sky-700 shadow-sm backdrop-blur-xl dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-300">
-                  <span>Start Your Project</span>
-                </div>
-                <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-                  Have a Project in Mind or Need Dedicated Support?
-                </h2>
-                <p className="mt-4 max-w-2xl text-base text-slate-600 leading-relaxed dark:text-slate-300">
-                  Connect with our team directly. We review your requirements, examine competitor benchmarks, and construct a transparent execution roadmap with lifetime live support.
-                </p>
-
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/inquiry"
-                    className="spatial-btn-primary inline-flex items-center gap-2 px-6 py-3.5 text-xs font-bold uppercase tracking-wider shadow-sm"
-                  >
-                    <span>Submit Project Inquiry</span>
-                    <Icon name="ArrowRight" className="h-4 w-4" />
-                  </Link>
-                  <a
-                    href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="spatial-btn-secondary inline-flex items-center gap-2 px-6 py-3.5 text-xs font-semibold"
-                  >
-                    <Icon name="MessageSquare" className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                    <span>WhatsApp Direct Chat</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="lg:col-span-4">
-                <div className="rounded-3xl border border-slate-200/80 bg-white/80 p-6 backdrop-blur-xl shadow-sm dark:border-white/10 dark:bg-slate-950/70">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Direct Verification Lines
-                  </h3>
-                  <div className="mt-4 space-y-3.5 text-xs">
-                    <a
-                      href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`}
-                      className="flex items-center gap-3 text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-300 dark:hover:text-cyan-300"
-                    >
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-100 text-sky-700 ring-1 ring-sky-500/20 dark:bg-cyan-500/15 dark:text-cyan-400 dark:ring-cyan-500/20">
-                        <Icon name="Phone" className="h-4 w-4" />
-                      </div>
-                      <span className="font-semibold">{settings.phone}</span>
-                    </a>
-                    <a
-                      href={`mailto:${settings.email}`}
-                      className="flex items-center gap-3 text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-300 dark:hover:text-cyan-300"
-                    >
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-100 text-sky-700 ring-1 ring-sky-500/20 dark:bg-cyan-500/15 dark:text-cyan-400 dark:ring-cyan-500/20">
-                        <Icon name="Mail" className="h-4 w-4" />
-                      </div>
-                      <span className="font-semibold">{settings.email}</span>
-                    </a>
+                <div className="glass-panel flex items-center gap-4 rounded-2xl p-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#D4AF37]/20 text-[#B8860B] shadow-sm dark:text-[#E5B238]">
+                    <Clock className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#6B7280] dark:text-[#9CA3AF]">
+                      Response Commitment
+                    </div>
+                    <div className="text-sm font-bold text-[#121316] dark:text-white">
+                      Guaranteed within 4 to 12 hours
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </TiltCard>
+
+            {/* Right Column: Clean Lightweight Form */}
+            <div className="lg:col-span-7">
+              <QuickInquiryForm whatsappNumber={settings.whatsapp} />
+            </div>
+          </div>
         </div>
       </section>
     </div>

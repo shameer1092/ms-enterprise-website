@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Icon } from '@/components/common/Icon';
+import { Sun, Moon } from 'lucide-react';
 
 interface ThemeSwitcherProps {
   className?: string;
@@ -16,7 +16,6 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Read current theme state on mount
     const isDark = document.documentElement.classList.contains('dark');
     setTheme(isDark ? 'dark' : 'light');
     setMounted(true);
@@ -27,7 +26,11 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
     };
 
     window.addEventListener('storage', handleThemeChange);
-    return () => window.removeEventListener('storage', handleThemeChange);
+    window.addEventListener('theme-changed', handleThemeChange);
+    return () => {
+      window.removeEventListener('storage', handleThemeChange);
+      window.removeEventListener('theme-changed', handleThemeChange);
+    };
   }, []);
 
   const toggleTheme = (newTheme: 'light' | 'dark') => {
@@ -46,10 +49,10 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   if (!mounted) {
     return (
       <div
-        className={`inline-flex h-8 w-16 items-center justify-between rounded-full border border-slate-200/80 bg-white/60 p-1 backdrop-blur-xl ${className}`}
+        className={`inline-flex h-9 w-18 items-center justify-between rounded-full border border-[#E5E7EB] bg-white/80 p-1 dark:border-[#2A2D34] dark:bg-[#1E2024] ${className}`}
         aria-hidden="true"
       >
-        <span className="h-6 w-6 rounded-full bg-slate-100" />
+        <span className="h-6 w-6 rounded-full bg-[#FBFBFA]" />
       </div>
     );
   }
@@ -58,20 +61,20 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
     <div
       role="group"
       aria-label="Theme selection"
-      className={`inline-flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/65 p-1 shadow-sm backdrop-blur-xl transition-all dark:border-white/15 dark:bg-slate-900/70 dark:shadow-none ${className}`}
+      className={`inline-flex items-center gap-1 rounded-full border border-[#E5E7EB] bg-white p-1 shadow-sm transition-all dark:border-[#2A2D34] dark:bg-[#1E2024] ${className}`}
     >
       <button
         type="button"
         onClick={() => toggleTheme('light')}
         aria-label="Switch to Light Theme"
         aria-pressed={theme === 'light'}
-        className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-all duration-200 ${
+        className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold transition-all duration-200 ${
           theme === 'light'
-            ? 'bg-white text-sky-700 shadow-sm ring-1 ring-slate-900/5'
-            : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+            ? 'bg-[#121316] text-[#D4AF37] shadow-sm'
+            : 'text-[#6B7280] hover:text-[#121316] dark:text-[#9CA3AF] dark:hover:text-white'
         }`}
       >
-        <Icon name="Sun" className="h-3.5 w-3.5" />
+        <Sun className="h-3.5 w-3.5" />
         {showLabels && <span>Light</span>}
       </button>
 
@@ -80,13 +83,13 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
         onClick={() => toggleTheme('dark')}
         aria-label="Switch to Dark Theme"
         aria-pressed={theme === 'dark'}
-        className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-all duration-200 ${
+        className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold transition-all duration-200 ${
           theme === 'dark'
-            ? 'bg-slate-800 text-sky-300 shadow-sm ring-1 ring-white/10'
-            : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+            ? 'bg-white text-[#121316] shadow-sm'
+            : 'text-[#6B7280] hover:text-[#121316] dark:text-[#9CA3AF] dark:hover:text-white'
         }`}
       >
-        <Icon name="Moon" className="h-3.5 w-3.5" />
+        <Moon className="h-3.5 w-3.5" />
         {showLabels && <span>Dark</span>}
       </button>
     </div>

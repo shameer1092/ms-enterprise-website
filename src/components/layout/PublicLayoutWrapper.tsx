@@ -9,6 +9,7 @@ interface PublicLayoutWrapperProps {
   footer: React.ReactNode;
   floatingWhatsapp: React.ReactNode;
   cookieNotice: React.ReactNode;
+  bitmojiCompanion?: React.ReactNode;
 }
 
 export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
@@ -17,6 +18,7 @@ export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
   footer,
   floatingWhatsapp,
   cookieNotice,
+  bitmojiCompanion,
 }) => {
   const pathname = usePathname();
   const isAdminOrPortal =
@@ -31,15 +33,16 @@ export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
     );
   }
 
-  // Standard public website shell
+  // Standard public website shell with mobile-first zero overflow
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-x-hidden relative z-10 bg-transparent">
       {navbar}
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 bg-transparent">
         {children}
       </main>
       {footer}
       {floatingWhatsapp}
+      {bitmojiCompanion}
       {cookieNotice}
     </div>
   );

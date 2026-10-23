@@ -5,6 +5,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { PublicLayoutWrapper } from '@/components/layout/PublicLayoutWrapper';
 import { FloatingWhatsapp } from '@/components/common/FloatingWhatsapp';
+import { BitmojiCompanion } from '@/components/BitmojiCompanion';
+import { ThreeBackground } from '@/components/ThreeBackground';
 import { JsonLd } from '@/components/common/JsonLd';
 import { CookieNotice } from '@/components/common/CookieNotice';
 
@@ -12,23 +14,26 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = getSettings();
   return {
     title: {
-      default: settings.seoDefaults.title,
+      default: `${settings.companyName} | High-Performing Web Platforms & Scaled Stores`,
       template: `%s | ${settings.companyName}`,
     },
-    description: settings.seoDefaults.description,
+    description:
+      'We build high-performing web platforms and scale online stores without agency bloat. Direct access to experienced software architects and growth operators.',
     keywords: [
       'custom website development',
+      'Next.js development',
       'ecommerce website redesign',
       'Meta organic growth',
       'Facebook page traffic',
       'ecommerce virtual assistant',
       'Shopify VA store management',
-      'lifetime live support',
+      'partner driven agency',
     ],
     metadataBase: new URL('https://msenterprise.com'),
     openGraph: {
-      title: settings.seoDefaults.title,
-      description: settings.seoDefaults.description,
+      title: `${settings.companyName} | High-Performing Web Platforms & Scaled Stores`,
+      description:
+        'No non-technical intermediaries. No inflated retainers. Work directly with experienced software architects and growth operators.',
       type: 'website',
       siteName: settings.companyName,
     },
@@ -48,8 +53,7 @@ export default function RootLayout({
   const navigation = getNavigation();
   const services = getServices();
   const defaultTheme = settings.themeConfig?.defaultTheme || 'light';
-  const customAccent = settings.themeConfig?.accentColor;
-  const glassIntensity = settings.themeConfig?.glassIntensity || 'default';
+  const customAccent = settings.themeConfig?.accentColor || '#D4AF37';
 
   return (
     <html lang="en" className="light" suppressHydrationWarning>
@@ -79,36 +83,32 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Dynamic theme overrides from admin configuration */}
         {customAccent && (
           <style
             dangerouslySetInnerHTML={{
               __html: `
                 :root {
                   --accent: ${customAccent};
-                  ${glassIntensity === 'subtle' ? '--glass-default-blur: 18px; --glass-default-bg: rgba(255, 255, 255, 0.58);' : ''}
-                  ${glassIntensity === 'strong' ? '--glass-default-blur: 30px; --glass-default-bg: rgba(255, 255, 255, 0.82);' : ''}
                 }
               `,
             }}
           />
         )}
       </head>
-      <body className="min-h-screen bg-slate-50/60 text-slate-800 antialiased selection:bg-sky-500/20 selection:text-sky-900 dark:bg-[#080A0E] dark:text-slate-100 dark:selection:bg-cyan-500/20 dark:selection:text-cyan-200">
+      <body className="min-h-screen bg-[#FBFBFA] text-[#121316] antialiased selection:bg-[#D4AF37]/25 selection:text-[#121316] overflow-x-hidden dark:bg-[#121316] dark:text-[#E5E7EB] dark:selection:bg-[#D4AF37]/30 dark:selection:text-white">
         {/* Skip to main content for screen readers and keyboard users */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-sky-600 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white focus:shadow-xl dark:focus:bg-cyan-400 dark:focus:text-slate-950"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-[#D4AF37] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#121316] focus:shadow-xl"
         >
           Skip to main content
         </a>
 
-        {/* Apple Liquid Glass Backdrop Washes (Large, Soft, Clean, No Dots) */}
-        <div className="liquid-glass-backdrop" aria-hidden="true">
-          <div className="liquid-glass-wash-1" />
-          <div className="liquid-glass-wash-2" />
-          <div className="liquid-glass-wash-3" />
-        </div>
+        {/* 60% Dominant Canvas Base */}
+        <div className="site-backdrop" aria-hidden="true" />
+
+        {/* 3D Spatial Quantum Engine in 60-30-10 Luxury Brand Palette */}
+        <ThreeBackground />
 
         <PublicLayoutWrapper
           navbar={<Navbar navigation={navigation} settings={settings} />}
@@ -119,6 +119,7 @@ export default function RootLayout({
               enabled={settings.floatingWhatsappEnabled}
             />
           }
+          bitmojiCompanion={<BitmojiCompanion />}
           cookieNotice={<CookieNotice />}
         >
           {children}

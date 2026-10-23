@@ -204,7 +204,7 @@ export const InquiryForm: React.FC = () => {
             className={`mt-2 w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 ${
               errors.name
                 ? 'border-red-500 focus:ring-red-500'
-                : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
+                : 'border-slate-300/80 focus:border-[#D4AF37] focus:ring-[#D4AF37] dark:border-white/10 dark:focus:border-[#D4AF37] dark:focus:ring-[#D4AF37]'
             }`}
           />
           {errors.name && <p className="mt-1.5 text-xs text-red-500">{errors.name}</p>}
@@ -228,7 +228,7 @@ export const InquiryForm: React.FC = () => {
             className={`mt-2 w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 ${
               errors.email
                 ? 'border-red-500 focus:ring-red-500'
-                : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
+                : 'border-slate-300/80 focus:border-[#D4AF37] focus:ring-[#D4AF37] dark:border-white/10 dark:focus:border-[#D4AF37] dark:focus:ring-[#D4AF37]'
             }`}
           />
           {errors.email && <p className="mt-1.5 text-xs text-red-500">{errors.email}</p>}
@@ -338,7 +338,7 @@ export const InquiryForm: React.FC = () => {
           className={`mt-2 w-full rounded-2xl border bg-white/80 p-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 dark:bg-slate-900/80 dark:text-white dark:placeholder-slate-500 ${
             errors.message
               ? 'border-red-500 focus:ring-red-500'
-              : 'border-slate-300/80 focus:border-sky-500 focus:ring-sky-500 dark:border-white/10 dark:focus:border-cyan-400 dark:focus:ring-cyan-400'
+              : 'border-slate-300/80 focus:border-[#D4AF37] focus:ring-[#D4AF37] dark:border-white/10 dark:focus:border-[#D4AF37] dark:focus:ring-[#D4AF37]'
           }`}
         />
         {errors.message && <p className="mt-1.5 text-xs text-red-500">{errors.message}</p>}
