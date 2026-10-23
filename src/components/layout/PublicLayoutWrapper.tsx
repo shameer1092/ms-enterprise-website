@@ -37,16 +37,18 @@ export const PublicLayoutWrapper: React.FC<PublicLayoutWrapperProps> = ({
 
   // Standard public website shell with mobile-first zero overflow
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden relative z-10 bg-transparent">
+    <>
       {threeBackground}
-      {navbar}
-      <main id="main-content" className="flex-1 bg-transparent">
-        {children}
-      </main>
-      {footer}
-      {floatingWhatsapp}
-      {bitmojiCompanion}
-      {cookieNotice}
-    </div>
+      <div className="flex min-h-screen flex-col overflow-x-hidden relative z-10 bg-transparent">
+        {navbar}
+        <main id="main-content" className="flex-1 bg-transparent relative z-10">
+          {children}
+        </main>
+        {footer}
+        {floatingWhatsapp}
+        {bitmojiCompanion}
+        {cookieNotice}
+      </div>
+    </>
   );
 };

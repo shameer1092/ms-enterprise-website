@@ -34,11 +34,11 @@ export default function HomePage() {
       {/* ---------------- 1. HERO SECTION (SCROLLYTELLING STAGE 0.0 - 3D DOCKED RIGHT) ---------------- */}
       <section
         id="hero"
-        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 pt-20 pb-16 bg-transparent"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 pt-20 pb-16 bg-transparent relative z-10"
       >
-        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10 relative z-10">
           {/* Left Column: Heading & Value Proposition (7 Cols) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 liquid-glass p-7 sm:p-9 rounded-3xl relative z-10 shadow-partner-card space-y-6">
             {/* Partner Standard Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#B8860B] shadow-sm dark:bg-[#D4AF37]/15 dark:text-[#E5B238]">
               <span className="relative flex h-2 w-2">
@@ -114,9 +114,9 @@ export default function HomePage() {
       {/* ---------------- 2. PILLAR 01: CUSTOM WEBSITE DEVELOPMENT (STAGE 0.25 - 3D EXPLODED WIREFRAME LEFT) ---------------- */}
       <section
         id="web-dev"
-        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16 relative z-10"
       >
-        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           {/* Left Spacing: Dedicated 3D Exploded Structural Core Dock (6 Cols) */}
           <div className="lg:col-span-6 order-2 lg:order-1 h-[320px] sm:h-[400px] lg:h-[600px] pointer-events-none flex items-end justify-center pb-4">
             <span className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] bg-white/70 dark:bg-[#1E2024]/70 px-3 py-1 rounded-full border border-[#E5E7EB] dark:border-[#2A2D34] backdrop-blur-md">
@@ -125,73 +125,75 @@ export default function HomePage() {
           </div>
 
           {/* Right Column: Web Dev Content & Glass Panels (6 Cols) */}
-          <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
-              <span className="h-2 w-2 rounded bg-[#D4AF37]" />
-              <span>Pillar 01 • Core Engineering</span>
-            </div>
+          <div className="lg:col-span-6 order-1 lg:order-2 relative z-10">
+            <div className="liquid-glass p-7 sm:p-9 rounded-3xl relative z-10 shadow-partner-card space-y-6">
+              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
+                <span className="h-2 w-2 rounded bg-[#D4AF37]" />
+                <span>Pillar 01 • Core Engineering</span>
+              </div>
 
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
-              Custom Website <br />
-              <span className="text-[#D4AF37]">Development & Spatial UI</span>
-            </h2>
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
+                Custom Website <br />
+                <span className="text-[#D4AF37]">Development & Spatial UI</span>
+              </h2>
 
-            <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
-              Tailored web platforms, custom ecommerce stores, company portals, and competitor-informed redesigns. We eliminate template locks to give you raw performance, pristine codebases, and direct developer communication.
-            </p>
+              <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
+                Tailored web platforms, custom ecommerce stores, company portals, and competitor-informed redesigns. We eliminate template locks to give you raw performance, pristine codebases, and direct developer communication.
+              </p>
 
-            <div className="space-y-3.5 pt-2">
-              <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
-                <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#B8860B] dark:text-[#E5B238] font-mono text-xs font-bold shrink-0">
-                  01
+              <div className="space-y-3.5 pt-2">
+                <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#B8860B] dark:text-[#E5B238] font-mono text-xs font-bold shrink-0">
+                    01
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#121316] dark:text-white">
+                      No Generic Template Locks
+                    </h3>
+                    <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                      Bespoke spatial design engineered ground-up with Next.js App Router and TypeScript. Modular asset pipelines, sub-second TTFB, and zero technical debt.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-bold text-[#121316] dark:text-white">
-                    No Generic Template Locks
-                  </h3>
-                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
-                    Bespoke spatial design engineered ground-up with Next.js App Router and TypeScript. Modular asset pipelines, sub-second TTFB, and zero technical debt.
-                  </p>
+
+                <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-xl bg-[#121316]/10 dark:bg-white/10 border border-[#E5E7EB] dark:border-[#2A2D34] flex items-center justify-center text-[#121316] dark:text-white font-mono text-xs font-bold shrink-0">
+                    02
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#121316] dark:text-white">
+                      Competitor-Informed Redesign
+                    </h3>
+                    <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                      We dissect your top 5 competitors, isolate functional bottlenecks, and reconstruct your digital footprint with superior UX and conversion speed.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
+                  <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#B8860B] dark:text-[#E5B238] font-mono text-xs font-bold shrink-0">
+                    03
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#121316] dark:text-white">
+                      Guaranteed Lifetime Live Support
+                    </h3>
+                    <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                      You deal with the exact software engineers who built the system. Unconditional standby assistance whenever you need updates, security patches, or features.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
-                <div className="w-9 h-9 rounded-xl bg-[#121316]/10 dark:bg-white/10 border border-[#E5E7EB] dark:border-[#2A2D34] flex items-center justify-center text-[#121316] dark:text-white font-mono text-xs font-bold shrink-0">
-                  02
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-[#121316] dark:text-white">
-                    Competitor-Informed Redesign
-                  </h3>
-                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
-                    We dissect your top 5 competitors, isolate functional bottlenecks, and reconstruct your digital footprint with superior UX and conversion speed.
-                  </p>
-                </div>
+              <div className="pt-2">
+                <Link
+                  href="/services/web-development"
+                  className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
+                >
+                  <span>Explore Full Web Engineering Specs</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
               </div>
-
-              <div className="glass-panel p-5 rounded-2xl flex items-start gap-4">
-                <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#B8860B] dark:text-[#E5B238] font-mono text-xs font-bold shrink-0">
-                  03
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-[#121316] dark:text-white">
-                    Guaranteed Lifetime Live Support
-                  </h3>
-                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
-                    You deal with the exact software engineers who built the system. Unconditional standby assistance whenever you need updates, security patches, or features.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/services/web-development"
-                className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
-              >
-                <span>Explore Full Web Engineering Specs</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
             </div>
           </div>
         </div>
@@ -200,66 +202,68 @@ export default function HomePage() {
       {/* ---------------- 3. PILLAR 02: META SERVICES (STAGE 0.50 - 3D GLOBAL AUDIENCE DOCKED RIGHT) ---------------- */}
       <section
         id="meta-growth"
-        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16 relative z-10"
       >
-        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           {/* Left Column: Meta Services Content (6 Cols) */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Pillar 02 • Organic Growth Ecosystem</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
-              Meta (Facebook) <br />
-              <span className="text-[#D4AF37]">Multi-Country Reach</span>
-            </h2>
-
-            <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
-              Organic Facebook page scaling, targeted community nurturing, and multi-country audience traffic synchronized with your business demographics without artificial inflation or bot farming.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="glass-panel p-5 rounded-2xl">
-                <div className="text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-bold mb-1">
-                  100%
-                </div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#121316] dark:text-white">
-                  Organic & Bot-Free
-                </h3>
-                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
-                  Strict avoidance of synthetic metrics. Real community engagement with actual purchasing power and long-term brand retention.
-                </p>
+          <div className="lg:col-span-6 relative z-10">
+            <div className="liquid-glass p-7 sm:p-9 rounded-3xl relative z-10 shadow-partner-card space-y-6">
+              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Pillar 02 • Organic Growth Ecosystem</span>
               </div>
 
-              <div className="glass-panel p-5 rounded-2xl">
-                <div className="text-2xl font-mono text-[#D4AF37] font-bold mb-1">
-                  Multi-Geo
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
+                Meta (Facebook) <br />
+                <span className="text-[#D4AF37]">Multi-Country Reach</span>
+              </h2>
+
+              <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
+                Organic Facebook page scaling, targeted community nurturing, and multi-country audience traffic synchronized with your business demographics without artificial inflation or bot farming.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="glass-panel p-5 rounded-2xl">
+                  <div className="text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-bold mb-1">
+                    100%
+                  </div>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#121316] dark:text-white">
+                    Organic & Bot-Free
+                  </h3>
+                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                    Strict avoidance of synthetic metrics. Real community engagement with actual purchasing power and long-term brand retention.
+                  </p>
                 </div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#121316] dark:text-white">
-                  Target Country Focus
-                </h3>
-                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
-                  Deploy audience routing pipelines tailored to specific regional territories (USA, UK, Gulf, Europe) and language preferences.
-                </p>
+
+                <div className="glass-panel p-5 rounded-2xl">
+                  <div className="text-2xl font-mono text-[#D4AF37] font-bold mb-1">
+                    Multi-Geo
+                  </div>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#121316] dark:text-white">
+                    Target Country Focus
+                  </h3>
+                  <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+                    Deploy audience routing pipelines tailored to specific regional territories (USA, UK, Gulf, Europe) and language preferences.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="p-4 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#121316] dark:text-[#E5B238] flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-[#D4AF37] animate-ping shrink-0" />
-              <span>
-                TELEMETRY STATUS: Active social matrix synchronization with verified demographic retention protocols supervised by Moiz Zaffer.
-              </span>
-            </div>
+              <div className="p-4 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-xs font-mono text-[#121316] dark:text-[#E5B238] flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-[#D4AF37] animate-ping shrink-0" />
+                <span>
+                  DIRECT OVERSIGHT: Hands-on community management & real audience growth supervised directly by Moiz Zaffer.
+                </span>
+              </div>
 
-            <div className="pt-2">
-              <Link
-                href="/services/meta-services"
-                className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
-              >
-                <span>Explore Meta Community Strategies</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              <div className="pt-2">
+                <Link
+                  href="/services/meta-services"
+                  className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
+                >
+                  <span>Explore Meta Community Strategies</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -275,9 +279,9 @@ export default function HomePage() {
       {/* ---------------- 4. PILLAR 03: ECOMMERCE SUPPORT & VA OPS (STAGE 0.75 - 3D OBSIDIAN VAULT LEFT) ---------------- */}
       <section
         id="ecommerce-ops"
-        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16"
+        className="relative min-h-[90vh] lg:min-h-screen flex items-center px-4 sm:px-6 lg:px-12 py-24 bg-transparent scroll-mt-16 relative z-10"
       >
-        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           {/* Left Spacing: Dedicated 3D Obsidian Vault Dock (6 Cols) */}
           <div className="lg:col-span-6 order-2 lg:order-1 h-[320px] sm:h-[400px] lg:h-[600px] pointer-events-none flex items-end justify-center pb-4">
             <span className="font-mono text-[11px] text-[#6B7280] dark:text-[#9CA3AF] bg-white/70 dark:bg-[#1E2024]/70 px-3 py-1 rounded-full border border-[#E5E7EB] dark:border-[#2A2D34] backdrop-blur-md">
@@ -286,74 +290,76 @@ export default function HomePage() {
           </div>
 
           {/* Right Column: VA Operations Content & Stat Panels (6 Cols) */}
-          <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
-              <span className="h-2 w-2 rounded bg-[#D4AF37]" />
-              <span>Pillar 03 • Operations & Virtual Assistance</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
-              Ecommerce Support & <br />
-              <span className="text-[#D4AF37]">Dedicated VA Store Ops</span>
-            </h2>
-
-            <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
-              Uninterrupted store management across Shopify, WooCommerce, Amazon, eBay, and bespoke systems. From bulk catalog uploads to supply chain alerts and live dispute handling.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="glass-panel p-4 rounded-2xl text-center">
-                <span className="text-2xl block mb-1">📦</span>
-                <span className="text-xs font-bold text-[#121316] dark:text-white block">
-                  Inventory Audits
-                </span>
-                <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
-                  Stock velocity & alerts
-                </span>
+          <div className="lg:col-span-6 order-1 lg:order-2 relative z-10">
+            <div className="liquid-glass p-7 sm:p-9 rounded-3xl relative z-10 shadow-partner-card space-y-6">
+              <div className="inline-flex items-center gap-2 font-mono text-xs text-[#B8860B] dark:text-[#E5B238] uppercase tracking-widest font-bold">
+                <span className="h-2 w-2 rounded bg-[#D4AF37]" />
+                <span>Pillar 03 • Operations & Virtual Assistance</span>
               </div>
-              <div className="glass-panel p-4 rounded-2xl text-center">
-                <span className="text-2xl block mb-1">⚡</span>
-                <span className="text-xs font-bold text-[#121316] dark:text-white block">
-                  Order Processing
-                </span>
-                <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
-                  Fulfillment & tracking
-                </span>
-              </div>
-              <div className="glass-panel p-4 rounded-2xl text-center">
-                <span className="text-2xl block mb-1">🤝</span>
-                <span className="text-xs font-bold text-[#121316] dark:text-white block">
-                  Supplier Sync
-                </span>
-                <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
-                  Disputes & vendor care
-                </span>
-              </div>
-            </div>
 
-            {/* Full-Time VA Operations Highlight Panel */}
-            <div className="glass-panel-elevated p-6 rounded-2xl border-l-4 border-l-[#D4AF37]">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-xs uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238] font-bold">
-                  Dedicated Full-Time VA Operations
-                </span>
-                <span className="text-xs font-mono font-bold text-[#121316] dark:text-white">
-                  $490 / month
-                </span>
-              </div>
-              <p className="text-xs text-[#2B2D33] dark:text-[#E5E7EB] leading-relaxed">
-                40 hours weekly of full store operations, catalog management, supplier coordination, and direct Slack/WhatsApp channel access.
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#121316] dark:text-white leading-[1.15]">
+                Ecommerce Support & <br />
+                <span className="text-[#D4AF37]">Dedicated VA Store Ops</span>
+              </h2>
+
+              <p className="text-[#2B2D33] text-sm sm:text-base leading-relaxed dark:text-[#E5E7EB]">
+                Uninterrupted store management across Shopify, WooCommerce, Amazon, eBay, and bespoke systems. From bulk catalog uploads to supply chain alerts and live dispute handling.
               </p>
-            </div>
 
-            <div className="pt-2">
-              <Link
-                href="/services/ecommerce-support"
-                className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
-              >
-                <span>Explore Store VA Operations</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="glass-panel p-4 rounded-2xl text-center">
+                  <span className="text-2xl block mb-1">📦</span>
+                  <span className="text-xs font-bold text-[#121316] dark:text-white block">
+                    Inventory Audits
+                  </span>
+                  <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                    Stock velocity & alerts
+                  </span>
+                </div>
+                <div className="glass-panel p-4 rounded-2xl text-center">
+                  <span className="text-2xl block mb-1">⚡</span>
+                  <span className="text-xs font-bold text-[#121316] dark:text-white block">
+                    Order Processing
+                  </span>
+                  <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                    Fulfillment & tracking
+                  </span>
+                </div>
+                <div className="glass-panel p-4 rounded-2xl text-center">
+                  <span className="text-2xl block mb-1">🤝</span>
+                  <span className="text-xs font-bold text-[#121316] dark:text-white block">
+                    Supplier Sync
+                  </span>
+                  <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                    Disputes & vendor care
+                  </span>
+                </div>
+              </div>
+
+              {/* Full-Time VA Operations Highlight Panel */}
+              <div className="glass-panel-elevated p-6 rounded-2xl border-l-4 border-l-[#D4AF37]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238] font-bold">
+                    Dedicated Full-Time VA Operations
+                  </span>
+                  <span className="text-xs font-mono font-bold text-[#121316] dark:text-white">
+                    $490 / month
+                  </span>
+                </div>
+                <p className="text-xs text-[#2B2D33] dark:text-[#E5E7EB] leading-relaxed">
+                  40 hours weekly of full store operations, catalog management, supplier coordination, and direct Slack/WhatsApp channel access.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href="/services/ecommerce-support"
+                  className="group inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#121316] hover:text-[#D4AF37] transition-colors dark:text-white dark:hover:text-[#D4AF37]"
+                >
+                  <span>Explore Store VA Operations</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

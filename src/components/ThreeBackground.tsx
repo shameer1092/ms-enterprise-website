@@ -43,7 +43,7 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     const getHeight = () => window.innerHeight;
 
     const camera = new THREE.PerspectiveCamera(45, getWidth() / getHeight(), 0.1, 100);
-    camera.position.set(0, 0, 8.5);
+    camera.position.set(0, 0, 12.5);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -252,9 +252,9 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     const keyframes = [
       {
         progress: 0.0, // Section 1: Hero (Docked at Right, High Specularity)
-        pos: { x: 2.2, y: 0.0, z: 0.5 },
+        pos: { x: 3.6, y: 0.0, z: -2.8 },
         rot: { x: 0.2, y: -0.4, z: 0.1 },
-        scale: 1.15,
+        scale: 1.0,
         subsystem: '01_SPATIAL_CORE_ONLINE',
         wireframe: false,
         satSpread: 1.0,
@@ -262,29 +262,29 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
       },
       {
         progress: 0.25, // Section 2: Where We Differ / Web Dev (Exploded Structural Architecture)
-        pos: { x: -2.3, y: -0.2, z: 1.2 },
+        pos: { x: -4.0, y: -0.1, z: -3.2 },
         rot: { x: 1.2, y: 1.57, z: -0.4 },
-        scale: 1.35,
+        scale: 1.0,
         subsystem: '02_CODE_MESH_PIPELINE',
         wireframe: true,
-        satSpread: 1.3,
+        satSpread: 1.2,
         coreColor: '#1E2024', // Matte Black Wireframe with Gold Cage
       },
       {
         progress: 0.5, // Section 3: Meta Growth (Global Organic Audience, Wide Satellites)
-        pos: { x: 2.4, y: 0.2, z: 1.0 },
+        pos: { x: 4.0, y: 0.1, z: -3.2 },
         rot: { x: -0.4, y: 3.14, z: 0.6 },
-        scale: 1.2,
+        scale: 1.0,
         subsystem: '03_META_ORGANIC_NETWORK',
         wireframe: false,
-        satSpread: 2.1,
+        satSpread: 1.8,
         coreColor: '#B8860B', // Rich Amber Gold
       },
       {
         progress: 0.75, // Section 4: Founders / Store VA (Disciplined Precision Vault)
-        pos: { x: -2.2, y: -0.1, z: 1.4 },
+        pos: { x: -4.0, y: -0.1, z: -3.2 },
         rot: { x: 0.6, y: 4.71, z: -0.2 },
-        scale: 1.3,
+        scale: 1.0,
         subsystem: '04_ECOMMERCE_DATA_VAULT',
         wireframe: false,
         satSpread: 0.85,
@@ -292,12 +292,12 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
       },
       {
         progress: 1.0, // Section 5: Consultation / Enterprise Monolith (Centered, Heroic)
-        pos: { x: 0.0, y: 0.3, z: 1.8 },
+        pos: { x: 0.0, y: 0.2, z: -5.0 },
         rot: { x: 0.1, y: 6.28, z: 0.0 },
-        scale: 1.45,
+        scale: 1.05,
         subsystem: '05_ENTERPRISE_MONOLITH',
         wireframe: false,
-        satSpread: 1.5,
+        satSpread: 1.4,
         coreColor: '#D4AF37', // Polished Gold & Obsidian Monolith
       },
     ];
@@ -307,16 +307,16 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
     }
 
     const currentTransform = {
-      pos: { x: 2.2, y: 0.0, z: 0.5 },
+      pos: { x: 3.6, y: 0.0, z: -2.8 },
       rot: { x: 0.2, y: -0.4, z: 0.1 },
-      scale: 1.15,
+      scale: 1.0,
       satSpread: 1.0,
     };
 
     const targetTransform = {
-      pos: { x: 2.2, y: 0.0, z: 0.5 },
+      pos: { x: 3.6, y: 0.0, z: -2.8 },
       rot: { x: 0.2, y: -0.4, z: 0.1 },
-      scale: 1.15,
+      scale: 1.0,
       satSpread: 1.0,
     };
 
@@ -352,11 +352,12 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
       targetTransform.scale = lerp(start.scale, end.scale, easeT);
       targetTransform.satSpread = lerp(start.satSpread, end.satSpread, easeT);
 
-      // Responsive mobile adaptation: center and scale down by 45%
+      // Responsive mobile adaptation: push deep back and scale down so it never collides with text
       if (window.innerWidth < 1024) {
         targetTransform.pos.x = 0;
-        targetTransform.pos.y = targetTransform.pos.y * 0.35;
-        targetTransform.scale = targetTransform.scale * 0.65;
+        targetTransform.pos.y = -0.5;
+        targetTransform.pos.z = -6.0;
+        targetTransform.scale = targetTransform.scale * 0.38;
       }
 
       if (start.subsystem !== lastSubsystem) {
@@ -664,12 +665,12 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({ className = ''
         />
       </div>
 
-      {/* FIXED THREE.JS 3D VIEWPORT CANVAS (Positioned above canvas backdrop, behind content) */}
+      {/* FIXED THREE.JS 3D VIEWPORT CANVAS (Strictly z-0 behind HTML content) */}
       <div
         ref={mountRef}
         id="webgl-canvas-container"
         aria-hidden="true"
-        className={`fixed inset-0 pointer-events-none z-[1] overflow-hidden ${className}`}
+        className={`fixed inset-0 pointer-events-none z-0 overflow-hidden ${className}`}
       />
 
       {/* FLOATING HUD TOAST NOTIFICATION */}
