@@ -107,13 +107,17 @@ export const BitmojiCompanion: React.FC = () => {
   );
   const [dialogueTag, setDialogueTag] = useState<string>('PARTNER STANDARD');
   const [dialogueEmoji, setDialogueEmoji] = useState<string>('👋');
-  const [isBubbleOpen, setIsBubbleOpen] = useState<boolean>(true);
+  // Default collapsed/minimized on mobile (<640px) so it never blocks Hero, form inputs, or WhatsApp
+  const [isBubbleOpen, setIsBubbleOpen] = useState<boolean>(false);
   const [isSleeping, setIsSleeping] = useState<boolean>(false);
   const [isBackflipping, setIsBackflipping] = useState<boolean>(false);
   const [isSquashing, setIsSquashing] = useState<boolean>(false);
   const [activeParticles, setActiveParticles] = useState<{ id: number; symbol: string; x: number }[]>([]);
   const [directQuoteIdx, setDirectQuoteIdx] = useState<number>(0);
   const [eyeOffset, setEyeOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Persistent user preference ref to prevent unwanted re-opening
+  const userClosedRef = useRef<boolean>(false);
 
   // DOM node references for 60fps hardware-accelerated eye and head tracking
   const companionRef = useRef<HTMLDivElement>(null);
@@ -128,6 +132,15 @@ export const BitmojiCompanion: React.FC = () => {
   const isSleepingRef = useRef<boolean>(false);
   const lastTextThoughtTimeRef = useRef<number>(0);
   const lastHoveredElementRef = useRef<Element | null>(null);
+
+  // On client mount: determine initial collapse state based on viewport width
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isDesktop = window.innerWidth >= 640;
+      setIsBubbleOpen(isDesktop);
+      userClosedRef.current = !isDesktop;
+    }
+  }, []);
 
   // Sync ref with state
   useEffect(() => {
@@ -146,7 +159,11 @@ export const BitmojiCompanion: React.FC = () => {
       setDialogueText(customText || config.defaultText);
       setDialogueEmoji(customEmoji || config.emoji);
       setDialogueTag(customTag || config.tag);
-      setIsBubbleOpen(true);
+
+      // Only auto-open if user has not explicitly minimized on mobile
+      if (!userClosedRef.current) {
+        setIsBubbleOpen(true);
+      }
 
       // Trigger floating emoji particles
       const newParticles = config.particles.map((symbol, i) => ({
@@ -316,6 +333,16 @@ export const BitmojiCompanion: React.FC = () => {
 
     // Main pointer tracker: handles both desktop cursor and mobile touches
     const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+      const touchTarget =
+        'touches' in e && e.touches.length > 0
+          ? (e.touches[0].target as HTMLElement)
+          : (e.target as HTMLElement);
+
+      // Never hijack events inside the companion itself
+      if (companionRef.current && touchTarget && companionRef.current.contains(touchTarget)) {
+        return;
+      }
+
       const pointerX = 'touches' in e && e.touches.length > 0 ? e.touches[0].clientX : (e as MouseEvent).clientX;
       const pointerY = 'touches' in e && e.touches.length > 0 ? e.touches[0].clientY : (e as MouseEvent).clientY;
 
@@ -622,11 +649,37 @@ export const BitmojiCompanion: React.FC = () => {
     };
   }, [isAdminOrPortal, triggerEmotion]);
 
-  // Click directly on the Bitmoji avatar
-  const handleAvatarDirectClick = (e: React.MouseEvent) => {
+  // Dedicated touch-safe and click-safe handlers with e.stopPropagation()
+  const handleCloseBubble = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
+    userClosedRef.current = true;
+    setIsBubbleOpen(false);
+  };
 
-    if (isSleeping) {
+  const handleOpenBubble = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    userClosedRef.current = false;
+    setIsBubbleOpen(true);
+  };
+
+  const handleSelectEmotion = (em: BitmojiEmotion, e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    userClosedRef.current = false;
+    triggerEmotion(em);
+  };
+
+  const handleToggleSleep = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    setIsSleeping((prev) => !prev);
+  };
+
+  // Click or touch directly on the Bitmoji avatar
+  const handleAvatarDirectClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    userClosedRef.current = false;
+    setIsBubbleOpen(true);
+
+    if (isSleepingRef.current) {
       setIsSleeping(false);
       triggerEmotion('excited', "I'm awake and ready to roll! Let's build! 🚀", '⚡', 'AWAKE');
       return;
@@ -719,88 +772,93 @@ export const BitmojiCompanion: React.FC = () => {
           ))}
         </div>
 
-        {/* SPEECH BUBBLE (iPhone Liquid Glass Refraction) */}
-        {isBubbleOpen && (
-          <div
-            role="status"
-            aria-live="polite"
-            className="pointer-events-auto relative mb-3 w-[270px] sm:w-[310px] liquid-glass p-3.5 rounded-2xl shadow-partner-card-hover border border-white/70 dark:border-white/15 animate-fade-in transition-all duration-300"
-          >
-            {/* Header pill & controls */}
-            <div className="flex items-center justify-between pb-1.5 border-b border-[#E5E7EB]/70 dark:border-[#2A2D34]">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37]/15 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
-                {dialogueTag}
-              </span>
+        {/* SPEECH BUBBLE (iPhone Liquid Glass Refraction, Smooth Animated Collapse) */}
+        <div
+          role="status"
+          aria-live="polite"
+          className={`pointer-events-auto relative mb-3 w-[270px] sm:w-[310px] liquid-glass p-3.5 rounded-2xl shadow-partner-card-hover border border-white/70 dark:border-white/15 transition-all duration-300 origin-bottom-right ${
+            isBubbleOpen
+              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto visible'
+              : 'opacity-0 scale-90 translate-y-3 pointer-events-none invisible absolute'
+          }`}
+        >
+          {/* Header pill & controls */}
+          <div className="flex items-center justify-between pb-1.5 border-b border-[#E5E7EB]/70 dark:border-[#2A2D34]">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37]/15 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#B8860B] dark:text-[#E5B238]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+              {dialogueTag}
+            </span>
 
-              <div className="flex items-center gap-1">
-                {/* Sleep/Wake toggle */}
-                <button
-                  type="button"
-                  onClick={() => setIsSleeping(!isSleeping)}
-                  title={isSleeping ? 'Wake Up Companion' : 'Rest Companion'}
-                  className="rounded-full p-1 text-xs hover:bg-[#FBFBFA] dark:hover:bg-[#2A2D34] text-[#6B7280] dark:text-[#9CA3AF] transition-colors"
-                >
-                  {isSleeping ? '⚡' : '💤'}
-                </button>
+            <div className="flex items-center gap-1">
+              {/* Sleep/Wake toggle */}
+              <button
+                type="button"
+                onClick={handleToggleSleep}
+                onTouchEnd={handleToggleSleep}
+                title={isSleeping ? 'Wake Up Companion' : 'Rest Companion'}
+                className="pointer-events-auto cursor-pointer touch-manipulation flex h-9 w-9 sm:h-8 sm:w-8 items-center justify-center rounded-full text-sm hover:bg-[#FBFBFA] dark:hover:bg-[#2A2D34] text-[#6B7280] dark:text-[#9CA3AF] transition-colors active:scale-95"
+              >
+                {isSleeping ? '⚡' : '💤'}
+              </button>
 
-                {/* Close bubble */}
-                <button
-                  type="button"
-                  onClick={() => setIsBubbleOpen(false)}
-                  aria-label="Minimize message"
-                  className="rounded-full p-1 text-[#6B7280] hover:text-[#121316] hover:bg-[#FBFBFA] dark:text-[#9CA3AF] dark:hover:text-white dark:hover:bg-[#2A2D34] transition-colors"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              </div>
+              {/* Close bubble */}
+              <button
+                type="button"
+                onClick={handleCloseBubble}
+                onTouchEnd={handleCloseBubble}
+                aria-label="Close message"
+                className="pointer-events-auto cursor-pointer touch-manipulation flex h-9 w-9 sm:h-8 sm:w-8 items-center justify-center rounded-full text-[#6B7280] hover:text-[#121316] hover:bg-[#FBFBFA] dark:text-[#9CA3AF] dark:hover:text-white dark:hover:bg-[#2A2D34] transition-colors active:scale-95"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
-
-            {/* Speech message text */}
-            <div className="mt-2 flex items-start gap-2">
-              <span className="text-base shrink-0 select-none">{dialogueEmoji}</span>
-              <p className="text-xs font-semibold leading-relaxed text-[#121316] dark:text-[#E5E7EB]">
-                {dialogueText}
-              </p>
-            </div>
-
-            {/* Quick Interactive Emotion Picker Chips */}
-            <div className="mt-2.5 pt-2 border-t border-[#E5E7EB]/60 dark:border-[#2A2D34] flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold text-[#6B7280] dark:text-[#9CA3AF]">
-                REACT:
-              </span>
-              <div className="flex items-center gap-1">
-                {(
-                  [
-                    { em: 'excited', icon: '🚀', title: 'Excited' },
-                    { em: 'cool', icon: '😎', title: 'Cool' },
-                    { em: 'thinking', icon: '💡', title: 'Thinking' },
-                    { em: 'wink', icon: '😉', title: 'Wink' },
-                    { em: 'celebrate', icon: '🎉', title: 'Party' },
-                    { em: 'love', icon: '😍', title: 'Love' },
-                  ] as const
-                ).map((chip) => (
-                  <button
-                    key={chip.em}
-                    type="button"
-                    onClick={() => triggerEmotion(chip.em)}
-                    title={chip.title}
-                    className={`h-6 w-6 rounded-lg text-xs flex items-center justify-center transition-all ${
-                      emotion === chip.em
-                        ? 'bg-[#D4AF37] scale-110 shadow-sm'
-                        : 'bg-white/60 dark:bg-[#1E2024]/80 hover:scale-110 hover:bg-[#D4AF37]/20'
-                    }`}
-                  >
-                    {chip.icon}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Liquid Glass Tail Notch */}
-            <div className="absolute -bottom-1.5 right-8 w-3.5 h-3.5 bg-white/90 dark:bg-[#1E2024]/90 rotate-45 border-r border-b border-white/70 dark:border-white/15" />
           </div>
-        )}
+
+          {/* Speech message text */}
+          <div className="mt-2 flex items-start gap-2">
+            <span className="text-base shrink-0 select-none">{dialogueEmoji}</span>
+            <p className="text-xs font-semibold leading-relaxed text-[#121316] dark:text-[#E5E7EB]">
+              {dialogueText}
+            </p>
+          </div>
+
+          {/* Quick Interactive Emotion Picker Chips */}
+          <div className="mt-2.5 pt-2 border-t border-[#E5E7EB]/60 dark:border-[#2A2D34] flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-[#6B7280] dark:text-[#9CA3AF]">
+              REACT:
+            </span>
+            <div className="flex items-center gap-1">
+              {(
+                [
+                  { em: 'excited', icon: '🚀', title: 'Excited' },
+                  { em: 'cool', icon: '😎', title: 'Cool' },
+                  { em: 'thinking', icon: '💡', title: 'Thinking' },
+                  { em: 'wink', icon: '😉', title: 'Wink' },
+                  { em: 'celebrate', icon: '🎉', title: 'Party' },
+                  { em: 'love', icon: '😍', title: 'Love' },
+                ] as const
+              ).map((chip) => (
+                <button
+                  key={chip.em}
+                  type="button"
+                  onClick={(e) => handleSelectEmotion(chip.em, e)}
+                  onTouchEnd={(e) => handleSelectEmotion(chip.em, e)}
+                  title={chip.title}
+                  className={`pointer-events-auto cursor-pointer touch-manipulation flex h-8 w-8 sm:h-7 sm:w-7 items-center justify-center rounded-xl text-xs transition-all active:scale-90 ${
+                    emotion === chip.em
+                      ? 'bg-[#D4AF37] scale-110 shadow-sm text-[#121316]'
+                      : 'bg-white/70 dark:bg-[#1E2024]/80 hover:scale-110 hover:bg-[#D4AF37]/20 text-[#121316] dark:text-white'
+                  }`}
+                >
+                  {chip.icon}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Liquid Glass Tail Notch */}
+          <div className="absolute -bottom-1.5 right-8 w-3.5 h-3.5 bg-white/90 dark:bg-[#1E2024]/90 rotate-45 border-r border-b border-white/70 dark:border-white/15" />
+        </div>
 
         {/* INTERACTIVE BITMOJI AVATAR BUTTON (100% Vector Scalable SVG Character) */}
         <div className="relative pointer-events-auto">
@@ -817,11 +875,12 @@ export const BitmojiCompanion: React.FC = () => {
           {!isBubbleOpen && (
             <button
               type="button"
-              onClick={() => setIsBubbleOpen(true)}
+              onClick={handleOpenBubble}
+              onTouchEnd={handleOpenBubble}
               aria-label="Open speech bubble"
-              className="absolute -top-2.5 right-0 flex items-center gap-1 rounded-full bg-[#121316] text-white px-2 py-0.5 text-[10px] font-bold shadow-md hover:scale-105 transition-transform dark:bg-[#D4AF37] dark:text-[#121316]"
+              className="pointer-events-auto cursor-pointer touch-manipulation absolute -top-3 right-0 flex items-center gap-1.5 rounded-full bg-[#121316] text-white px-3 py-1 text-[11px] font-bold shadow-md hover:scale-105 active:scale-95 transition-transform dark:bg-[#D4AF37] dark:text-[#121316] min-h-[36px]"
             >
-              <MessageSquare className="h-2.5 w-2.5" />
+              <MessageSquare className="h-3 w-3" />
               <span>React</span>
             </button>
           )}
@@ -831,9 +890,10 @@ export const BitmojiCompanion: React.FC = () => {
             ref={avatarButtonRef}
             type="button"
             onClick={handleAvatarDirectClick}
+            onTouchEnd={handleAvatarDirectClick}
             aria-label={`Interactive Bitmoji Companion (${emotion} emotion)`}
             title="My eyes follow your cursor! Hover text to see me think!"
-            className={`group relative flex h-[76px] w-[76px] sm:h-[84px] sm:w-[84px] items-center justify-center rounded-full bg-gradient-to-br from-white/95 to-[#F5E6BE]/90 p-1.5 shadow-partner-card-hover border-2 border-white/80 transition-all duration-300 hover:scale-105 active:scale-95 dark:from-[#1E2024] dark:to-[#121316] dark:border-[#D4AF37]/50 ${
+            className={`pointer-events-auto cursor-pointer touch-manipulation group relative flex h-[76px] w-[76px] sm:h-[84px] sm:w-[84px] items-center justify-center rounded-full bg-gradient-to-br from-white/95 to-[#F5E6BE]/90 p-1.5 shadow-partner-card-hover border-2 border-white/80 transition-all duration-300 hover:scale-105 active:scale-95 dark:from-[#1E2024] dark:to-[#121316] dark:border-[#D4AF37]/50 ${
               isBackflipping ? 'bitmoji-backflip' : ''
             } ${isSquashing ? 'bitmoji-squash' : ''} ${
               !isBackflipping && !isSquashing ? 'bitmoji-idle-float' : ''
